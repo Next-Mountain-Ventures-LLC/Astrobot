@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Zap, Rocket, Star, ArrowRight } from 'lucide-react';
+import astroLogo from '../../assets/astro-logo-light_nw_c8fde0c8.svg';
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -74,6 +75,11 @@ export default function Hero() {
               {/* UI Frame */}
               <div className="bg-secondary/80 backdrop-blur-sm p-6 rounded-xl border border-border/60 shadow-[0_0_15px_rgba(0,128,255,0.1)] overflow-hidden relative">
                 <div className="absolute inset-0 bg-[radial-gradient(#102040_1px,transparent_1px)] [background-size:10px_10px] opacity-10"></div>
+                
+                {/* Astro logo watermark */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                  <img src={astroLogo.src} alt="" width={astroLogo.width / 2} height={astroLogo.height / 2} className="w-32" />
+                </div>
                 
                 {/* Browser UI elements */}
                 <div className="flex items-center space-x-1 mb-3">

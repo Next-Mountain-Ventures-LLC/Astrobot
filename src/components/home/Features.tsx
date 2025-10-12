@@ -54,18 +54,48 @@ export default function Features() {
       case 'seo':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="w-full max-w-[200px] bg-white/10 rounded-md p-1">
+            <div className="w-full bg-white/10 rounded-md p-1">
               {/* Google-like search bar */}
               <div className="w-full h-5 bg-white/20 rounded-full mb-1 flex items-center px-2">
                 <div className="w-3 h-3 mr-1 rounded-full bg-accent/80"></div>
                 <div className="text-[8px] text-foreground/90">yourbusiness.com</div>
               </div>
               
-              {/* Search results */}
-              <div className="space-y-1 px-1">
-                <div className="h-1.5 w-full bg-primary/40 rounded-full"></div>
-                <div className="h-1.5 w-5/6 bg-primary/40 rounded-full"></div>
-                <div className="h-1.5 w-2/3 bg-primary/40 rounded-full"></div>
+              {/* SERP with multiple rankings */}
+              <div className="flex justify-between items-center px-1 mb-1">
+                <div className="text-[6px] text-muted-foreground">Search results for small business websites</div>
+                <div className="text-[6px] text-primary">Page 1 of 1</div>
+              </div>
+              
+              {/* Multiple search result positions */}
+              <div className="flex space-x-1 px-1 mb-0.5">
+                <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center">
+                  <span className="text-[6px] text-primary font-bold">1</span>
+                </div>
+                <div className="flex-1">
+                  <div className="h-1 w-full bg-primary/40 rounded-full"></div>
+                  <div className="h-1 w-5/6 bg-primary/30 rounded-full mt-0.5"></div>
+                </div>
+              </div>
+              
+              <div className="flex space-x-1 px-1 mb-0.5 opacity-90">
+                <div className="w-4 h-4 rounded-full bg-primary/15 flex items-center justify-center">
+                  <span className="text-[6px] text-primary font-bold">2</span>
+                </div>
+                <div className="flex-1">
+                  <div className="h-1 w-full bg-primary/30 rounded-full"></div>
+                  <div className="h-1 w-4/6 bg-primary/20 rounded-full mt-0.5"></div>
+                </div>
+              </div>
+              
+              <div className="flex space-x-1 px-1 opacity-80">
+                <div className="w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-[6px] text-primary font-bold">3</span>
+                </div>
+                <div className="flex-1">
+                  <div className="h-1 w-full bg-primary/20 rounded-full"></div>
+                  <div className="h-1 w-3/6 bg-primary/10 rounded-full mt-0.5"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -181,10 +211,10 @@ export default function Features() {
       <div className="container relative">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight">
-            Next Generation Web Architecture <span className="text-accent">for Business</span>
+            Next Generation Web Architecture <span className="text-accent">for Small Businesses</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Built with the fastest website framework available today, developed by MIT's brightest minds to drive your business growth.
+            Built with the fastest website framework available today, developed by MIT's brightest minds to accelerate your small business growth online.
           </p>
         </div>
         
