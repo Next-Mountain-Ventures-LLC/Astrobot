@@ -201,46 +201,16 @@ export default function Pricing() {
           ))}
         </div>
         
-        {/* Add-on section */}
-        <div className="mt-12 bg-secondary/30 border border-accent/30 rounded-lg p-6 max-w-2xl mx-auto shadow-[0_0_15px_rgba(255,50,50,0.07)]">
-          <div className="flex items-start space-x-4">
-            <div className="bg-accent/10 p-2 rounded-lg border border-accent/20 relative">
-              <Info className="h-5 w-5 text-accent" />
-              
-              {/* Blog visualization */}
-              <div className="absolute -top-10 -right-10 w-24 h-24 opacity-30">
-                <div className="w-full h-full relative">
-                  <div className="absolute top-0 left-0 w-12 h-2 bg-accent/40 rounded-sm"></div>
-                  <div className="absolute top-4 left-2 w-20 h-2 bg-accent/20 rounded-sm"></div>
-                  <div className="absolute top-8 left-4 w-16 h-2 bg-accent/20 rounded-sm"></div>
-                  <div className="absolute top-12 left-0 w-24 h-8 bg-accent/10 rounded-md"></div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium font-heading">Advanced Blogging <span className="text-accent">Add-on</span></h3>
-              <p className="text-muted-foreground mt-1">Add a headless WordPress blog to either package for just <span className="text-accent font-medium">$19.99/month</span>.</p>
-              <ul className="mt-3 space-y-2">
-                <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-accent mr-2" />
-                  Custom WordPress dashboard for unlimited posts
-                </li>
-                <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-accent mr-2" />
-                  Familiar WordPress posting interface
-                </li>
-                <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-accent mr-2" />
-                  Static rendering for blazing fast performance
-                </li>
-                <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-accent mr-2" />
-                  <div className="flex items-center">
-                    Unlimited pre-rendered blog posts
-                    <div className="ml-2 bg-primary/10 text-primary text-[10px] px-1 rounded-sm">FAST</div>
-                  </div>
-                </li>
-              </ul>
+        {/* Small teaser for Advanced Blogging section */}
+        <div className="mt-12 bg-secondary/30 border border-primary/30 rounded-lg p-6 max-w-2xl mx-auto shadow-[0_0_15px_rgba(0,128,255,0.07)]">
+          <div className="text-center">
+            <h3 className="text-lg font-medium font-heading mb-2">Looking for advanced blogging capabilities?</h3>
+            <p className="text-muted-foreground mb-4">Check out our WordPress + Astro integration below.</p>
+            <div className="inline-block text-primary text-sm">
+              <a href="#advanced-blogging" className="flex items-center hover:underline">
+                <span>Learn more about Advanced Blogging</span>
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
