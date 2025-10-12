@@ -91,7 +91,7 @@
   
   @keyframes bounceX {
     0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(100%); }
+    50% { transform: translateX(5px); }
   }
 }
 
@@ -118,6 +118,10 @@
 
 .animate-pulse-slow {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounceX {
+  animation: bounceX 1s ease-in-out infinite;
 }
 
 @utility container {

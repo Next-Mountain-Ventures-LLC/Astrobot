@@ -26,7 +26,7 @@ export default function Hero() {
             <div className="inline-block">
               <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
                 <Zap className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium text-primary">Blazing Fast Websites for Businesses</span>
+                <span className="text-xs font-medium text-primary">Blazing Fast Business Websites</span>
               </div>
             </div>
             
@@ -36,16 +36,21 @@ export default function Hero() {
                 <span className="inline-block text-primary">Online</span> 
                 <span className="absolute -top-1 -right-1 h-1 w-1 rounded-full bg-primary animate-ping"></span>
               </span>
+              <div className="relative mt-2">
+                <span className="inline-block text-accent text-3xl sm:text-4xl md:text-5xl animate-pulse-slow">Fast</span>
+                <span className="absolute -top-1 right-0 h-1 w-1 rounded-full bg-accent animate-ping"></span>
+              </div>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
-              AI-powered, human-designed websites for businesses that load up to <span className="text-primary font-medium">75% faster</span> than traditional sites, driving more conversions.
+              Human-designed sites powered by AI, <span className="text-primary font-medium">75% faster</span> than traditional websites. More speed, more conversions.
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
               <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
-                Book Your Designer <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                Book Your Designer <ArrowRight className="ml-1 h-4 w-4 animate-bounceX" />
               </Button>
+              <p className="text-xs text-accent absolute -bottom-5">Launch in 48 hours</p>
               <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary/30 font-heading tracking-wide">
                 Learn More
               </Button>
@@ -106,8 +111,16 @@ export default function Hero() {
                   
                   {/* Buttons */}
                   <div className="flex space-x-3">
-                    <div className="w-1/3 h-8 bg-accent/80 rounded-md animate-pulse-slow"></div>
-                    <div className="w-1/3 h-8 bg-secondary-foreground/5 border border-border/40 rounded-md"></div>
+                    <div className="w-1/3 h-8 bg-accent/80 rounded-md animate-pulse-slow relative">
+                      <div className="absolute inset-0 flex items-center justify-center text-xs text-accent-foreground font-medium">
+                        LAUNCH
+                      </div>
+                    </div>
+                    <div className="w-1/3 h-8 bg-secondary-foreground/5 border border-border/40 rounded-md relative">
+                      <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground/50 font-medium">
+                        STAY SLOW
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Content blocks with performance stats */}

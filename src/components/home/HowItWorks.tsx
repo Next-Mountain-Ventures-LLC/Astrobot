@@ -13,8 +13,8 @@ export default function HowItWorks() {
     {
       icon: <Users className="h-6 w-6" />,
       title: "Rapid Development",
-      description: "Our expert designers build your site using AI technology and 20+ years of human design experience.",
-      highlight: "Development starts immediately after your session."
+      description: "Expert designers craft your site blending cutting-edge AI with 20+ years of creative human experience.",
+      highlight: "Personal attention from real designers who understand your business."
     },
     {
       icon: <Rocket className="h-6 w-6" />,
@@ -55,12 +55,49 @@ export default function HowItWorks() {
               )}
               
               <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/30 shadow-[0_0_15px_rgba(0,128,255,0.15)] mb-2">
-                  <span className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-accent-foreground text-sm font-medium">
-                    {index + 1}
-                  </span>
-                  <div className="text-primary">{step.icon}</div>
-                </div>
+                {index === 0 && (
+                  <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/30 shadow-[0_0_15px_rgba(0,128,255,0.15)] mb-2">
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-accent-foreground text-sm font-medium">
+                      {index + 1}
+                    </span>
+                    <div className="text-primary">{step.icon}</div>
+                  </div>
+                )}
+                
+                {index === 1 && (
+                  <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/30 shadow-[0_0_15px_rgba(0,128,255,0.15)] mb-2">
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-accent-foreground text-sm font-medium">
+                      {index + 1}
+                    </span>
+                    <div className="text-primary">{step.icon}</div>
+                    <div className="absolute -bottom-1 -right-1 flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 border border-primary/30">
+                      <svg className="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                        <path d="M12 8V16M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                
+                {index === 2 && (
+                  <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/30 shadow-[0_0_15px_rgba(0,128,255,0.15)] mb-2">
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-accent text-accent-foreground text-sm font-medium">
+                      {index + 1}
+                    </span>
+                    <div className="text-primary">{step.icon}</div>
+                    <div className="absolute -bottom-1 -right-1 flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 border border-primary/30">
+                      <svg className="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" />
+                        <path d="M8 12H16M16 12L12 8M16 12L12 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <div className="absolute -top-1 -left-1 flex items-center justify-center w-8 h-8 rounded-full bg-accent/10 border border-accent/30">
+                      <svg className="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3V21M12 3L8 7M12 3L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
                 
                 <h3 className="text-xl font-heading font-medium">{step.title}</h3>
                 <p className="text-muted-foreground">{step.description}</p>

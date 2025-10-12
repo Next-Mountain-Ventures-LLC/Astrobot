@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Zap, Code, MousePointer, RotateCw } from 'lucide-react';
 
 export default function MicroInteractions() {
-  const [activeTab, setActiveTab] = useState(1); // Start with Loading States tab
+  const [activeTab, setActiveTab] = useState(0); // Start with Loading States tab
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 

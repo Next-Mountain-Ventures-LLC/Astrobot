@@ -54,18 +54,36 @@ export default function Features() {
       case 'seo':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="flex items-center space-x-1">
-              <div className="h-6 w-6 rounded-full bg-accent/30 text-xs flex items-center justify-center text-accent-foreground">#1</div>
-              <div className="h-5 w-5 rounded-full bg-accent/20 text-xs flex items-center justify-center text-accent-foreground/80">#2</div>
-              <div className="h-4 w-4 rounded-full bg-accent/10 text-xs flex items-center justify-center text-accent-foreground/60">#3</div>
+            <div className="w-full max-w-[200px] bg-white/10 rounded-md p-1">
+              {/* Google-like search bar */}
+              <div className="w-full h-5 bg-white/20 rounded-full mb-1 flex items-center px-2">
+                <div className="w-3 h-3 mr-1 rounded-full bg-accent/80"></div>
+                <div className="text-[8px] text-foreground/90">yourbusiness.com</div>
+              </div>
+              
+              {/* Search results */}
+              <div className="space-y-1 px-1">
+                <div className="h-1.5 w-full bg-primary/40 rounded-full"></div>
+                <div className="h-1.5 w-5/6 bg-primary/40 rounded-full"></div>
+                <div className="h-1.5 w-2/3 bg-primary/40 rounded-full"></div>
+              </div>
             </div>
           </div>
         );
       case 'js':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="text-xs text-muted-foreground font-mono font-medium">{ }</div>
-            <div className="text-xs text-accent/80 ml-1 font-medium">0kb</div>
+            <div className="relative flex items-center">
+              <div className="flex flex-col items-center">
+                <div className="text-xs text-accent font-medium">0</div>
+                <div className="h-8 w-0.5 bg-accent/30 rounded-full"></div>
+                <div className="text-[8px] text-muted-foreground mt-1">KB JS</div>
+              </div>
+              <div className="h-0.5 w-12 bg-gradient-to-r from-accent to-transparent absolute -right-10 top-3"></div>
+              <div className="absolute -right-14 top-1">
+                <div className="text-xs text-muted-foreground font-medium">Lightweight</div>
+              </div>
+            </div>
           </div>
         );
       case 'performance':
@@ -84,16 +102,23 @@ export default function Features() {
       case 'maintenance':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-            </div>
-            <div className="text-xs text-muted-foreground mx-2">→</div>
-            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-            </div>
-            <div className="text-xs text-muted-foreground mx-2">→</div>
-            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
+            <div className="flex items-center space-x-1">
+              <div className="relative">
+                <div className="h-8 w-8 rounded-full bg-secondary border border-primary/30 flex items-center justify-center">
+                  <div className="h-5 w-5 rounded-full bg-secondary-foreground/5 flex items-center justify-center">
+                    <div className="h-3 w-3 rounded-full bg-primary/70"></div>
+                  </div>
+                </div>
+                <div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-accent/10 flex items-center justify-center border border-accent/30">
+                  <div className="text-[8px] text-accent">✓</div>
+                </div>
+              </div>
+              
+              <div className="text-xs text-muted-foreground font-medium mx-1">No heavy lifting</div>
+              
+              <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center">
+                <div className="text-[10px] text-accent">🧑</div>
+              </div>
             </div>
           </div>
         );
