@@ -136,10 +136,10 @@ export default function Hero() {
                       </div>
                     </div>
                     <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
-                      <div className="absolute top-0 left-0 h-full w-full bg-emerald-500/20"></div>
+                      <div className="absolute top-0 left-0 h-full w-2 bg-primary/30"></div>
                       <div className="flex items-center justify-between text-xs">
                         <div className="text-muted-foreground">Google PageSpeed score:</div>
-                        <div className="text-emerald-500 font-medium">100/100</div>
+                        <div className="text-primary font-medium">98/100</div>
                       </div>
                     </div>
                   </div>
