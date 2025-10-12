@@ -83,6 +83,16 @@
     50% { width: 70%; }
     100% { width: 100%; }
   }
+  
+  @keyframes progress-fast {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+  }
+  
+  @keyframes bounceX {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(100%); }
+  }
 }
 
 .animate-fadeIn {
@@ -100,6 +110,14 @@
 .animate-progress {
   animation: progress 2.5s ease-in-out infinite;
   width: 100%;
+}
+
+.animate-progress-fast {
+  animation: progress-fast 1s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @utility container {

@@ -34,10 +34,10 @@ export default function Pricing() {
         { text: "Hosting included", included: true },
         { text: "Personal designer portal", included: true },
         { text: "Up to 5 monthly updates/revisions", included: true },
-        { text: "Unlimited pages", included: false },
+        { text: "Up to 5 pages", included: true },
         { text: "Micro-interactions & animations", included: false },
-        { text: "48-hour launch time", included: true },
-        { text: "SEO optimization", included: true }
+        { text: "7-day launch time", included: true },
+        { text: "SEO optimized", included: true }
       ]
     },
     {
@@ -54,7 +54,7 @@ export default function Pricing() {
         { text: "Unlimited pages", included: true, highlight: true },
         { text: "Micro-interactions & animations", included: true, highlight: true },
         { text: "48-hour launch time", included: true },
-        { text: "SEO optimization", included: true }
+        { text: "SEO optimized", included: true }
       ],
       popular: true,
       includesMicroInteractions: true
@@ -175,23 +175,24 @@ export default function Pricing() {
               
               {/* Micro-interaction example (only for the tier that includes it) */}
               {tier.includesMicroInteractions && (
-                <div className="relative p-4 mt-4 bg-background/20 border-t border-primary/20">
+                <div className="relative p-4 mt-4 bg-background/20 border-t border-accent/20">
                   <div className="flex items-center text-sm mb-2">
-                    <Sparkles className="h-4 w-4 text-primary mr-2" />
-                    <span className="font-medium text-primary">Micro-interactions Preview</span>
+                    <Sparkles className="h-4 w-4 text-accent mr-2" />
+                    <span className="font-medium text-accent">Micro-interactions Preview</span>
                   </div>
                   
                   <div className="flex items-center space-x-4">
-                    <button 
-                      className="px-3 py-1 bg-primary/10 rounded-md border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-all hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary/30 focus:outline-none"
-                    >
-                      Hover me
-                    </button>
+                    <div className="relative flex items-center gap-1">
+                      <div className="text-xs text-muted-foreground">Next</div>
+                      <div className="w-6 relative overflow-hidden flex items-center">
+                        <ArrowRight className="h-4 w-4 text-accent absolute animate-[bounceX_1.5s_ease-in-out_infinite]" />
+                      </div>
+                    </div>
                     
-                    <div className="relative overflow-hidden rounded-md p-0.5 bg-gradient-to-r from-primary/60 via-primary to-primary/60">
-                      <button className="relative px-3 py-1 bg-background/95 rounded-[3px] text-sm font-medium text-primary">
-                        Gradient Border
-                      </button>
+                    <div className="relative overflow-hidden rounded-md p-0.5 bg-gradient-to-r from-accent/60 via-accent to-accent/60 animate-pulse-slow">
+                      <div className="relative px-3 py-1 bg-background/95 rounded-[3px] text-sm font-medium text-accent">
+                        Animated Elements
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -201,26 +202,30 @@ export default function Pricing() {
         </div>
         
         {/* Add-on section */}
-        <div className="mt-12 bg-secondary/30 border border-border/40 rounded-lg p-6 max-w-2xl mx-auto">
+        <div className="mt-12 bg-secondary/30 border border-accent/30 rounded-lg p-6 max-w-2xl mx-auto shadow-[0_0_15px_rgba(255,50,50,0.07)]">
           <div className="flex items-start space-x-4">
-            <div className="bg-primary/10 p-2 rounded-lg border border-primary/20">
-              <Info className="h-5 w-5 text-primary" />
+            <div className="bg-accent/10 p-2 rounded-lg border border-accent/20">
+              <Info className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <h3 className="text-lg font-medium font-heading">Headless WordPress Blog</h3>
-              <p className="text-muted-foreground mt-1">Add a headless WordPress blog to either package for just $19.99/month.</p>
+              <h3 className="text-lg font-medium font-heading">Advanced Blogging <span className="text-accent">Add-on</span></h3>
+              <p className="text-muted-foreground mt-1">Add a headless WordPress blog to either package for just <span className="text-accent font-medium">$19.99/month</span>.</p>
               <ul className="mt-3 space-y-2">
                 <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-primary mr-2" />
+                  <Check className="h-4 w-4 text-accent mr-2" />
                   Custom WordPress dashboard for unlimited posts
                 </li>
                 <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-primary mr-2" />
+                  <Check className="h-4 w-4 text-accent mr-2" />
                   Familiar WordPress posting interface
                 </li>
                 <li className="flex items-center text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-primary mr-2" />
+                  <Check className="h-4 w-4 text-accent mr-2" />
                   Static rendering for blazing fast performance
+                </li>
+                <li className="flex items-center text-sm text-muted-foreground">
+                  <Check className="h-4 w-4 text-accent mr-2" />
+                  Unlimited pre-rendered blog posts
                 </li>
               </ul>
             </div>

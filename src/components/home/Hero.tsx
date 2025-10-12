@@ -26,24 +26,24 @@ export default function Hero() {
             <div className="inline-block">
               <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
                 <Zap className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium text-primary">Blazing Fast Websites</span>
+                <span className="text-xs font-medium text-primary">Blazing Fast Websites for Businesses</span>
               </div>
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-foreground leading-[1.1] bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70">
-              Launch Your Digital <br className="hidden sm:block" />
+              Launch Your Business <br className="hidden sm:block" />
               <span className="relative">
-                <span className="inline-block text-primary">Presence</span> 
+                <span className="inline-block text-primary">Online</span> 
                 <span className="absolute -top-1 -right-1 h-1 w-1 rounded-full bg-primary animate-ping"></span>
               </span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
-              AI-powered, human-designed websites that load up to <span className="text-primary font-medium">75% faster</span> than traditional sites.
+              AI-powered, human-designed websites for businesses that load up to <span className="text-primary font-medium">75% faster</span> than traditional sites, driving more conversions.
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
-              <Button size="lg" className="font-heading tracking-wide group">
+              <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
                 Book Your Designer <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary/30 font-heading tracking-wide">
@@ -60,6 +60,10 @@ export default function Hero() {
                 <Star className="h-4 w-4 mr-1 text-primary" />
                 <span>Human Designers</span>
               </div>
+              <div className="flex items-center">
+                <Zap className="h-4 w-4 mr-1 text-accent" />
+                <span>AI Technology</span>
+              </div>
             </div>
           </div>
           
@@ -75,32 +79,60 @@ export default function Hero() {
                   <div className="w-3 h-3 rounded-full bg-accent/80"></div>
                   <div className="w-3 h-3 rounded-full bg-primary/30"></div>
                   <div className="w-3 h-3 rounded-full bg-muted"></div>
-                  <div className="ml-2 h-6 w-full bg-secondary-foreground/5 rounded-md border border-border/40"></div>
+                  <div className="ml-2 h-6 w-full bg-secondary-foreground/5 rounded-md border border-border/40 flex items-center px-2">
+                    <div className="text-xs text-primary/70 animate-pulse">yourbusiness.com</div>
+                  </div>
                 </div>
                 
                 {/* Website mockup content */}
                 <div className="space-y-4">
-                  {/* Header */}
-                  <div className="w-full h-8 bg-secondary-foreground/5 rounded-md"></div>
+                  {/* Header with loading indicator */}
+                  <div className="w-full h-8 bg-secondary-foreground/5 rounded-md relative overflow-hidden">
+                    <div className="absolute top-0 left-0 h-full bg-primary/10 rounded-md animate-progress-fast w-full"></div>
+                    <div className="absolute top-0 left-0 flex items-center h-full px-2">
+                      <div className="text-xs font-medium text-primary/80">Loading: 100%</div>
+                    </div>
+                  </div>
                   
-                  {/* Hero content */}
+                  {/* Hero content with stats */}
                   <div className="space-y-3">
-                    <div className="w-2/3 h-6 bg-primary/20 rounded-md"></div>
+                    <div className="w-2/3 h-6 bg-primary/20 rounded-md flex items-center justify-between px-2">
+                      <div className="text-xs text-primary">Company Website</div>
+                      <div className="text-xs text-accent">0.5s load time</div>
+                    </div>
                     <div className="w-full h-4 bg-secondary-foreground/5 rounded-md"></div>
                     <div className="w-5/6 h-4 bg-secondary-foreground/5 rounded-md"></div>
                   </div>
                   
                   {/* Buttons */}
                   <div className="flex space-x-3">
-                    <div className="w-1/3 h-8 bg-accent/80 rounded-md"></div>
+                    <div className="w-1/3 h-8 bg-accent/80 rounded-md animate-pulse-slow"></div>
                     <div className="w-1/3 h-8 bg-secondary-foreground/5 border border-border/40 rounded-md"></div>
                   </div>
                   
-                  {/* Content blocks */}
+                  {/* Content blocks with performance stats */}
                   <div className="pt-4 space-y-3">
-                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md"></div>
-                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md"></div>
-                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md"></div>
+                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
+                      <div className="absolute top-0 left-0 h-full w-2 bg-primary/30"></div>
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="text-muted-foreground">Page size:</div>
+                        <div className="text-primary font-medium">0.8 MB</div>
+                      </div>
+                    </div>
+                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
+                      <div className="absolute top-0 left-0 h-full w-2 bg-primary/30"></div>
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="text-muted-foreground">Time to interactive:</div>
+                        <div className="text-primary font-medium">0.2s</div>
+                      </div>
+                    </div>
+                    <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
+                      <div className="absolute top-0 left-0 h-full w-2 bg-accent/30"></div>
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="text-muted-foreground">Google PageSpeed score:</div>
+                        <div className="text-accent font-medium">98/100</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Zap, Code, MousePointer, RotateCw } from 'lucide-react';
 
 export default function MicroInteractions() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1); // Start with Loading States tab
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -15,14 +15,14 @@ export default function MicroInteractions() {
 
   const tabs = [
     {
-      icon: <MousePointer className="h-5 w-5" />,
-      title: "Hover Effects",
-      description: "Subtle animations that react to user hover states, creating a more engaging experience."
-    },
-    {
       icon: <Zap className="h-5 w-5" />,
       title: "Loading States",
       description: "Sleek loading animations that keep users informed while content is being processed."
+    },
+    {
+      icon: <MousePointer className="h-5 w-5" />,
+      title: "Hover Effects",
+      description: "Subtle animations that react to user hover states, creating a more engaging experience."
     },
     {
       icon: <RotateCw className="h-5 w-5" />,
@@ -39,9 +39,9 @@ export default function MicroInteractions() {
       
       <div className="container relative">
         <div className="mx-auto max-w-3xl text-center mb-16 space-y-4">
-          <div className="inline-flex items-center px-3 py-1 space-x-2 bg-primary/10 rounded-full border border-primary/20 mb-4">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-xs font-medium text-primary">Premium Feature</span>
+          <div className="inline-flex items-center px-3 py-1 space-x-2 bg-accent/10 rounded-full border border-accent/20 mb-4">
+            <Sparkles className="h-4 w-4 text-accent" />
+            <span className="text-xs font-medium text-accent">Included in Supernova Plan</span>
           </div>
           
           <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight">
@@ -81,7 +81,7 @@ export default function MicroInteractions() {
               </p>
               
               <div className="space-y-6">
-                {activeTab === 0 && (
+                {activeTab === 1 && (
                   <>
                     <div>
                       <p className="text-sm text-muted-foreground mb-3">
@@ -116,7 +116,7 @@ export default function MicroInteractions() {
                   </>
                 )}
                 
-                {activeTab === 1 && (
+                {activeTab === 0 && (
                   <>
                     <div>
                       <p className="text-sm text-muted-foreground mb-3">
@@ -155,7 +155,7 @@ export default function MicroInteractions() {
                   <>
                     <div>
                       <p className="text-sm text-muted-foreground mb-3">
-                        Elements that animate as they enter the viewport:
+                        Scroll down to see animations (or try scrolling back up):
                       </p>
                       <div className="space-y-4">
                         <div className="p-4 bg-secondary/50 border border-border/40 rounded-md animate-fadeIn">
@@ -179,22 +179,22 @@ export default function MicroInteractions() {
           
           <div className="relative">
             <div className="bg-secondary/30 border border-border/40 rounded-lg p-6">
-              <h3 className="font-heading text-xl font-medium mb-4">Premium Features</h3>
+              <h3 className="font-heading text-xl font-medium mb-4">Micro-Interactions</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
-                    <Sparkles className="h-4 w-4 text-primary" />
+                    <Sparkles className="h-4 w-4 text-accent" />
                   </div>
                   <div className="ml-3">
-                    <h4 className="text-base font-medium">Hover Animations</h4>
-                    <p className="text-sm text-muted-foreground">Subtle effects that respond to user interaction.</p>
+                    <h4 className="text-base font-medium">Interactive Elements</h4>
+                    <p className="text-sm text-muted-foreground">Elements that respond to user actions in real-time.</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
-                    <Sparkles className="h-4 w-4 text-primary" />
+                    <Sparkles className="h-4 w-4 text-accent" />
                   </div>
                   <div className="ml-3">
                     <h4 className="text-base font-medium">Scroll Reveal Effects</h4>
@@ -204,17 +204,17 @@ export default function MicroInteractions() {
                 
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
-                    <Sparkles className="h-4 w-4 text-primary" />
+                    <Sparkles className="h-4 w-4 text-accent" />
                   </div>
                   <div className="ml-3">
-                    <h4 className="text-base font-medium">Smooth Page Transitions</h4>
-                    <p className="text-sm text-muted-foreground">Seamless navigation between pages.</p>
+                    <h4 className="text-base font-medium">Loading Indicators</h4>
+                    <p className="text-sm text-muted-foreground">Beautiful loading states that keep users engaged.</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
-                    <Sparkles className="h-4 w-4 text-primary" />
+                    <Sparkles className="h-4 w-4 text-accent" />
                   </div>
                   <div className="ml-3">
                     <h4 className="text-base font-medium">Interactive UI Elements</h4>
@@ -224,8 +224,8 @@ export default function MicroInteractions() {
               </div>
               
               <div className="mt-8">
-                <Button className="w-full group">
-                  Upgrade to Supernova <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button className="w-full group bg-accent text-accent-foreground hover:bg-accent/90">
+                  Choose Supernova ($79/mo) <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
             </div>

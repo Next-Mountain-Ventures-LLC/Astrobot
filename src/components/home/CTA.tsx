@@ -9,29 +9,33 @@ export default function CTA() {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background"></div>
       
       <div className="container relative">
-        <div className="max-w-4xl mx-auto bg-secondary/30 backdrop-blur-sm rounded-xl overflow-hidden border border-primary/20 relative">
+        <div className="max-w-4xl mx-auto bg-secondary/30 backdrop-blur-sm rounded-xl overflow-hidden border-2 border-accent/30 relative shadow-[0_0_20px_rgba(255,50,50,0.15)]">
           {/* Metallic rivets */}
-          <div className="absolute top-3 left-3 w-1 h-1 rounded-full bg-primary/40"></div>
-          <div className="absolute top-3 right-3 w-1 h-1 rounded-full bg-primary/40"></div>
-          <div className="absolute bottom-3 left-3 w-1 h-1 rounded-full bg-primary/40"></div>
-          <div className="absolute bottom-3 right-3 w-1 h-1 rounded-full bg-primary/40"></div>
+          <div className="absolute top-3 left-3 w-1 h-1 rounded-full bg-accent/60"></div>
+          <div className="absolute top-3 right-3 w-1 h-1 rounded-full bg-accent/60"></div>
+          <div className="absolute bottom-3 left-3 w-1 h-1 rounded-full bg-accent/60"></div>
+          <div className="absolute bottom-3 right-3 w-1 h-1 rounded-full bg-accent/60"></div>
           
           {/* Glow effects */}
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
           
           <div className="relative px-6 py-12 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-4">
+                <div className="inline-flex items-center px-3 py-1 space-x-2 bg-accent/10 rounded-full border border-accent/20 mb-4">
+                  <Calendar className="h-4 w-4 text-accent" />
+                  <span className="text-xs font-medium text-accent">Book & Launch in 48 Hours</span>
+                </div>
                 <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">
-                  Ready to Transform Your Online Presence?
+                  Ready to Transform Your Business Online?
                 </h2>
                 <p className="text-muted-foreground">
-                  Book a 60-minute design consultation with our expert designers and launch your site within 48 hours.
+                  Book a 60-minute design consultation with our expert designers and launch your business website within 48 hours.
                 </p>
                 
                 <div className="pt-2">
-                  <Button size="lg" className="font-heading tracking-wide group">
+                  <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
                     <Calendar className="mr-2 h-5 w-5" />
                     Book Your Designer <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -44,8 +48,8 @@ export default function CTA() {
                   
                   <ol className="space-y-4">
                     <li className="flex items-start">
-                      <div className="flex items-center justify-center bg-primary/10 border border-primary/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
-                        <span className="text-primary text-sm font-bold">1</span>
+                      <div className="flex items-center justify-center bg-accent/10 border border-accent/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
+                        <span className="text-accent text-sm font-bold">1</span>
                       </div>
                       <div className="ml-3">
                         <p className="text-sm">
@@ -55,8 +59,8 @@ export default function CTA() {
                     </li>
                     
                     <li className="flex items-start">
-                      <div className="flex items-center justify-center bg-primary/10 border border-primary/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
-                        <span className="text-primary text-sm font-bold">2</span>
+                      <div className="flex items-center justify-center bg-accent/10 border border-accent/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
+                        <span className="text-accent text-sm font-bold">2</span>
                       </div>
                       <div className="ml-3">
                         <p className="text-sm">
@@ -66,8 +70,8 @@ export default function CTA() {
                     </li>
                     
                     <li className="flex items-start">
-                      <div className="flex items-center justify-center bg-primary/10 border border-primary/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
-                        <span className="text-primary text-sm font-bold">3</span>
+                      <div className="flex items-center justify-center bg-accent/10 border border-accent/20 rounded-full w-7 h-7 mt-0.5 flex-shrink-0">
+                        <span className="text-accent text-sm font-bold">3</span>
                       </div>
                       <div className="ml-3">
                         <p className="text-sm">

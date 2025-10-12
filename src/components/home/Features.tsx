@@ -7,13 +7,15 @@ interface FeatureCardProps {
   description: string;
 }
 
-const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
+const FeatureCard = ({ icon, title, description, highlight = false }: FeatureCardProps) => (
   <div className="group relative bg-secondary/30 p-6 rounded-lg border border-border/40 transition-all duration-300 hover:border-primary/30 hover:bg-secondary/50 overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     
     {/* Metallic rivets */}
-    <div className="absolute top-2 right-2 w-1 h-1 rounded-full bg-primary/20"></div>
-    <div className="absolute bottom-2 left-2 w-1 h-1 rounded-full bg-primary/20"></div>
+    <div className={`absolute top-2 right-2 w-1 h-1 rounded-full ${highlight ? 'bg-accent/30' : 'bg-primary/20'}`}></div>
+    <div className={`absolute bottom-2 left-2 w-1 h-1 rounded-full ${highlight ? 'bg-accent/30' : 'bg-primary/20'}`}></div>
+    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-transparent via-transparent to-primary/5 opacity-70"></div>
+    <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-transparent via-transparent to-primary/5 opacity-70"></div>
     
     <div className="relative space-y-3">
       <div className="inline-flex p-2 rounded-lg bg-primary/10 text-primary">
@@ -27,11 +29,85 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
 );
 
 export default function Features() {
+  // Add a small illustration component for each feature
+  const FeatureIllustration = ({ type }: { type: string }) => {
+    switch(type) {
+      case 'speed':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
+            <div className="absolute h-4 bg-primary/30 left-0 w-1/4 animate-progress"></div>
+            <div className="z-10 text-xs text-primary/80 font-medium">75% Faster</div>
+          </div>
+        );
+      case 'lightweight':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
+            <div className="w-8 h-8 bg-secondary border border-primary/20 rounded-md flex items-center justify-center">
+              <div className="text-xs text-primary font-medium">1MB</div>
+            </div>
+            <div className="mx-2 text-xs text-muted-foreground">vs</div>
+            <div className="w-16 h-16 bg-secondary border border-border/30 rounded-md flex items-center justify-center">
+              <div className="text-xs text-muted-foreground font-medium">10MB</div>
+            </div>
+          </div>
+        );
+      case 'seo':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
+            <div className="flex items-center space-x-1">
+              <div className="h-6 w-6 rounded-full bg-accent/30 text-xs flex items-center justify-center text-accent-foreground">#1</div>
+              <div className="h-5 w-5 rounded-full bg-accent/20 text-xs flex items-center justify-center text-accent-foreground/80">#2</div>
+              <div className="h-4 w-4 rounded-full bg-accent/10 text-xs flex items-center justify-center text-accent-foreground/60">#3</div>
+            </div>
+          </div>
+        );
+      case 'js':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
+            <div className="text-xs text-muted-foreground font-mono font-medium">{ }</div>
+            <div className="text-xs text-accent/80 ml-1 font-medium">0kb</div>
+          </div>
+        );
+      case 'performance':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center space-x-2 justify-center border border-border/30">
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-primary">↑ 20%</div>
+              <div className="text-[10px] text-muted-foreground">Conversion</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-accent">↓ 15%</div>
+              <div className="text-[10px] text-muted-foreground">Bounce Rate</div>
+            </div>
+          </div>
+        );
+      case 'maintenance':
+        return (
+          <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
+            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+            <div className="text-xs text-muted-foreground mx-2">→</div>
+            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+            <div className="text-xs text-muted-foreground mx-2">→</div>
+            <div className="w-4 h-4 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   const features = [
     {
       icon: <Zap className="h-5 w-5" />,
       title: "Blazing Fast Speed",
-      description: "Astro loads pages up to 75% faster than traditional sites, delivering exceptional user experiences with minimal wait times."
+      description: "Astro loads your business website up to 75% faster than traditional sites, delivering exceptional user experiences with minimal wait times.",
+      highlight: true
     },
     {
       icon: <Gauge className="h-5 w-5" />,
@@ -41,7 +117,8 @@ export default function Features() {
     {
       icon: <Search className="h-5 w-5" />,
       title: "SEO Optimized",
-      description: "Pre-rendered HTML means search engines can read your content immediately, improving rankings and visibility."
+      description: "Pre-rendered HTML means search engines can read your business content immediately, improving rankings and visibility.",
+      highlight: true
     },
     {
       icon: <Code className="h-5 w-5" />,
@@ -68,22 +145,34 @@ export default function Features() {
       <div className="container relative">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight">
-            Next Generation Web Architecture
+            Next Generation Web Architecture <span className="text-accent">for Business</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Built with the fastest website framework available today, developed by MIT's brightest minds.
+            Built with the fastest website framework available today, developed by MIT's brightest minds to drive your business growth.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))}
+          {features.map((feature, index) => {
+            const illustrationType = 
+              index === 0 ? 'speed' :
+              index === 1 ? 'lightweight' :
+              index === 2 ? 'seo' :
+              index === 3 ? 'js' :
+              index === 4 ? 'performance' : 'maintenance';
+              
+            return (
+              <div key={index} className="flex flex-col">
+                <FeatureIllustration type={illustrationType} />
+                <FeatureCard
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  highlight={feature.highlight || false}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
