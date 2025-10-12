@@ -73,15 +73,26 @@ export default function Features() {
       case 'js':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="relative flex items-center">
-              <div className="flex flex-col items-center">
-                <div className="text-xs text-accent font-medium">0</div>
-                <div className="h-8 w-0.5 bg-accent/30 rounded-full"></div>
-                <div className="text-[8px] text-muted-foreground mt-1">KB JS</div>
+            <div className="relative flex flex-col w-full items-center">
+              <div className="flex items-center justify-between w-full px-3 mb-1">
+                <div className="text-xs text-muted-foreground font-medium">JavaScript</div>
+                <div className="flex items-center">
+                  <div className="text-xs text-accent font-bold animate-[countDown_2s_ease-in-out_forwards]">
+                    0%
+                  </div>
+                  <div className="ml-1 text-xs text-muted-foreground font-medium">used</div>
+                </div>
               </div>
-              <div className="h-0.5 w-12 bg-gradient-to-r from-accent to-transparent absolute -right-10 top-3"></div>
-              <div className="absolute -right-14 top-1">
-                <div className="text-xs text-muted-foreground font-medium">Lightweight</div>
+              
+              {/* Progress bar */}
+              <div className="w-full h-3 bg-secondary/70 rounded-full overflow-hidden">
+                <div className="h-full bg-accent rounded-full animate-[flashToZero_2s_ease-in-out_forwards]"></div>
+              </div>
+              
+              <div className="w-full text-center mt-1">
+                <div className="text-[10px] text-muted-foreground">
+                  Zero JavaScript by default — only what you need
+                </div>
               </div>
             </div>
           </div>

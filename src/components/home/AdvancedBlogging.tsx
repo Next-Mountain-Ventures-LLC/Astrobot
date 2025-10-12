@@ -32,19 +32,37 @@ export default function AdvancedBlogging() {
             <div className="absolute -top-4 -left-4 h-20 w-20 bg-primary/10 rounded-full blur-xl"></div>
             <div className="absolute -bottom-4 -right-4 h-20 w-20 bg-primary/10 rounded-full blur-xl"></div>
             
-            <div className="relative flex items-center justify-center mb-8">
-              <div className="relative w-40 h-16 md:w-48 md:h-24 flex items-center justify-center">
-                <div className="absolute left-0 z-10 w-24 opacity-90">
+            <div className="relative flex items-center justify-center mb-12 py-8">
+              {/* Background glow effects */}
+              <div className="absolute -z-10 top-1/2 left-1/4 transform -translate-y-1/2 w-64 h-64 bg-primary/10 blur-3xl rounded-full"></div>
+              <div className="absolute -z-10 top-1/2 right-1/4 transform -translate-y-1/2 w-64 h-64 bg-primary/10 blur-3xl rounded-full"></div>
+              
+              {/* Logo container */}
+              <div className="relative w-full max-w-md h-40 flex items-center justify-center">
+                {/* WordPress Logo */}
+                <div className="absolute left-4 md:left-12 z-10 w-40 md:w-48 transform -translate-y-1/2 transition-all duration-500 hover:scale-105">
                   <img src={wordpressLogo.src} alt="WordPress Logo" width={wordpressLogo.width} height={wordpressLogo.height} />
                 </div>
-                <div className="absolute right-0 z-20 w-20 mt-1 opacity-90">
-                  <img src={astroLogo.src} alt="Astro Logo" width={astroLogo.width / 4} height={astroLogo.height / 4} />
+                
+                {/* Astro Logo */}
+                <div className="absolute right-4 md:right-12 z-10 w-32 md:w-40 transform -translate-y-1/2 transition-all duration-500 hover:scale-105">
+                  <img src={astroLogo.src} alt="Astro Logo" width={astroLogo.width / 2} height={astroLogo.height / 2} />
                 </div>
-              </div>
-              
-              {/* Connection animation */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-primary/20 rounded-full">
-                <div className="w-4 h-4 bg-primary rounded-full animate-pulse"></div>
+                
+                {/* Unity connector */}
+                <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent transform -translate-y-1/2 opacity-70"></div>
+                
+                {/* Central unity hub */}
+                <div className="relative w-16 h-16 rounded-full border-4 border-primary/30 bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-[0_0_15px_rgba(0,128,255,0.3)] z-20">
+                  <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center animate-pulse-slow">
+                    <div className="w-4 h-4 bg-primary rounded-full"></div>
+                  </div>
+                  
+                  {/* Orbital paths */}
+                  <div className="absolute inset-0 rounded-full border border-primary/30 animate-[spin_20s_linear_infinite]"></div>
+                  <div className="absolute -inset-3 rounded-full border border-primary/20 animate-[spin_25s_linear_infinite]"></div>
+                  <div className="absolute -inset-6 rounded-full border border-primary/10 animate-[spin_30s_linear_infinite]"></div>
+                </div>
               </div>
             </div>
             
