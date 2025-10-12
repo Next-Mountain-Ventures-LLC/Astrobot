@@ -45,12 +45,14 @@ export default function Hero() {
             
             <div className="flex flex-wrap items-center gap-4">
               <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
-                Book Your Designer <ArrowRight className="ml-1 h-4 w-4 animate-bounceX" />
+                Book Your Design Launch <ArrowRight className="ml-1 h-4 w-4 animate-bounceX" />
               </Button>
-              <p className="text-xs text-accent absolute -bottom-5">Launch in 48 hours</p>
-              <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary/30 font-heading tracking-wide">
-                Learn More
-              </Button>
+              <p className="text-xs text-accent absolute -bottom-5">Ready in 48 hours</p>
+              <a href="#how-it-works">
+                <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary/30 font-heading tracking-wide">
+                  Learn More
+                </Button>
+              </a>
             </div>
             
             <div className="flex items-center space-x-4 text-muted-foreground text-sm pt-4">
@@ -76,10 +78,6 @@ export default function Hero() {
               <div className="bg-secondary/80 backdrop-blur-sm p-6 rounded-xl border border-border/60 shadow-[0_0_15px_rgba(0,128,255,0.1)] overflow-hidden relative">
                 <div className="absolute inset-0 bg-[radial-gradient(#102040_1px,transparent_1px)] [background-size:10px_10px] opacity-10"></div>
                 
-                {/* Astro logo watermark */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-                  <img src={astroLogo.src} alt="" width={astroLogo.width / 2} height={astroLogo.height / 2} className="w-32" />
-                </div>
                 
                 {/* Browser UI elements */}
                 <div className="flex items-center space-x-1 mb-3">
@@ -93,11 +91,15 @@ export default function Hero() {
                 
                 {/* Website mockup content */}
                 <div className="space-y-4">
-                  {/* Header with loading indicator */}
-                  <div className="w-full h-8 bg-secondary-foreground/5 rounded-md relative overflow-hidden">
+                  {/* Header with Astro logo */}
+                  <div className="w-full h-10 bg-secondary-foreground/5 rounded-md relative overflow-hidden">
                     <div className="absolute top-0 left-0 h-full bg-primary/10 rounded-md animate-progress-fast w-full"></div>
-                    <div className="absolute top-0 left-0 flex items-center h-full px-2">
-                      <div className="text-xs font-medium text-primary/80">Loading: 100%</div>
+                    <div className="absolute top-0 left-0 flex items-center justify-between h-full px-2 w-full">
+                      <div className="flex items-center">
+                        <img src={astroLogo.src} alt="" width={astroLogo.width / 10} height={astroLogo.height / 10} className="h-5 mr-2" />
+                        <div className="text-xs font-medium text-primary/80">Powered by Astro</div>
+                      </div>
+                      <div className="text-xs text-primary/60">Loading: 100%</div>
                     </div>
                   </div>
                   

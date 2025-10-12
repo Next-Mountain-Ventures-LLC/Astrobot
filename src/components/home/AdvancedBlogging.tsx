@@ -18,8 +18,14 @@ export default function AdvancedBlogging() {
             <span className="text-xs font-medium text-primary">Next-Level Content</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4">
-            Headless WordPress <span className="text-primary">+</span> Astro
+          <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4 flex items-center justify-center gap-4">
+            <div className="w-20 md:w-24">
+              <img src={wordpressLogo.src} alt="WordPress" width={wordpressLogo.width} height={wordpressLogo.height} />
+            </div>
+            <span className="text-primary text-4xl">+</span>
+            <div className="w-16 md:w-20">
+              <img src={astroLogo.src} alt="Astro" width={astroLogo.width / 3} height={astroLogo.height / 3} />
+            </div>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Get the best of both worlds: WordPress's content management with Astro's blazing fast performance.
@@ -32,37 +38,63 @@ export default function AdvancedBlogging() {
             <div className="absolute -top-4 -left-4 h-20 w-20 bg-primary/10 rounded-full blur-xl"></div>
             <div className="absolute -bottom-4 -right-4 h-20 w-20 bg-primary/10 rounded-full blur-xl"></div>
             
-            <div className="relative flex items-center justify-center mb-12 py-8">
-              {/* Background glow effects */}
-              <div className="absolute -z-10 top-1/2 left-1/4 transform -translate-y-1/2 w-64 h-64 bg-primary/10 blur-3xl rounded-full"></div>
-              <div className="absolute -z-10 top-1/2 right-1/4 transform -translate-y-1/2 w-64 h-64 bg-primary/10 blur-3xl rounded-full"></div>
+            <div className="relative mb-12 py-8">
+              {/* Glow background */}
+              <div className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/10 blur-3xl rounded-full"></div>
               
-              {/* Logo container */}
-              <div className="relative w-full max-w-md h-40 flex items-center justify-center">
-                {/* WordPress Logo */}
-                <div className="absolute left-4 md:left-12 z-10 w-40 md:w-48 transform -translate-y-1/2 transition-all duration-500 hover:scale-105">
-                  <img src={wordpressLogo.src} alt="WordPress Logo" width={wordpressLogo.width} height={wordpressLogo.height} />
-                </div>
-                
-                {/* Astro Logo */}
-                <div className="absolute right-4 md:right-12 z-10 w-32 md:w-40 transform -translate-y-1/2 transition-all duration-500 hover:scale-105">
-                  <img src={astroLogo.src} alt="Astro Logo" width={astroLogo.width / 2} height={astroLogo.height / 2} />
-                </div>
-                
-                {/* Unity connector */}
-                <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent transform -translate-y-1/2 opacity-70"></div>
-                
-                {/* Central unity hub */}
-                <div className="relative w-16 h-16 rounded-full border-4 border-primary/30 bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-[0_0_15px_rgba(0,128,255,0.3)] z-20">
-                  <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center animate-pulse-slow">
-                    <div className="w-4 h-4 bg-primary rounded-full"></div>
+              {/* Visual representation of WordPress + Astro integration */}
+              <div className="relative h-64 rounded-lg bg-background/20 border border-primary/10 backdrop-blur-sm overflow-hidden">
+                {/* Left side: WordPress (content) */}
+                <div className="absolute left-0 top-0 bottom-0 w-1/2 flex flex-col items-center justify-center p-4 border-r border-primary/20">
+                  <div className="w-20 md:w-24 mb-4">
+                    <img src={wordpressLogo.src} alt="WordPress" width={wordpressLogo.width} height={wordpressLogo.height} />
                   </div>
                   
-                  {/* Orbital paths */}
-                  <div className="absolute inset-0 rounded-full border border-primary/30 animate-[spin_20s_linear_infinite]"></div>
-                  <div className="absolute -inset-3 rounded-full border border-primary/20 animate-[spin_25s_linear_infinite]"></div>
-                  <div className="absolute -inset-6 rounded-full border border-primary/10 animate-[spin_30s_linear_infinite]"></div>
+                  {/* Content blocks representing WordPress posts */}
+                  <div className="w-full space-y-2">
+                    <div className="h-4 w-full bg-primary/20 rounded-full"></div>
+                    <div className="h-4 w-4/5 bg-primary/15 rounded-full"></div>
+                    <div className="h-4 w-full bg-primary/20 rounded-full"></div>
+                    <div className="h-4 w-3/4 bg-primary/15 rounded-full"></div>
+                  </div>
                 </div>
+                
+                {/* Right side: Astro (output) */}
+                <div className="absolute right-0 top-0 bottom-0 w-1/2 flex flex-col items-center justify-center p-4 bg-gradient-to-tr from-primary/5 to-primary/10">
+                  <div className="w-16 md:w-20 mb-4">
+                    <img src={astroLogo.src} alt="Astro" width={astroLogo.width / 3} height={astroLogo.height / 3} />
+                  </div>
+                  
+                  {/* Performance metrics */}
+                  <div className="w-full space-y-2">
+                    <div className="flex items-center text-xs justify-between mb-1">
+                      <span className="text-muted-foreground">Load Time:</span>
+                      <span className="text-primary font-medium">0.2s</span>
+                    </div>
+                    <div className="h-2 w-full bg-secondary/50 rounded-full overflow-hidden">
+                      <div className="h-full w-[10%] bg-primary"></div>
+                    </div>
+                    
+                    <div className="flex items-center text-xs justify-between mb-1 mt-2">
+                      <span className="text-muted-foreground">JS Size:</span>
+                      <span className="text-primary font-medium">0 KB</span>
+                    </div>
+                    <div className="h-2 w-full bg-secondary/50 rounded-full overflow-hidden">
+                      <div className="h-full w-[5%] bg-primary"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Connection arrows */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center z-10">
+                  <div className="w-6 h-6 bg-primary/40 rounded-full flex items-center justify-center">
+                    <ArrowRight className="h-4 w-4 text-white animate-pulse" />
+                  </div>
+                </div>
+                
+                {/* Data flow animation */}
+                <div className="absolute top-1/3 left-1/3 w-1/3 h-1 bg-primary/30 animate-[progress_2s_ease-in-out_infinite]"></div>
+                <div className="absolute top-2/3 left-1/3 w-1/3 h-1 bg-primary/30 animate-[progress_2.5s_ease-in-out_infinite]"></div>
               </div>
             </div>
             
