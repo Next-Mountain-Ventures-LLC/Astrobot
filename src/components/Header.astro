@@ -1,27 +1,47 @@
 ---
 import { buttonVariants } from "@/components/ui/button";
+import { Rocket } from "lucide-react";
 ---
 
 <header
-  class="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur"
+  class="bg-background/80 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur transition-all duration-300"
 >
   <div
     class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"
   >
     <div class="flex gap-6 md:gap-10">
-      <a href="/" class="flex items-center space-x-2">
-        <span class="inline-block font-bold">Home</span>
+      <a href="/" class="flex items-center space-x-2 group">
+        <div class="bg-primary/10 p-1.5 rounded-md border border-primary/20 group-hover:border-primary/50 transition-all duration-300">
+          <Rocket className="h-5 w-5 text-primary group-hover:text-primary group-hover:animate-pulse" />
+        </div>
+        <span class="inline-block font-heading font-bold tracking-widest text-foreground/90 group-hover:text-primary transition-colors duration-300">ASTROBOT.DESIGN</span>
       </a>
     </div>
     <div class="flex flex-1 items-center justify-end space-x-4">
-      <nav class="flex items-center space-x-1">
+      <nav class="flex items-center space-x-3">
         <a
-          href="https://github.com/"
-          target="_blank"
-          rel="noreferrer"
-          class={buttonVariants({ variant: 'ghost' })}
+          href="#features"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
-          Example link
+          Features
+        </a>
+        <a
+          href="#how-it-works"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          How It Works
+        </a>
+        <a
+          href="#pricing"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Pricing
+        </a>
+        <a
+          href="#get-started"
+          class={buttonVariants({ variant: 'accent', size: 'sm', className: 'ml-4 font-heading tracking-wider' })}
+        >
+          Get Started
         </a>
       </nav>
     </div>
