@@ -20,7 +20,7 @@ interface PricingTier {
 }
 
 export default function Pricing() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   
   const pricingTiers: PricingTier[] = [
     {

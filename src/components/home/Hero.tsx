@@ -36,10 +36,6 @@ export default function Hero() {
                 <span className="inline-block text-primary">Online</span> 
                 <span className="absolute -top-1 -right-1 h-1 w-1 rounded-full bg-primary animate-ping"></span>
               </span>
-              <div className="relative mt-2">
-                <span className="inline-block text-accent text-3xl sm:text-4xl md:text-5xl animate-pulse-slow">Fast</span>
-                <span className="absolute -top-1 right-0 h-1 w-1 rounded-full bg-accent animate-ping"></span>
-              </div>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
@@ -113,7 +109,7 @@ export default function Hero() {
                   <div className="flex space-x-3">
                     <div className="w-1/3 h-8 bg-accent/80 rounded-md animate-pulse-slow relative">
                       <div className="absolute inset-0 flex items-center justify-center text-xs text-accent-foreground font-medium">
-                        LAUNCH
+                        LAUNCH IN 48 HRS
                       </div>
                     </div>
                     <div className="w-1/3 h-8 bg-secondary-foreground/5 border border-border/40 rounded-md relative">
@@ -140,10 +136,10 @@ export default function Hero() {
                       </div>
                     </div>
                     <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
-                      <div className="absolute top-0 left-0 h-full w-2 bg-accent/30"></div>
+                      <div className="absolute top-0 left-0 h-full w-full bg-emerald-500/20"></div>
                       <div className="flex items-center justify-between text-xs">
                         <div className="text-muted-foreground">Google PageSpeed score:</div>
-                        <div className="text-accent font-medium">98/100</div>
+                        <div className="text-emerald-500 font-medium">100/100</div>
                       </div>
                     </div>
                   </div>
