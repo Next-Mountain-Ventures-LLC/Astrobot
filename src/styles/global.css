@@ -96,25 +96,24 @@
   
   @keyframes flashToZero {
     0% { width: 99%; opacity: 1; }
-    80% { width: 0%; opacity: 1; }
-    85% { width: 0%; opacity: 0; }
+    70% { width: 60%; opacity: 1; }
+    80% { width: 30%; opacity: 1; }
+    85% { width: 10%; opacity: 1; }
     90% { width: 0%; opacity: 1; }
     95% { width: 0%; opacity: 0; }
+    97% { width: 0%; opacity: 1; }
     100% { width: 0%; opacity: 1; }
   }
   
   @keyframes countDown {
     0% { content: "99%"; }
-    10% { content: "88%"; }
-    20% { content: "76%"; }
-    30% { content: "65%"; }
-    40% { content: "54%"; }
-    50% { content: "37%"; }
-    60% { content: "25%"; }
-    70% { content: "18%"; }
-    80% { content: "9%"; }
-    90% { content: "0%"; }
-    95% { opacity: 0; }
+    20% { content: "80%"; }
+    40% { content: "60%"; }
+    60% { content: "40%"; }
+    80% { content: "20%"; }
+    90% { content: "10%"; }
+    95% { content: "0%"; opacity: 0; }
+    97% { content: "0%"; opacity: 1; }
     100% { content: "0%"; opacity: 1; }
   }
 }

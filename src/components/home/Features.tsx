@@ -107,7 +107,7 @@ export default function Features() {
               <div className="flex items-center justify-between w-full px-3 mb-1">
                 <div className="text-xs text-muted-foreground font-medium">JavaScript</div>
                 <div className="flex items-center">
-                  <div className="text-xs text-accent font-bold animate-[countDown_2s_ease-in-out_forwards]">
+                  <div className="text-xs text-accent font-bold animate-[countDown_4s_ease-in-out_forwards]">
                     0%
                   </div>
                   <div className="ml-1 text-xs text-muted-foreground font-medium">used</div>
@@ -116,7 +116,7 @@ export default function Features() {
               
               {/* Progress bar */}
               <div className="w-full h-3 bg-secondary/70 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full animate-[flashToZero_2s_ease-in-out_forwards]"></div>
+                <div className="h-full bg-accent rounded-full animate-[flashToZero_4s_ease-in-out_forwards]"></div>
               </div>
               
               <div className="w-full text-center mt-1">

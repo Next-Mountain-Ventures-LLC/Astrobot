@@ -47,7 +47,6 @@ export default function Hero() {
               <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
                 Book Your Design Launch <ArrowRight className="ml-1 h-4 w-4 animate-bounceX" />
               </Button>
-              <p className="text-xs text-accent absolute -bottom-5">Ready in 48 hours</p>
               <a href="#how-it-works">
                 <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary/30 font-heading tracking-wide">
                   Learn More
@@ -144,8 +143,8 @@ export default function Hero() {
                       </div>
                     </div>
                     <div className="w-full h-16 bg-secondary-foreground/5 rounded-md relative overflow-hidden p-2">
-                      <div className="absolute top-0 left-0 h-full w-2 bg-primary/30"></div>
-                      <div className="flex items-center justify-between text-xs">
+                      <div className="absolute top-0 left-0 h-full w-[98%] bg-primary/30"></div>
+                      <div className="flex items-center justify-between text-xs relative z-10">
                         <div className="text-muted-foreground">Google PageSpeed score:</div>
                         <div className="text-primary font-medium">98/100</div>
                       </div>
