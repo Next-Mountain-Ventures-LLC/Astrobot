@@ -1,6 +1,8 @@
 ---
 import "@/styles/global.css";
 import "@/styles/fonts.css";
+import { Image } from 'astro:assets';
+import seoImage from '../assets/img_2806_nw_1d1484c0.jpeg';
 
 interface Props {
   title?: string | undefined;
@@ -9,9 +11,10 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const defaultOgImage = new URL(seoImage.src, Astro.site);
 
 if (Astro.props.ogImage === undefined) {
-  Astro.props.ogImage = new URL("og-image.png", canonicalURL);
+  Astro.props.ogImage = defaultOgImage;
 }
 
 const { title, description, ogImage } = Astro.props;
