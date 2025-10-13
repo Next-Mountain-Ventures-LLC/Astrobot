@@ -1,6 +1,7 @@
 ---
 import { buttonVariants } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
+import { MobileMenu } from "@/components/MobileMenu";
 ---
 
 <header
@@ -18,7 +19,7 @@ import { Rocket } from "lucide-react";
       </a>
     </div>
     <div class="flex flex-1 items-center justify-end space-x-4">
-      <nav class="flex items-center space-x-3">
+      <nav class="hidden md:flex items-center space-x-3">
         <a
           href="#features"
           class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -38,6 +39,11 @@ import { Rocket } from "lucide-react";
           Get Started
         </a>
       </nav>
+      <MobileMenu client:load links={[
+        { href: "#features", label: "Features" },
+        { href: "#pricing", label: "Pricing" },
+        { href: "#get-started", label: "Get Started", isButton: true }
+      ]} />
     </div>
   </div>
 </header>
