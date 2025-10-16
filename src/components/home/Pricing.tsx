@@ -42,7 +42,7 @@ export default function Pricing() {
     },
     {
       name: "Supernova",
-      description: "For businesses that need unlimited flexibility and premium interactive features.",
+      description: "For businesses that need unlimited flexibility and premium interactive features to create a truly dynamic online experience. Designed for growing brands that want full creative control, seamless performance, and the ability to evolve their website as they scale—without limits or compromises.",
       monthlyPrice: 79,
       yearlyPrice: 699,
       yearlyDiscount: 249,
