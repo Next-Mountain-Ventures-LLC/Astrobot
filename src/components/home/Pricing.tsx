@@ -17,6 +17,8 @@ interface PricingTier {
   features: PricingFeature[];
   popular?: boolean;
   includesMicroInteractions?: boolean;
+  monthlyUrl: string;
+  yearlyUrl: string;
 }
 
 export default function Pricing() {
@@ -29,6 +31,8 @@ export default function Pricing() {
       monthlyPrice: 49,
       yearlyPrice: 399,
       yearlyDiscount: 188,
+      monthlyUrl: "https://buy.stripe.com/eVqdRa4HG2JsefTcqsgMw00",
+      yearlyUrl: "https://buy.stripe.com/cNi28s2zydo6fjX1LOgMw03",
       features: [
         { text: "Custom website design", included: true },
         { text: "Hosting included", included: true },
@@ -46,6 +50,8 @@ export default function Pricing() {
       monthlyPrice: 79,
       yearlyPrice: 699,
       yearlyDiscount: 249,
+      monthlyUrl: "https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01",
+      yearlyUrl: "https://buy.stripe.com/fZu5kE6POesab3H1LOgMw02",
       features: [
         { text: "Custom website design", included: true },
         { text: "Hosting included", included: true },
@@ -144,13 +150,20 @@ export default function Pricing() {
                   )}
                 </div>
                 
-                <Button 
-                  variant={tier.popular ? 'default' : 'outline'}
-                  className={`w-full ${tier.popular ? 'font-heading' : 'border-primary/30 bg-secondary/80 hover:bg-primary/10'}`}
-                  size="lg"
+                <a 
+                  href={billingCycle === 'monthly' ? tier.monthlyUrl : tier.yearlyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full"
                 >
-                  Get Started <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
+                  <Button 
+                    variant={tier.popular ? 'default' : 'outline'}
+                    className={`w-full ${tier.popular ? 'font-heading' : 'border-primary/30 bg-secondary/80 hover:bg-primary/10'}`}
+                    size="lg"
+                  >
+                    Get Started <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </a>
                 
                 <div className="mt-8 space-y-4">
                   {tier.features.map((feature, i) => (
