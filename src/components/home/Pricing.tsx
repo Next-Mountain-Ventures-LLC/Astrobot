@@ -25,7 +25,7 @@ export default function Pricing() {
   const pricingTiers: PricingTier[] = [
     {
       name: "Orbit",
-      description: "Perfect for small businesses and entrepreneurs looking to establish a professional online presence.",
+      description: "Perfect for small businesses and entrepreneurs who want to establish a strong, professional online presence that inspires trust and credibility. This solution helps you stand out from competitors, attract ideal customers, and present your brand with confidence—without needing a full-time web team or large budget.",
       monthlyPrice: 49,
       yearlyPrice: 399,
       yearlyDiscount: 188,
@@ -125,7 +125,7 @@ export default function Pricing() {
               
               <div className="relative p-6 md:p-8">
                 <h3 className="font-heading text-2xl font-bold tracking-tight">{tier.name}</h3>
-                <p className="text-muted-foreground mt-2">{tier.description}</p>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed min-h-[5rem] md:min-h-[8rem]">{tier.description}</p>
                 
                 <div className="mt-6 mb-8 space-y-2">
                   <div className="flex items-end">
