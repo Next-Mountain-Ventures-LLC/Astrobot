@@ -31,16 +31,24 @@ const { title, description, ogImage } = Astro.props;
 <link
   rel="icon"
   type="image/svg+xml"
-  href={`${Astro.site}favicon.svg`}
+  href={`${Astro.site}favicon.svg?v=2`}
 />
 <link
-  rel="alternate icon"
+  rel="icon" 
   type="image/png"
-  href={`${Astro.site}favicon-32x32.png`}
+  sizes="32x32"
+  href={`${Astro.site}favicon-32x32.png?v=2`}
+/>
+<link
+  rel="icon" 
+  type="image/png"
+  sizes="16x16"
+  href={`${Astro.site}favicon-16x16.png?v=2`}
 />
 <link
   rel="apple-touch-icon"
-  href={`${Astro.site}favicon-32x32.png`}
+  sizes="180x180"
+  href={`${Astro.site}favicon-32x32.png?v=2`}
 />
 <title>{title}</title>
 <meta name="title" content={title} />
