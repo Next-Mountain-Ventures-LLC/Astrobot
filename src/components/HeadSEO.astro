@@ -29,9 +29,18 @@ const { title, description, ogImage } = Astro.props;
 <meta name="author" content="Astrobot.design" />
 <link rel="canonical" href={canonicalURL} />
 <link
-  rel="shortcut icon"
+  rel="icon"
   type="image/svg+xml"
   href={`${Astro.site}favicon.svg`}
+/>
+<link
+  rel="alternate icon"
+  type="image/png"
+  href={`${Astro.site}favicon-32x32.png`}
+/>
+<link
+  rel="apple-touch-icon"
+  href={`${Astro.site}favicon-32x32.png`}
 />
 <title>{title}</title>
 <meta name="title" content={title} />
