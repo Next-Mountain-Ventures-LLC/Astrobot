@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogPost from "@/components/blog/BlogPost.astro";
 import { getPosts, getPostBySlug } from "@/lib/wordpress";
 import { generateExcerpt } from "@/lib/utils";
+import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 
 // This defines the dynamic paths that will be pre-rendered at build time
 export async function getStaticPaths() {
@@ -21,8 +22,11 @@ export async function getStaticPaths() {
   }
 }
 
-// Get the post for this page
+// Get the post for this page and all posts for related posts component
 const { post } = Astro.props;
+
+// Get all posts for related posts functionality
+const allPosts = await getPosts(1, 100);
 
 // For SEO
 const metaDescription = generateExcerpt(post.excerpt, 160);
@@ -39,5 +43,13 @@ if (post.featuredMedia?.url) {
   description={metaDescription}
   ogImage={ogImage}
 >
-  <BlogPost post={post} />
+  <BlogPost post={post} allPosts={allPosts} />
+
+{allPosts.length > 0 && (
+  <div class="container mx-auto px-4 pb-16">
+    <div class="max-w-3xl mx-auto">
+      <RelatedPosts currentPost={post} allPosts={allPosts} />
+    </div>
+  </div>
+)}
 </BaseLayout>

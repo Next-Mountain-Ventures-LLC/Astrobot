@@ -1,0 +1,77 @@
+---
+import type { ProcessedPost } from "@/lib/wordpress";
+import BlogCard from "./BlogCard.astro";
+
+interface Props {
+  currentPost: ProcessedPost;
+  allPosts: ProcessedPost[];
+}
+
+const { currentPost, allPosts } = Astro.props;
+
+// Function to find related posts based on categories and tags
+function getRelatedPosts(
+  current: ProcessedPost,
+  posts: ProcessedPost[],
+  limit: number = 3
+): ProcessedPost[] {
+  // Don't include the current post
+  const otherPosts = posts.filter(post => post.id !== current.id);
+  
+  // Calculate relevance score based on matching categories and tags
+  const scoredPosts = otherPosts.map(post => {
+    let score = 0;
+    
+    // Add points for each matching category
+    current.categories.forEach(currentCat => {
+      if (post.categories.some(postCat => postCat.id === currentCat.id)) {
+        score += 2; // Categories are weighted higher than tags
+      }
+    });
+    
+    // Add points for each matching tag
+    current.tags.forEach(currentTag => {
+      if (post.tags.some(postTag => postTag.id === currentTag.id)) {
+        score += 1;
+      }
+    });
+    
+    return { post, score };
+  });
+  
+  // Sort by relevance score (highest first)
+  const sortedPosts = scoredPosts.sort((a, b) => b.score - a.score);
+  
+  // Get the top scoring posts, up to the limit
+  const topPosts = sortedPosts
+    .filter(item => item.score > 0) // Only include posts with at least some relevance
+    .slice(0, limit)
+    .map(item => item.post);
+  
+  // If we don't have enough related posts, add recent posts to fill the gap
+  if (topPosts.length < limit) {
+    const recentPosts = otherPosts
+      .filter(post => !topPosts.includes(post)) // Exclude posts already in the list
+      .sort((a, b) => b.date.getTime() - a.date.getTime()) // Sort by date, newest first
+      .slice(0, limit - topPosts.length);
+    
+    topPosts.push(...recentPosts);
+  }
+  
+  return topPosts;
+}
+
+const relatedPosts = getRelatedPosts(currentPost, allPosts);
+---
+
+{relatedPosts.length > 0 && (
+  <div class="mt-16 border-t border-border/30 pt-8">
+    <h2 class="text-2xl font-heading font-bold mb-6">You May Also Like</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {relatedPosts.map(post => (
+        <BlogCard post={post} />
+      ))}
+    </div>
+  </div>
+)}

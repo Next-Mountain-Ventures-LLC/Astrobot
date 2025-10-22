@@ -1,0 +1,53 @@
+---
+import type { ProcessedPost } from "@/lib/wordpress";
+
+interface Props {
+  post: ProcessedPost;
+}
+
+const { post } = Astro.props;
+
+// If there's no author information, we'll skip rendering this component
+if (!post.author) return null;
+
+// Author bio placeholders based on name (for mock data)
+const authorBios = {
+  "Astro Developer": "An expert in modern web frameworks with a focus on performance and developer experience. Specializes in building lightning-fast websites using Astro's unique architecture.",
+  "Performance Expert": "A web performance specialist with over a decade of experience optimizing sites for speed. Has helped businesses achieve significant conversion improvements through technical optimization.",
+  "SEO Specialist": "A technical SEO consultant who helps businesses improve their organic search visibility through data-driven strategies and technical excellence."
+};
+
+// Default bio if none is provided
+const defaultBio = "A technology writer and expert contributor to the Astrobot.design blog.";
+
+// Get the author's bio based on their name, or use the default
+const authorBio = post.author.name && authorBios[post.author.name as keyof typeof authorBios]
+  ? authorBios[post.author.name as keyof typeof authorBios]
+  : defaultBio;
+---
+
+<div class="border-t border-border/30 pt-6 mt-12">
+  <h3 class="text-lg font-medium mb-4">About the Author</h3>
+  
+  <div class="flex items-start space-x-4">
+    {post.author.avatar && (
+      <img 
+        src={post.author.avatar} 
+        alt={post.author.name} 
+        class="w-12 h-12 rounded-full object-cover border border-primary/20"
+      />
+    )}
+    
+    <div>
+      <h4 class="font-heading font-medium">{post.author.name}</h4>
+      <p class="text-sm text-muted-foreground mt-1">{authorBio}</p>
+      
+      <!-- Author social links (placeholder) -->
+      <div class="flex space-x-3 mt-3">
+        <a href="#" class="text-primary hover:text-primary/80 text-sm">Twitter</a>
+        <a href="#" class="text-primary hover:text-primary/80 text-sm">LinkedIn</a>
+        <a href="#" class="text-primary hover:text-primary/80 text-sm">Website</a>
+      </div>
+    </div>
+  </div>
+</div>

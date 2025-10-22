@@ -3,12 +3,19 @@ import { formatDate } from "@/lib/utils";
 import type { ProcessedPost } from "@/lib/wordpress";
 import { Calendar, Tag, User } from "lucide-react";
 import "@/styles/blog-content.css";
+import SocialShare from "./SocialShare";
+import MailingListSignup from "./MailingListSignup";
+import AuthorProfile from "./AuthorProfile.astro";
 
 interface Props {
   post: ProcessedPost;
+  allPosts?: ProcessedPost[];
 }
 
-const { post } = Astro.props;
+const { post, allPosts = [] } = Astro.props;
+
+// Get the full URL for the current post
+const postUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <article class="container mx-auto py-12 px-4">
@@ -47,7 +54,17 @@ const { post } = Astro.props;
           <div class="flex items-center">
             <Tag class="w-4 h-4 mr-1" />
             <span>
-              {post.categories.map(cat => cat.name).join(', ')}
+              {post.categories.map((cat, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <a 
+                    href={`/blog/category/${cat.slug}`}
+                    class="hover:text-primary transition-colors"
+                  >
+                    {cat.name}
+                  </a>
+                </>
+              ))}
             </span>
           </div>
         )}
@@ -58,6 +75,9 @@ const { post } = Astro.props;
     <div class="blog-content max-w-none mb-10">
       <Fragment set:html={post.content} />
     </div>
+    
+    <!-- Social Share -->
+    <SocialShare url={postUrl} title={post.title} client:load />
     
     <!-- Tags -->
     {post.tags.length > 0 && (
@@ -75,6 +95,12 @@ const { post } = Astro.props;
         </div>
       </div>
     )}
+    
+    <!-- Author Profile -->
+    <AuthorProfile post={post} />
+    
+    <!-- Mailing List Signup -->
+    <MailingListSignup client:load />
     
     <!-- Back to Blog -->
     <div class="text-center mt-12">
