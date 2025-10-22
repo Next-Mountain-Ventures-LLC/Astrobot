@@ -8,6 +8,7 @@ export default function MailingListSignup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
+  const [formattedPhone, setFormattedPhone] = useState('');
   
   // Form state
   const [step, setStep] = useState<1 | 2>(1);
@@ -18,6 +19,40 @@ export default function MailingListSignup() {
   // Validate email
   const validateEmail = (email: string): boolean => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+  
+  // Format phone number with country code
+  const formatPhoneWithCountryCode = (phoneNumber: string): string => {
+    // Remove all non-digit characters
+    const digitsOnly = phoneNumber.replace(/\D/g, '');
+    
+    // Return empty string if no digits
+    if (!digitsOnly) return '';
+    
+    // Check if it already has country code
+    if (digitsOnly.startsWith('1') && digitsOnly.length === 11) {
+      return `+${digitsOnly}`;
+    } 
+    
+    // Add US country code (+1) if it's 10 digits
+    if (digitsOnly.length === 10) {
+      return `+1${digitsOnly}`;
+    }
+    
+    // If it's some other format, just add + if not present
+    if (digitsOnly.length > 0 && !phoneNumber.startsWith('+')) {
+      return `+${digitsOnly}`;
+    }
+    
+    // If it already starts with +, return as is (with non-digits removed)
+    return phoneNumber.startsWith('+') ? `+${digitsOnly}` : phoneNumber;
+  };
+  
+  // Handle phone number input
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setPhone(input);
+    setFormattedPhone(formatPhoneWithCountryCode(input));
   };
 
   // Handle step 1 submission (email collection)
@@ -59,7 +94,9 @@ export default function MailingListSignup() {
       formData.append('last_name', lastName);
       
       if (phone.trim()) {
-        formData.append('phone', phone);
+        // Use the formatted phone number with country code
+        const phoneWithCountryCode = formatPhoneWithCountryCode(phone);
+        formData.append('phone', phoneWithCountryCode);
       }
       
       const response = await fetch('https://api.new.website/api/submit-form/', {
@@ -166,12 +203,12 @@ export default function MailingListSignup() {
                       type="tel"
                       name="phone"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Phone Number (optional)"
+                      onChange={handlePhoneChange}
+                      placeholder="Phone Number (optional, +1 will be added)"
                       className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                     />
                     <p className="mt-1 text-xs text-muted-foreground">
-                      Providing your phone number helps us deliver personalized content and time-sensitive updates more effectively.
+                      Providing your phone number helps us deliver personalized content and time-sensitive updates more effectively. US numbers will be formatted with +1 country code.
                     </p>
                   </div>
                   
