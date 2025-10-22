@@ -12,16 +12,44 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   
+  // Calculate how many posts to show per slide based on viewport
+  const getPostsPerSlide = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) return 3; // Desktop
+      if (window.innerWidth >= 768) return 2; // Tablet
+    }
+    return 1; // Mobile default
+  };
+  
+  const [postsPerSlide, setPostsPerSlide] = useState(getPostsPerSlide());
+  
+  // Update postsPerSlide on window resize
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const handleResize = () => {
+      setPostsPerSlide(getPostsPerSlide());
+      // Reset to first slide when layout changes to avoid empty slides
+      setCurrentIndex(0);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Calculate total number of slides
+  const totalSlides = Math.ceil(posts.length / postsPerSlide);
+  
   const nextPost = () => {
-    if (isAnimating || posts.length <= 1) return;
+    if (isAnimating || totalSlides <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
   
   const prevPost = () => {
-    if (isAnimating || posts.length <= 1) return;
+    if (isAnimating || totalSlides <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + posts.length) % posts.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
   };
   
   // Handle animation end
@@ -36,16 +64,23 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   // Auto rotation (optional)
   useEffect(() => {
     const interval = setInterval(() => {
-      if (posts.length > 1) {
+      if (totalSlides > 1) {
         nextPost();
       }
     }, 6000); // Change posts every 6 seconds
     
     return () => clearInterval(interval);
-  }, [posts.length, currentIndex, isAnimating]);
+  }, [totalSlides, currentIndex, isAnimating]);
   
   if (!posts || posts.length === 0) {
     return null;
+  }
+  
+  // Generate the slides based on postsPerSlide
+  const slides = [];
+  for (let i = 0; i < totalSlides; i++) {
+    const slideItems = posts.slice(i * postsPerSlide, (i + 1) * postsPerSlide);
+    slides.push(slideItems);
   }
   
   return (
@@ -65,55 +100,61 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
             className="flex transition-transform duration-500 ease-in-out" 
             style={{ 
               transform: `translateX(-${currentIndex * 100}%)`,
-              width: `${posts.length * 100}%`
+              width: `${totalSlides * 100}%`
             }}
           >
-            {posts.map((post) => (
-              <div key={post.id} className="w-full flex-shrink-0 px-4">
-                <div className="bg-secondary/30 border border-primary/20 rounded-lg overflow-hidden shadow-lg backdrop-blur-sm transform transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1">
-                  {post.featuredMedia && (
-                    <div className="relative h-48 md:h-64 overflow-hidden">
-                      <img 
-                        src={post.featuredMedia.url} 
-                        alt={post.featuredMedia.alt || post.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
+            {slides.map((slideItems, slideIndex) => (
+              <div key={slideIndex} className="w-full flex-shrink-0">
+                <div className="flex flex-wrap -mx-4">
+                  {slideItems.map((post) => (
+                    <div key={post.id} className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
+                      <div className="bg-secondary/30 border border-primary/20 rounded-lg overflow-hidden shadow-lg backdrop-blur-sm transform transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1 h-full">
+                        {post.featuredMedia && (
+                          <div className="relative h-48 md:h-64 overflow-hidden">
+                            <img 
+                              src={post.featuredMedia.url} 
+                              alt={post.featuredMedia.alt || post.title} 
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
+                          </div>
+                        )}
+                        
+                        <div className="p-6">
+                          <div className="flex items-center text-xs text-muted-foreground mb-3">
+                            <Calendar className="h-3 w-3 mr-1" />
+                            <span>{formatDate(post.date)}</span>
+                            
+                            {post.categories.length > 0 && (
+                              <>
+                                <span className="mx-2">•</span>
+                                <Tag className="h-3 w-3 mr-1" />
+                                <span>
+                                  {post.categories.map(cat => cat.name).join(', ')}
+                                </span>
+                              </>
+                            )}
+                          </div>
+                          
+                          <h3 className="font-heading text-xl md:text-2xl font-medium mb-3">
+                            {post.title}
+                          </h3>
+                          
+                          <p className="text-sm text-muted-foreground mb-6">
+                            {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 150)}...
+                          </p>
+                          
+                          <a 
+                            href={`/blog/${post.slug}`}
+                            className="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors"
+                          >
+                            Read Article
+                            <ArrowRight className="ml-1 h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  
-                  <div className="p-6">
-                    <div className="flex items-center text-xs text-muted-foreground mb-3">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      <span>{formatDate(post.date)}</span>
-                      
-                      {post.categories.length > 0 && (
-                        <>
-                          <span className="mx-2">•</span>
-                          <Tag className="h-3 w-3 mr-1" />
-                          <span>
-                            {post.categories.map(cat => cat.name).join(', ')}
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    
-                    <h3 className="font-heading text-xl md:text-2xl font-medium mb-3">
-                      {post.title}
-                    </h3>
-                    
-                    <p className="text-sm text-muted-foreground mb-6">
-                      {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 150)}...
-                    </p>
-                    
-                    <a 
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors"
-                    >
-                      Read Article
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </a>
-                  </div>
+                  ))}
                 </div>
               </div>
             ))}
@@ -121,9 +162,9 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
         </div>
         
         {/* Navigation dots */}
-        {posts.length > 1 && (
+        {totalSlides > 1 && (
           <div className="flex justify-center mt-6 space-x-2">
-            {posts.map((_, index) => (
+            {Array.from({ length: totalSlides }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
@@ -137,20 +178,20 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                     ? 'w-6 bg-primary' 
                     : 'w-2 bg-primary/30'
                 }`}
-                aria-label={`Go to post ${index + 1}`}
+                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
         )}
         
         {/* Navigation arrows */}
-        {posts.length > 1 && (
+        {totalSlides > 1 && (
           <>
             <button
               onClick={prevPost}
               className="absolute top-1/2 left-4 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary/10 transition-colors"
               disabled={isAnimating}
-              aria-label="Previous post"
+              aria-label="Previous slide"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
@@ -158,7 +199,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
               onClick={nextPost}
               className="absolute top-1/2 right-4 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary/10 transition-colors"
               disabled={isAnimating}
-              aria-label="Next post"
+              aria-label="Next slide"
             >
               <ArrowRight className="h-5 w-5" />
             </button>
