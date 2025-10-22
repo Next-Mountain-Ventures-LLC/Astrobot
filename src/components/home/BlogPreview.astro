@@ -1,0 +1,11 @@
+---
+import { getPosts } from "@/lib/wordpress";
+import BlogCarousel from "./BlogCarousel";
+
+// Fetch the latest 5 blog posts at build time
+const posts = await getPosts(1, 5);
+---
+
+{posts.length > 0 && (
+  <BlogCarousel posts={posts} client:load />
+)}

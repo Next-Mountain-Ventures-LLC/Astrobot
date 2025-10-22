@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCard from "@/components/blog/BlogCard.astro";
+import { getPosts } from "@/lib/wordpress";
+
+// Fetch blog posts at build time
+const posts = await getPosts(1, 12);
+---
+
+<BaseLayout
+  title="Blog | Astrobot.design"
+  description="Explore our latest insights, tips, and news about fast website development, AI technology, and the Astro framework."
+>
+  <section class="py-16 md:py-24">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold tracking-tight mb-6">
+          Our Blog
+        </h1>
+        <p class="text-xl text-muted-foreground">
+          Insights and tips for building faster, better websites
+        </p>
+      </div>
+      
+      {posts.length === 0 ? (
+        <div class="text-center py-12 border border-primary/10 rounded-lg bg-secondary/20">
+          <p class="text-lg text-muted-foreground">No blog posts found.</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map(post => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

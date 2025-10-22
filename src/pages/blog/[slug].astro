@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogPost from "@/components/blog/BlogPost.astro";
+import { getPosts, getPostBySlug } from "@/lib/wordpress";
+import { generateExcerpt } from "@/lib/utils";
+
+// This defines the dynamic paths that will be pre-rendered at build time
+export async function getStaticPaths() {
+  try {
+    // Get all posts from our WordPress API
+    const allPosts = await getPosts(1, 100);  // Increase if you have more posts
+    
+    // Create a path for each post
+    return allPosts.map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+  } catch (error) {
+    console.error("Error generating static paths:", error);
+    return [];
+  }
+}
+
+// Get the post for this page
+const { post } = Astro.props;
+
+// For SEO
+const metaDescription = generateExcerpt(post.excerpt, 160);
+
+// Convert the featuredMedia URL to a URL object for OG image
+let ogImage;
+if (post.featuredMedia?.url) {
+  ogImage = new URL(post.featuredMedia.url);
+}
+---
+
+<BaseLayout
+  title={`${post.title} | Astrobot.design Blog`}
+  description={metaDescription}
+  ogImage={ogImage}
+>
+  <BlogPost post={post} />
+</BaseLayout>

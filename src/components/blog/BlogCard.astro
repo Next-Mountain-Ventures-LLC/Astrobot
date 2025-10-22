@@ -1,0 +1,59 @@
+---
+import type { ProcessedPost } from "@/lib/wordpress";
+import { formatDate } from "@/lib/utils";
+import { Calendar, Tag, ArrowRight } from "lucide-react";
+
+interface Props {
+  post: ProcessedPost;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="bg-secondary/30 border border-primary/20 rounded-lg overflow-hidden shadow-lg backdrop-blur-sm transform transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1 h-full flex flex-col">
+  {post.featuredMedia && (
+    <a href={`/blog/${post.slug}`} class="block relative h-48 overflow-hidden">
+      <img 
+        src={post.featuredMedia.url} 
+        alt={post.featuredMedia.alt || post.title} 
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
+    </a>
+  )}
+  
+  <div class="p-6 flex flex-col flex-grow">
+    <div class="flex items-center text-xs text-muted-foreground mb-3">
+      <Calendar className="h-3 w-3 mr-1" />
+      <span>{formatDate(post.date)}</span>
+      
+      {post.categories.length > 0 && (
+        <>
+          <span class="mx-2">•</span>
+          <Tag className="h-3 w-3 mr-1" />
+          <span>
+            {post.categories.map(cat => cat.name).join(', ')}
+          </span>
+        </>
+      )}
+    </div>
+    
+    <h2 class="font-heading text-xl font-medium mb-3">
+      <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
+        {post.title}
+      </a>
+    </h2>
+    
+    <p class="text-sm text-muted-foreground mb-6 flex-grow">
+      {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 120)}...
+    </p>
+    
+    <a 
+      href={`/blog/${post.slug}`}
+      class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors mt-auto"
+    >
+      Read Article
+      <ArrowRight className="ml-1 h-4 w-4" />
+    </a>
+  </div>
+</article>

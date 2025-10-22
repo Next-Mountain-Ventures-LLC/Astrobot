@@ -5,6 +5,7 @@ import Features from '@/components/home/Features';
 import HowItWorks from '@/components/home/HowItWorks';
 import MicroInteractions from '@/components/home/MicroInteractions';
 import Pricing from '@/components/home/Pricing';
+import BlogPreview from '@/components/home/BlogPreview.astro';
 import AdvancedBlogging from '@/components/home/AdvancedBlogging';
 import CTA from '@/components/home/CTA';
 ---
@@ -27,6 +28,9 @@ import CTA from '@/components/home/CTA';
   
   <!-- Pricing Section -->
   <Pricing client:load />
+  
+  <!-- Blog Preview Section -->
+  <BlogPreview />
   
   <!-- Advanced Blogging Section -->
   <AdvancedBlogging client:load />

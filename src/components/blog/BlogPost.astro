@@ -1,0 +1,90 @@
+---
+import { formatDate } from "@/lib/utils";
+import type { ProcessedPost } from "@/lib/wordpress";
+import { Calendar, Tag, User } from "lucide-react";
+import "@/styles/blog-content.css";
+
+interface Props {
+  post: ProcessedPost;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="container mx-auto py-12 px-4">
+  <div class="max-w-3xl mx-auto">
+    <!-- Post Header -->
+    <header class="mb-10">
+      {post.featuredMedia && (
+        <div class="relative h-64 md:h-96 rounded-lg overflow-hidden mb-6 border border-primary/20">
+          <img 
+            src={post.featuredMedia.url} 
+            alt={post.featuredMedia.alt || post.title} 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
+        </div>
+      )}
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-tight mb-4">
+        {post.title}
+      </h1>
+      
+      <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+        {post.author && (
+          <div class="flex items-center">
+            <User class="w-4 h-4 mr-1" />
+            <span>{post.author.name}</span>
+          </div>
+        )}
+        
+        <div class="flex items-center">
+          <Calendar class="w-4 h-4 mr-1" />
+          <span>{formatDate(post.date)}</span>
+        </div>
+        
+        {post.categories.length > 0 && (
+          <div class="flex items-center">
+            <Tag class="w-4 h-4 mr-1" />
+            <span>
+              {post.categories.map(cat => cat.name).join(', ')}
+            </span>
+          </div>
+        )}
+      </div>
+    </header>
+    
+    <!-- Post Content -->
+    <div class="blog-content max-w-none mb-10">
+      <Fragment set:html={post.content} />
+    </div>
+    
+    <!-- Tags -->
+    {post.tags.length > 0 && (
+      <div class="border-t border-border/30 pt-6 mt-10">
+        <h3 class="text-lg font-medium mb-4">Tags</h3>
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map(tag => (
+            <a
+              href={`/blog/tag/${tag.slug}`}
+              class="px-3 py-1 bg-secondary/30 text-primary text-sm rounded-full border border-primary/20 hover:bg-primary/10 transition-colors"
+            >
+              {tag.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+    
+    <!-- Back to Blog -->
+    <div class="text-center mt-12">
+      <a 
+        href="/blog" 
+        class="inline-flex items-center px-4 py-2 bg-secondary/50 text-primary border border-primary/20 rounded-md hover:bg-primary/10 transition-colors"
+      >
+        <span class="transform rotate-180 mr-2">→</span>
+        Back to Blog
+      </a>
+    </div>
+  </div>
+</article>
