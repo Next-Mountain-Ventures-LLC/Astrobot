@@ -224,9 +224,11 @@ export default function MicroInteractions() {
               </div>
               
               <div className="mt-8">
-                <Button className="w-full group bg-accent text-accent-foreground hover:bg-accent/90">
-                  Choose Supernova ($79/mo) <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <a href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01" target="_blank" rel="noopener noreferrer" className="block">
+                  <Button className="w-full group bg-accent text-accent-foreground hover:bg-accent/90">
+                    Choose Supernova ($79/mo) <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </a>
               </div>
             </div>
             
