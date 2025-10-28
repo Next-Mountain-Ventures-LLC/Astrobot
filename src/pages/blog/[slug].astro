@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogPost from "@/components/blog/BlogPost.astro";
 import { getPosts, getPostBySlug } from "@/lib/wordpress";
-import { generateExcerpt } from "@/lib/utils";
+import { generateExcerpt, cleanHtmlForDisplay } from "@/lib/utils";
 import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 
 // This defines the dynamic paths that will be pre-rendered at build time
@@ -39,7 +39,7 @@ if (post.featuredMedia?.url) {
 ---
 
 <BaseLayout
-  title={`${post.title} | Astrobot.design Blog`}
+  title={`${cleanHtmlForDisplay(post.title)} | Astrobot.design Blog`}
   description={metaDescription}
   ogImage={ogImage}
 >

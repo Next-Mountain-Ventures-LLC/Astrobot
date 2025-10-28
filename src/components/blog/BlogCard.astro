@@ -1,6 +1,6 @@
 ---
 import type { ProcessedPost } from "@/lib/wordpress";
-import { formatDate } from "@/lib/utils";
+import { formatDate, cleanHtmlForDisplay } from "@/lib/utils";
 import { Calendar, Tag, ArrowRight } from "lucide-react";
 
 interface Props {
@@ -32,7 +32,7 @@ const { post } = Astro.props;
           <span class="mx-2">•</span>
           <Tag className="h-3 w-3 mr-1" />
           <span>
-            {post.categories.map(cat => cat.name).join(', ')}
+            {post.categories.map(cat => cleanHtmlForDisplay(cat.name)).join(', ')}
           </span>
         </>
       )}
@@ -40,12 +40,12 @@ const { post } = Astro.props;
     
     <h2 class="font-heading text-xl font-medium mb-3">
       <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
-        {post.title}
+        {cleanHtmlForDisplay(post.title)}
       </a>
     </h2>
     
     <p class="text-sm text-muted-foreground mb-6 flex-grow">
-      {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 120)}...
+      {cleanHtmlForDisplay(post.excerpt).substring(0, 120)}...
     </p>
     
     <a 

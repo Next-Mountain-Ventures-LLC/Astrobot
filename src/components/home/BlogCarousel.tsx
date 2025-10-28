@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { ProcessedPost } from '@/lib/wordpress';
-import { formatDate } from '@/lib/utils';
+import { formatDate, cleanHtmlForDisplay } from '@/lib/utils';
 import { ArrowLeft, ArrowRight, Calendar, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -130,18 +130,18 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                                 <span className="mx-2">•</span>
                                 <Tag className="h-3 w-3 mr-1" />
                                 <span>
-                                  {post.categories.map(cat => cat.name).join(', ')}
+                                  {post.categories.map(cat => cleanHtmlForDisplay(cat.name)).join(', ')}
                                 </span>
                               </>
                             )}
                           </div>
                           
                           <h3 className="font-heading text-xl md:text-2xl font-medium mb-3">
-                            {post.title}
+                            {cleanHtmlForDisplay(post.title)}
                           </h3>
                           
                           <p className="text-sm text-muted-foreground mb-6">
-                            {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 150)}...
+                            {cleanHtmlForDisplay(post.excerpt).substring(0, 150)}...
                           </p>
                           
                           <a 

@@ -1,5 +1,5 @@
 ---
-import { formatDate } from "@/lib/utils";
+import { formatDate, cleanHtmlForDisplay } from "@/lib/utils";
 import type { ProcessedPost } from "@/lib/wordpress";
 import { Calendar, Tag, User } from "lucide-react";
 import "@/styles/blog-content.css";
@@ -34,14 +34,14 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).toString();
       )}
 
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-tight mb-4">
-        {post.title}
+        {cleanHtmlForDisplay(post.title)}
       </h1>
       
       <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
         {post.author && (
           <div class="flex items-center">
             <User class="w-4 h-4 mr-1" />
-            <span>{post.author.name}</span>
+            <span>{cleanHtmlForDisplay(post.author.name)}</span>
           </div>
         )}
         
@@ -61,7 +61,7 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).toString();
                     href={`/blog/category/${cat.slug}`}
                     class="hover:text-primary transition-colors"
                   >
-                    {cat.name}
+                    {cleanHtmlForDisplay(cat.name)}
                   </a>
                 </>
               ))}
@@ -89,7 +89,7 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).toString();
               href={`/blog/tag/${tag.slug}`}
               class="px-3 py-1 bg-secondary/30 text-primary text-sm rounded-full border border-primary/20 hover:bg-primary/10 transition-colors"
             >
-              {tag.name}
+              {cleanHtmlForDisplay(tag.name)}
             </a>
           ))}
         </div>
