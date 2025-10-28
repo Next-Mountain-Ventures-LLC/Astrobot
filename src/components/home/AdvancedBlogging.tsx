@@ -254,7 +254,7 @@ export default function AdvancedBlogging() {
           
           <div className="text-center">
             <Button className="font-heading group bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/50">
-              Add to Your Package <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              Coming Soon <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
