@@ -35,10 +35,16 @@ export default function CTA() {
                 </p>
                 
                 <div className="pt-2">
-                  <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Book Your Designer <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <a 
+                    href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
+                      <Calendar className="mr-2 h-5 w-5" />
+                      Book Your Designer <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </a>
                 </div>
               </div>
               
