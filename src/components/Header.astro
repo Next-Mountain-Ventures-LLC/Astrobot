@@ -39,24 +39,24 @@ import { MobileMenu } from "@/components/MobileMenu";
           Headless CMS
         </a>
         <a
-          href="https://nxtmt.bloom.io/login"
-          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Login
-        </a>
-        <a
           href="#pricing"
           class={buttonVariants({ variant: 'accent', size: 'sm', className: 'ml-4 font-heading tracking-wider' })}
         >
           Get Started
+        </a>
+        <a
+          href="https://nxtmt.bloom.io/login"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors ml-4"
+        >
+          Login
         </a>
       </nav>
       <MobileMenu client:load links={[
         { href: "#features", label: "Features" },
         { href: "#pricing", label: "Pricing" },
         { href: "/headless-cms", label: "Headless CMS" },
-        { href: "https://nxtmt.bloom.io/login", label: "Login" },
-        { href: "#pricing", label: "Get Started", isButton: true }
+        { href: "#pricing", label: "Get Started", isButton: true },
+        { href: "https://nxtmt.bloom.io/login", label: "Login" }
       ]} />
     </div>
   </div>
