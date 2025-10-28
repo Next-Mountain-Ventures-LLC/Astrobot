@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AdvancedBlogging from '@/components/home/AdvancedBlogging';
+---
+
+<BaseLayout
+  title="Headless CMS | Astrobot.design"
+  description="Get the best of both worlds: WordPress's content management with Astro's blazing fast performance."
+>
+  <!-- Advanced Blogging Section -->
+  <AdvancedBlogging client:load />
+</BaseLayout>

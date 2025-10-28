@@ -33,6 +33,12 @@ import { MobileMenu } from "@/components/MobileMenu";
           Pricing
         </a>
         <a
+          href="/headless-cms"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Headless CMS
+        </a>
+        <a
           href="#pricing"
           class={buttonVariants({ variant: 'accent', size: 'sm', className: 'ml-4 font-heading tracking-wider' })}
         >
@@ -42,6 +48,7 @@ import { MobileMenu } from "@/components/MobileMenu";
       <MobileMenu client:load links={[
         { href: "#features", label: "Features" },
         { href: "#pricing", label: "Pricing" },
+        { href: "/headless-cms", label: "Headless CMS" },
         { href: "#pricing", label: "Get Started", isButton: true }
       ]} />
     </div>
