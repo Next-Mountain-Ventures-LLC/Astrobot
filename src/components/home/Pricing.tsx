@@ -220,7 +220,7 @@ export default function Pricing() {
             <h3 className="text-lg font-medium font-heading mb-2">Looking for advanced blogging capabilities?</h3>
             <p className="text-muted-foreground mb-4">Check out our WordPress + Astro integration below.</p>
             <div className="inline-block text-primary text-sm">
-              <a href="#advanced-blogging" className="flex items-center hover:underline">
+              <a href="/headless-cms" className="flex items-center hover:underline">
                 <span>Learn more about Advanced Blogging</span>
                 <ArrowRight className="ml-1 h-4 w-4" />
               </a>
