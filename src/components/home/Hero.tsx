@@ -44,7 +44,7 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
-              <a href="#pricing">
+              <a href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
                   Book Your Design Launch <ArrowRight className="ml-1 h-4 w-4 animate-bounceX" />
                 </Button>

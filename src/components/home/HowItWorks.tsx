@@ -109,9 +109,11 @@ export default function HowItWorks() {
         
         <div className="mt-16 text-center">
           <div className="inline-block p-0.5 rounded-lg bg-gradient-to-r from-accent via-accent to-accent/80">
-            <Button variant="secondary" size="lg" className="font-heading tracking-wide group bg-background/95 border-accent/20">
-              Book Your Design & Launch <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01" target="_blank" rel="noopener noreferrer">
+              <Button variant="secondary" size="lg" className="font-heading tracking-wide group bg-background/95 border-accent/20">
+                Book Your Design & Launch <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
           </div>
         </div>
       </div>
