@@ -48,7 +48,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
 
       {/* Slide-out menu */}
       <div
-        className={`fixed top-0 right-0 z-50 w-64 h-full bg-background/95 backdrop-blur-lg shadow-xl transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-50 w-64 h-full bg-gradient-to-r from-background/80 to-background border-l border-primary/10 backdrop-blur-xl shadow-xl transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -72,7 +72,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
               className={
                 link.isButton
                   ? "bg-accent text-accent-foreground py-3 px-4 my-2 rounded-md font-medium text-center"
-                  : "py-3 border-b border-border/20 text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  : "py-3 border-b border-border/20 text-lg font-medium text-foreground hover:text-primary transition-colors bg-background/60 backdrop-blur-sm rounded px-2"
               }
             >
               {link.label}
