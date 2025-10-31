@@ -37,9 +37,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
       {/* Mobile menu that appears below the header */}
       {isOpen && (
         <div
-          className="fixed top-16 left-0 right-0 bottom-0 z-50 w-full bg-background transform flex flex-col animate-slideDown border-t border-border/20"
+          className="fixed top-16 left-0 right-0 bottom-0 z-50 w-full bg-[#121218] transform flex flex-col animate-slideDown border-t border-border"
         >
-          <nav className="flex flex-col px-6 pt-8 pb-8 space-y-6 flex-grow">
+          <nav className="flex flex-col px-8 pt-12 pb-8 space-y-8 flex-grow">
             {links.map((link, index) => (
               <a
                 key={index}
@@ -48,7 +48,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
                 className={
                   link.isButton
                     ? "bg-accent text-accent-foreground py-4 px-6 rounded-md font-semibold text-center text-2xl"
-                    : "py-4 text-2xl font-semibold text-foreground hover:text-primary transition-colors border-b border-border/10 w-full"
+                    : "py-5 text-2xl font-semibold text-foreground hover:text-primary transition-colors border-b border-border/30 w-full"
                 }
               >
                 {link.label}
