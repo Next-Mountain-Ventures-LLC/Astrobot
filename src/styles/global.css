@@ -118,8 +118,8 @@
   }
 
   @keyframes slideDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+    from { transform: translateY(-5%); opacity: 0.8; }
+    to { transform: translateY(0); opacity: 1; }
   }
 }
 
@@ -153,7 +153,7 @@
 }
 
 .animate-slideDown {
-  animation: slideDown 0.3s ease-in-out forwards;
+  animation: slideDown 0.2s ease-out forwards;
 }
 
 @utility container {
