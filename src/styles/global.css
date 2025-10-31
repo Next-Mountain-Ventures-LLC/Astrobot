@@ -158,18 +158,33 @@
   -webkit-backdrop-filter: none;
 }
 
-/* Ensure mobile menu is completely opaque */
+/* Mobile menu overlay styles */
+#menu-backdrop {
+  background-color: #121218 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;
+  z-index: 49 !important;
+}
+
+/* Mobile menu styles */
 .md\:hidden div[class*="fixed"] {
   background-color: #121218 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   opacity: 1 !important;
+  z-index: 50 !important;
 }
 
-/* Additional mobile menu fixes */
-.fixed.inset-0 {
+/* Force opaque background */
+.fixed.top-16 {
   background-color: #121218 !important;
   opacity: 1 !important;
+}
+
+/* Ensure pointer events work properly */
+.fixed.top-16 * {
+  pointer-events: auto !important;
 }
 
 @utility container {
