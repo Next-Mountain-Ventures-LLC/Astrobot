@@ -116,6 +116,11 @@
     97% { content: "0%"; opacity: 1; }
     100% { content: "0%"; opacity: 1; }
   }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+  }
 }
 
 .animate-fadeIn {
@@ -145,6 +150,10 @@
 
 .animate-bounceX {
   animation: bounceX 1s ease-in-out infinite;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-in-out forwards;
 }
 
 @utility container {

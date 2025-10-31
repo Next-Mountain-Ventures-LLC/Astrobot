@@ -36,12 +36,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
 
       {/* No overlay needed since we're using full page menu */}
 
-      {/* Full-page menu */}
-      <div
-        className={`fixed inset-0 z-50 w-full h-full bg-[#121218] transform transition-transform duration-300 ease-in-out flex flex-col ${
-          isOpen ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
+      {/* Full-page menu - only render when open */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-50 w-full h-full bg-[#121218] transform flex flex-col animate-slideDown"
+        >
         <div className="flex items-center p-4 border-b border-border/20 fixed top-0 w-full bg-[#121218] shadow-sm">
           <a href="/" className="flex items-center space-x-2">
             <div className="bg-primary/10 p-1.5 rounded-md border border-primary/20">
@@ -68,6 +67,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
           ))}
         </nav>
       </div>
+      )}
     </div>
   );
 };
