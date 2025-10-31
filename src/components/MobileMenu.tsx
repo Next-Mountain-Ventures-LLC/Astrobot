@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 interface MobileMenuProps {
@@ -11,16 +10,61 @@ interface MobileMenuProps {
   }>;
 }
 
+const menuStyles = {
+  container: {
+    position: 'fixed',
+    top: '64px', // Adjust based on your header height
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#121218',
+    zIndex: 50,
+    display: 'flex',
+    flexDirection: 'column' as const,
+    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+    overflow: 'hidden'
+  },
+  nav: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    padding: '3rem 2rem 2rem',
+    gap: '2rem'
+  },
+  link: {
+    padding: '1.25rem 0',
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    color: 'white',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+    width: '100%',
+    transition: 'color 0.2s'
+  },
+  buttonLink: {
+    backgroundColor: 'rgb(239, 68, 68)',
+    color: 'white',
+    padding: '1rem 1.5rem',
+    borderRadius: '0.375rem',
+    fontWeight: 600,
+    fontSize: '1.5rem',
+    textAlign: 'center' as const
+  }
+};
+
 export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
 
-  // Close the menu when a link is clicked
   const handleLinkClick = () => {
     setIsOpen(false);
+    document.body.style.overflow = '';
   };
 
   return (
@@ -34,22 +78,15 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
         <X className={`h-6 w-6 absolute top-2 left-2 transition-all duration-300 text-foreground ${isOpen ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-0 -rotate-90'}`} />
       </button>
 
-      {/* Mobile menu that appears below the header */}
       {isOpen && (
-        <div
-          className="fixed top-16 left-0 right-0 bottom-0 z-50 w-full bg-[#121218] transform flex flex-col animate-slideDown border-t border-border"
-        >
-          <nav className="flex flex-col px-8 pt-12 pb-8 space-y-8 flex-grow">
+        <div style={menuStyles.container}>
+          <nav style={menuStyles.nav}>
             {links.map((link, index) => (
               <a
                 key={index}
                 href={link.href}
                 onClick={handleLinkClick}
-                className={
-                  link.isButton
-                    ? "bg-accent text-accent-foreground py-4 px-6 rounded-md font-semibold text-center text-2xl"
-                    : "py-5 text-2xl font-semibold text-foreground hover:text-primary transition-colors border-b border-border/30 w-full"
-                }
+                style={link.isButton ? menuStyles.buttonLink : menuStyles.link}
               >
                 {link.label}
               </a>
