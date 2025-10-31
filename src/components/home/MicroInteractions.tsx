@@ -52,27 +52,27 @@ export default function MicroInteractions() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-8">
-            <div className="flex space-x-3">
+            <div className="flex flex-wrap gap-2 w-full">
               {tabs.map((tab, index) => (
                 <button
                   key={index}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-3 py-2 text-xs sm:text-sm md:text-base rounded-md transition-all duration-300 flex-grow sm:flex-grow-0 ${
                     activeTab === index 
                       ? 'bg-primary text-primary-foreground' 
                       : 'bg-secondary/50 text-muted-foreground hover:bg-secondary'
                   }`}
                   onClick={() => setActiveTab(index)}
                 >
-                  <span>{tab.icon}</span>
-                  <span className="font-medium">{tab.title}</span>
+                  <span className="flex-shrink-0">{tab.icon}</span>
+                  <span className="font-medium whitespace-nowrap">{tab.title}</span>
                 </button>
               ))}
             </div>
             
-            <div className="bg-secondary/30 rounded-lg border border-border/40 p-6">
-              <h3 className="flex items-center space-x-2 text-xl font-medium font-heading mb-3">
+            <div className="bg-secondary/30 rounded-lg border border-border/40 p-4 md:p-6">
+              <h3 className="flex items-center space-x-2 text-lg md:text-xl font-medium font-heading mb-3">
                 <span>{tabs[activeTab].icon}</span>
                 <span>{tabs[activeTab].title}</span>
               </h3>
@@ -84,10 +84,10 @@ export default function MicroInteractions() {
                 {activeTab === 1 && (
                   <>
                     <div>
-                      <p className="text-sm text-muted-foreground mb-3">
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                         Hover over these elements to see the effects:
                       </p>
-                      <div className="flex flex-wrap gap-4">
+                      <div className="flex flex-wrap gap-3 md:gap-4">
                         <div 
                           className="relative overflow-hidden rounded-md"
                           onMouseEnter={() => setIsHovering(true)}
@@ -119,7 +119,7 @@ export default function MicroInteractions() {
                 {activeTab === 0 && (
                   <>
                     <div>
-                      <p className="text-sm text-muted-foreground mb-3">
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                         Click the button to see loading state:
                       </p>
                       <button 
@@ -154,7 +154,7 @@ export default function MicroInteractions() {
                 {activeTab === 2 && (
                   <>
                     <div>
-                      <p className="text-sm text-muted-foreground mb-3">
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                         Scroll down to see animations (or try scrolling back up):
                       </p>
                       <div className="space-y-4">
@@ -178,47 +178,47 @@ export default function MicroInteractions() {
           </div>
           
           <div className="relative">
-            <div className="bg-secondary/30 border border-border/40 rounded-lg p-6">
+            <div className="bg-secondary/30 border border-border/40 rounded-lg p-4 md:p-6">
               <h3 className="font-heading text-xl font-medium mb-4">Micro-Interactions</h3>
               
-              <div className="space-y-4">
-                <div className="flex items-start">
+              <div className="space-y-3 md:space-y-4">
+                <div className="flex items-start space-x-2 md:space-x-3">
                   <div className="flex-shrink-0 mt-1">
                     <Sparkles className="h-4 w-4 text-accent" />
                   </div>
-                  <div className="ml-3">
-                    <h4 className="text-base font-medium">Interactive Elements</h4>
-                    <p className="text-sm text-muted-foreground">Elements that respond to user actions in real-time.</p>
+                  <div>
+                    <h4 className="text-sm md:text-base font-medium">Interactive Elements</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground">Elements that respond to user actions in real-time.</p>
                   </div>
                 </div>
                 
-                <div className="flex items-start">
+                <div className="flex items-start space-x-2 md:space-x-3">
                   <div className="flex-shrink-0 mt-1">
                     <Sparkles className="h-4 w-4 text-accent" />
                   </div>
-                  <div className="ml-3">
-                    <h4 className="text-base font-medium">Scroll Reveal Effects</h4>
-                    <p className="text-sm text-muted-foreground">Elements that animate into view as users scroll.</p>
+                  <div>
+                    <h4 className="text-sm md:text-base font-medium">Scroll Reveal Effects</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground">Elements that animate into view as users scroll.</p>
                   </div>
                 </div>
                 
-                <div className="flex items-start">
+                <div className="flex items-start space-x-2 md:space-x-3">
                   <div className="flex-shrink-0 mt-1">
                     <Sparkles className="h-4 w-4 text-accent" />
                   </div>
-                  <div className="ml-3">
-                    <h4 className="text-base font-medium">Loading Indicators</h4>
-                    <p className="text-sm text-muted-foreground">Beautiful loading states that keep users engaged.</p>
+                  <div>
+                    <h4 className="text-sm md:text-base font-medium">Loading Indicators</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground">Beautiful loading states that keep users engaged.</p>
                   </div>
                 </div>
                 
-                <div className="flex items-start">
+                <div className="flex items-start space-x-2 md:space-x-3">
                   <div className="flex-shrink-0 mt-1">
                     <Sparkles className="h-4 w-4 text-accent" />
                   </div>
-                  <div className="ml-3">
-                    <h4 className="text-base font-medium">Interactive UI Elements</h4>
-                    <p className="text-sm text-muted-foreground">Buttons, forms, and navigation with delightful interactions.</p>
+                  <div>
+                    <h4 className="text-sm md:text-base font-medium">Interactive UI Elements</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground">Buttons, forms, and navigation with delightful interactions.</p>
                   </div>
                 </div>
               </div>
