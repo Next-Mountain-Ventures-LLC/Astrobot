@@ -38,21 +38,21 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
         )}
       </Button>
 
-      {/* Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={toggleMenu}
-        ></div>
-      )}
+      {/* No overlay needed since we're using full page menu */}
 
-      {/* Slide-out menu */}
+      {/* Full-page menu */}
       <div
-        className={`fixed top-0 right-0 z-50 w-64 h-full bg-gradient-to-r from-background/80 to-background border-l border-primary/10 backdrop-blur-xl shadow-xl transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-0 z-50 w-full h-full bg-background transform transition-transform duration-300 ease-in-out flex flex-col ${
+          isOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="flex justify-end p-4">
+        <div className="flex items-center justify-between p-4 border-b border-border/20">
+          <a href="/" className="flex items-center space-x-2">
+            <div className="bg-primary/10 p-1.5 rounded-md border border-primary/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </div>
+            <span className="font-heading font-bold tracking-widest">ASTROBOT.DESIGN</span>
+          </a>
           <Button 
             variant="ghost" 
             size="icon" 
@@ -63,7 +63,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
           </Button>
         </div>
         
-        <nav className="flex flex-col px-4 py-2">
+        <nav className="flex flex-col px-6 py-8 space-y-6 flex-grow">
           {links.map((link, index) => (
             <a
               key={index}
@@ -71,8 +71,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
               onClick={handleLinkClick}
               className={
                 link.isButton
-                  ? "bg-accent text-accent-foreground py-3 px-4 my-2 rounded-md font-medium text-center"
-                  : "py-3 border-b border-border/20 text-lg font-medium text-foreground hover:text-primary transition-colors bg-background/60 backdrop-blur-sm rounded px-2"
+                  ? "bg-accent text-accent-foreground py-4 px-6 rounded-md font-medium text-center text-xl"
+                  : "py-2 text-xl font-medium text-foreground hover:text-primary transition-colors"
               }
             >
               {link.label}

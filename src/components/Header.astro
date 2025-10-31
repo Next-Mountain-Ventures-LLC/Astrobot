@@ -21,13 +21,13 @@ import { MobileMenu } from "@/components/MobileMenu";
     <div class="flex flex-1 items-center justify-end space-x-4">
       <nav class="hidden md:flex items-center space-x-3">
         <a
-          href="#features"
+          href="/?section=features"
           class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           Features
         </a>
         <a
-          href="#pricing"
+          href="/?section=pricing"
           class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           Pricing
@@ -46,8 +46,8 @@ import { MobileMenu } from "@/components/MobileMenu";
         </a>
       </nav>
       <MobileMenu client:load links={[
-        { href: "#features", label: "Features" },
-        { href: "#pricing", label: "Pricing" },
+        { href: "/?section=features", label: "Features" },
+        { href: "/?section=pricing", label: "Pricing" },
         { href: "/headless-cms", label: "Headless CMS" },
         { href: "https://nxtmt.bloom.io/login", label: "Login" }
       ]} />
