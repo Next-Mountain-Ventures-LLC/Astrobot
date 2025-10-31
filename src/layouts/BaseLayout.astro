@@ -47,7 +47,7 @@ const { title, description, ogImage } = Astro.props;
         // Add click event listeners to all links with section parameters
         document.querySelectorAll('a[href^="/?section="]').forEach(link => {
           link.addEventListener('click', function(e) {
-            // Only handle if we're on the homepage
+            // If we're on the homepage, handle scrolling directly
             if (window.location.pathname === '/' || window.location.pathname === '') {
               e.preventDefault();
               
@@ -68,6 +68,8 @@ const { title, description, ogImage } = Astro.props;
                 }
               }
             }
+            // If we're not on the homepage, let the normal link navigation happen
+            // This will take us to the homepage with the section parameter in the URL
           });
         });
       });
