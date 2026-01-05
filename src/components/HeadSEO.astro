@@ -74,6 +74,15 @@ const { title, description, ogImage } = Astro.props;
 <!-- DO NOT REMOVE - Plausible Analytics must always be enabled -->
 <script
   defer
-  data-domain={typeof window !== 'undefined' ? window.location.hostname : 'astrobot.design'}
+  data-domain="astrobot.design"
   src="https://plausible.io/js/script.js"
 ></script>
+<script is:inline>
+  // Override data-domain for development/preview domains
+  if (document.currentScript) {
+    const hostname = window.location.hostname;
+    if (hostname !== 'localhost' && !hostname.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+      document.currentScript.setAttribute('data-domain', hostname);
+    }
+  }
+</script>
