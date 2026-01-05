@@ -14,28 +14,28 @@ import CTA from '@/components/home/CTA';
   title="Astrobot.design | Blazing Fast Websites Built with AI"
   description="AI-powered, human-designed websites that load up to 75% faster than traditional sites. Book your designer today."
 >
-  <!-- Hero Section -->
+  <!-- Hero Section (critical) -->
   <Hero client:load />
-  
-  <!-- Features Section -->
-  <Features client:load />
-  
+
+  <!-- Features Section (visible on load) -->
+  <Features client:visible />
+
   <!-- How It Works Section -->
-  <HowItWorks client:load />
-  
+  <HowItWorks client:idle />
+
   <!-- Micro-Interactions Section -->
-  <MicroInteractions client:load />
-  
+  <MicroInteractions client:idle />
+
   <!-- Pricing Section -->
-  <Pricing client:load />
-  
+  <Pricing client:idle />
+
   <!-- Newsletter Section -->
-  <Newsletter client:load />
-  
+  <Newsletter client:idle />
+
   <!-- Blog Preview Section -->
   <BlogPreview />
-  
-  
+
+
   <!-- CTA Section -->
-  <CTA client:load />
+  <CTA client:idle />
 </BaseLayout>
