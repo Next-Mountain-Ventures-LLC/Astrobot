@@ -145,7 +145,7 @@ export default function MicroInteractions() {
                     
                     <div className="mt-4">
                       <div className="h-2 w-full bg-secondary/50 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-primary to-accent rounded-full animate-progress"></div>
+                        <div className="h-full bg-gradient-to-r from-primary to-accent rounded-full" style={{width: isClicked ? '100%' : '0%', transition: 'width 1s ease'}}></div>
                       </div>
                     </div>
                   </>
