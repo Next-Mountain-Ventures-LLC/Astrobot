@@ -16,4 +16,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  // Image optimization settings
+  image: {
+    // Allow remote images from WordPress API
+    remotePatterns: [{ protocol: "http" }, { protocol: "https" }],
+  },
 });
