@@ -136,16 +136,19 @@
 }
 
 .animate-progress {
-  animation: progress 2.5s ease-in-out infinite;
+  animation: progress 2.5s ease-in-out 1;
   width: 100%;
+  will-change: width;
 }
 
 .animate-progress-fast {
   animation: progress-fast 1s ease-out forwards;
+  will-change: transform;
 }
 
 .animate-pulse-slow {
-  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) 1;
+  animation-iteration-count: 1;
 }
 
 .animate-bounceX {
