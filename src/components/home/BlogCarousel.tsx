@@ -110,10 +110,12 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                     <div key={post.id} className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                       <div className="bg-secondary/30 border border-primary/20 rounded-lg overflow-hidden shadow-lg backdrop-blur-sm transform transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1 h-full">
                         {post.featuredMedia && (
-                          <div className="relative h-48 md:h-64 overflow-hidden">
-                            <img 
-                              src={post.featuredMedia.url} 
-                              alt={post.featuredMedia.alt || post.title} 
+                          <div className="relative h-48 md:h-64 overflow-hidden bg-secondary/50">
+                            <img
+                              src={post.featuredMedia.url}
+                              alt={post.featuredMedia.alt || post.title}
+                              loading="lazy"
+                              decoding="async"
                               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
