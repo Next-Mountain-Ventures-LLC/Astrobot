@@ -88,15 +88,6 @@
     0% { transform: translateX(-100%); }
     100% { transform: translateX(0); }
   }
-
-  /* Reduce animation performance impact on lower-end devices */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
   
   @keyframes bounceX {
     0%, 100% { transform: translateX(0); }
