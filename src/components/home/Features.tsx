@@ -35,7 +35,7 @@ export default function Features() {
       case 'speed':
         return (
           <div className="h-12 w-full mb-3 relative overflow-hidden rounded-md bg-secondary/50 flex items-center justify-center border border-border/30">
-            <div className="absolute h-4 bg-primary/30 left-0 w-1/4 animate-progress"></div>
+            <div className="absolute h-4 bg-primary/30 left-0 w-3/4" style={{animation: 'none'}}></div>
             <div className="z-10 text-xs text-primary/80 font-medium">75% Faster</div>
           </div>
         );
