@@ -99,7 +99,7 @@ export default function MailingListSignup() {
         formData.append('phone', phoneWithCountryCode);
       }
       
-      const response = await fetch('https://api.new.website/api/submit-form/', {
+      const response = await fetch('/api/mailing-list', {
         method: 'POST',
         body: formData,
       });
