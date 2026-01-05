@@ -32,9 +32,11 @@ const authorBio = post.author.name && authorBios[post.author.name as keyof typeo
   
   <div class="flex items-start space-x-4">
     {post.author.avatar && (
-      <img 
-        src={post.author.avatar} 
-        alt={cleanHtmlForDisplay(post.author.name)} 
+      <img
+        src={post.author.avatar}
+        alt={cleanHtmlForDisplay(post.author.name)}
+        loading="lazy"
+        decoding="async"
         class="w-12 h-12 rounded-full object-cover border border-primary/20"
       />
     )}
