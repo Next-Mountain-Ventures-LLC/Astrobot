@@ -94,7 +94,7 @@ export default function Hero() {
                 <div className="space-y-4">
                   {/* Header with Astro logo */}
                   <div className="w-full h-10 bg-secondary-foreground/5 rounded-md relative overflow-hidden">
-                    <div className="absolute top-0 left-0 h-full bg-primary/10 rounded-md animate-progress-fast w-full"></div>
+                    <div className="absolute top-0 left-0 h-full bg-primary/10 rounded-md w-full"></div>
                     <div className="absolute top-0 left-0 flex items-center justify-between h-full px-2 w-full">
                       <div className="flex items-center">
                         <img src={astroLogo.src} alt="" width={astroLogo.width / 10} height={astroLogo.height / 10} className="h-5 mr-2" />
