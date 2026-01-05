@@ -5,8 +5,14 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || "https://astrobot.design",
+  // Custom domain (root deployment)
+  site: "https://astrobot.design",
+
+  // Required for GitHub Pages
+  output: "static",
+
   integrations: [react()],
+
   vite: {
     plugins: [tailwindcss()],
   },
