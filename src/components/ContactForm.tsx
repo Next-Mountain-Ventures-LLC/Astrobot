@@ -18,10 +18,10 @@ export default function ContactForm() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
