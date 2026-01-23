@@ -113,6 +113,7 @@ export default function MailingListSignup() {
         setFirstName('');
         setLastName('');
         setPhone('');
+        setSmsOptIn(false);
         setStep(1);
       } else {
         throw new Error('Failed to submit form');
