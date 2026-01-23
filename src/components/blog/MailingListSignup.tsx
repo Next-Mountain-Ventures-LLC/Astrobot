@@ -54,6 +54,10 @@ export default function MailingListSignup() {
     const input = e.target.value;
     setPhone(input);
     setFormattedPhone(formatPhoneWithCountryCode(input));
+    // Auto-check SMS opt-in if phone number is provided
+    if (input.trim()) {
+      setSmsOptIn(true);
+    }
   };
 
   // Handle step 1 submission (email collection)
