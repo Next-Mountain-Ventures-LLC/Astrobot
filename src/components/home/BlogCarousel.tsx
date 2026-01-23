@@ -117,7 +117,9 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
             {slides.map((slideItems, slideIndex) => (
               <div key={slideIndex} className="w-full flex-shrink-0">
                 <div className="flex flex-wrap -mx-4">
-                  {slideItems.map((post) => (
+                  {slideItems.map((post) => {
+                    const postDate = ensureDate(post.date);
+                    return (
                     <div key={post.id} className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                       <div className="bg-secondary/30 border border-primary/20 rounded-lg overflow-hidden shadow-lg backdrop-blur-sm transform transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1 h-full">
                         {post.featuredMedia && (
@@ -132,12 +134,12 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80"></div>
                           </div>
                         )}
-                        
+
                         <div className="p-6">
                           <div className="flex items-center text-xs text-muted-foreground mb-3">
                             <Calendar className="h-3 w-3 mr-1" />
-                            <span>{ensureDate(post.date) ? formatDate(ensureDate(post.date)!) : 'Date unavailable'}</span>
-                            
+                            <span>{postDate ? formatDate(postDate) : 'Date unavailable'}</span>
+
                             {post.categories.length > 0 && (
                               <>
                                 <span className="mx-2">•</span>
@@ -148,16 +150,16 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                               </>
                             )}
                           </div>
-                          
+
                           <h3 className="font-heading text-xl md:text-2xl font-medium mb-3">
                             {cleanHtmlForDisplay(post.title)}
                           </h3>
-                          
+
                           <p className="text-sm text-muted-foreground mb-6">
                             {cleanHtmlForDisplay(post.excerpt).substring(0, 150)}...
                           </p>
-                          
-                          <a 
+
+                          <a
                             href={`/blog/${post.slug}`}
                             className="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors"
                           >
@@ -167,7 +169,8 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                         </div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
