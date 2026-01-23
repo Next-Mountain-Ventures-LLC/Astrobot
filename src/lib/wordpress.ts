@@ -87,13 +87,16 @@ const ASTROBOT_CATEGORY_SLUG = import.meta.env.WORDPRESS_CATEGORY_SLUG || 'astro
 // Fetch categories to get the ID of the Astrobot.design category
 export async function getCategories(): Promise<WordPressCategory[]> {
   try {
+    console.log(`📡 Fetching categories from WordPress API at ${WP_API_URL}/categories`);
     const response = await fetch(`${WP_API_URL}/categories?per_page=100`);
     if (!response.ok) {
       throw new Error(`Failed to fetch categories: ${response.status}`);
     }
-    return await response.json();
+    const categories = await response.json();
+    console.log(`✅ Found ${categories.length} categories from WordPress`);
+    return categories;
   } catch (error) {
-    console.error('Error fetching WordPress categories:', error);
+    console.error('❌ Error fetching WordPress categories:', error);
     return [];
   }
 }
