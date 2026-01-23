@@ -184,13 +184,15 @@ export default function MailingListSignup() {
                       placeholder="Enter your email"
                       className="flex-1 px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                       required
+                      disabled={isSubmitting}
                     />
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       className="whitespace-nowrap"
+                      disabled={isSubmitting}
                     >
-                      Next
-                      <ArrowRight className="ml-1 w-4 h-4" />
+                      {isSubmitting ? 'Subscribing...' : 'Next'}
+                      {!isSubmitting && <ArrowRight className="ml-1 w-4 h-4" />}
                     </Button>
                   </div>
                   
