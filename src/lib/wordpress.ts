@@ -258,6 +258,7 @@ export async function getPosts(
   try {
     // If no categoryId provided, try to get the Astrobot category ID
     if (!categoryId) {
+      console.log(`🔍 getPosts: Fetching category ID for "${ASTROBOT_CATEGORY_SLUG}"...`);
       categoryId = await getAstrobotCategoryId();
       if (!categoryId) {
         throw new Error('Could not determine Astrobot.design category ID from WordPress API');
@@ -273,17 +274,22 @@ export async function getPosts(
     }
 
     try {
+      console.log(`📡 getPosts: Fetching from WordPress API with category ID ${categoryId}...`);
+      console.log(`📍 getPosts: API URL: ${url}`);
       const response = await fetch(url, { signal: AbortSignal.timeout(10000) }); // 10s timeout for build processes
       if (!response.ok) {
         throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
       }
 
       const posts: WordPressPost[] = await response.json();
-      return posts.map(processPost);
+      const processedPosts = posts.map(processPost);
+      console.log(`✅ getPosts: Successfully fetched ${posts.length} posts from WordPress API`);
+      return processedPosts;
     } catch (fetchError) {
       // Log error but continue with mock data
       const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
-      console.warn(`Failed to fetch from WordPress API: ${errorMessage}`);
+      console.warn(`❌ Failed to fetch from WordPress API: ${errorMessage}`);
+      console.warn(`⚠️ getPosts: Falling back to ${MOCK_POSTS.length} mock posts`);
 
       // Return paginated mock data
       const start = (page - 1) * perPage;
@@ -292,7 +298,8 @@ export async function getPosts(
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('Error in getPosts:', errorMessage);
+    console.error('❌ Error in getPosts:', errorMessage);
+    console.warn(`⚠️ getPosts: Falling back to ${MOCK_POSTS.length} mock posts`);
     // Fallback to mock data in case of any error
     const start = (page - 1) * perPage;
     const end = start + perPage;
