@@ -33,6 +33,11 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
     return 1; // Mobile default
   };
 
+  // Refs to track current state without causing interval recreation
+  const totalSlidesRef = useRef(0);
+  const isAnimatingRef = useRef(false);
+  const currentIndexRef = useRef(0);
+
   // Set initial postsPerSlide on client mount and update on window resize
   useEffect(() => {
     // Set initial value on client
@@ -47,41 +52,54 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   // Calculate total number of slides
   const totalSlides = Math.ceil(posts.length / postsPerSlide);
-  
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    totalSlidesRef.current = totalSlides;
+  }, [totalSlides]);
+
+  useEffect(() => {
+    isAnimatingRef.current = isAnimating;
+  }, [isAnimating]);
+
+  useEffect(() => {
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
   const nextPost = () => {
-    if (isAnimating || totalSlides <= 1) return;
+    if (isAnimatingRef.current || totalSlidesRef.current <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlidesRef.current);
   };
-  
+
   const prevPost = () => {
-    if (isAnimating || totalSlides <= 1) return;
+    if (isAnimatingRef.current || totalSlidesRef.current <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlidesRef.current) % totalSlidesRef.current);
   };
-  
+
   // Handle animation end
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimating(false);
     }, 500); // Match this to the CSS transition duration
-    
+
     return () => clearTimeout(timer);
   }, [currentIndex]);
-  
-  // Auto rotation (optional)
+
+  // Auto rotation - stable interval that doesn't recreate
   useEffect(() => {
     const interval = setInterval(() => {
-      if (totalSlides > 1) {
+      if (totalSlidesRef.current > 1 && !isAnimatingRef.current) {
         nextPost();
       }
     }, 6000); // Change posts every 6 seconds
-    
+
     return () => clearInterval(interval);
-  }, [totalSlides, currentIndex, isAnimating]);
+  }, []); // Empty dependency array - refs keep values current
   
   if (!posts || posts.length === 0) {
     return null;
