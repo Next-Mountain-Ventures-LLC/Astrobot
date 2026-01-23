@@ -99,7 +99,7 @@ export default function MailingListSignup() {
         formData.append('phone', phoneWithCountryCode);
       }
       
-      const response = await fetch('/api/mailing-list', {
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/24996675/ur0odxr/', {
         method: 'POST',
         body: formData,
       });
