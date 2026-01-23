@@ -40,7 +40,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md" suppressHydrationWarning>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
           Name
@@ -87,7 +87,7 @@ export default function ContactForm() {
       </div>
 
       <input name="form_name" type="hidden" value={formData.form_name} />
-      
+
       <Button
         type="submit"
         disabled={isSubmitting}
@@ -96,17 +96,17 @@ export default function ContactForm() {
         {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
 
-      {submitStatus === "success" && (
+      <div className={submitStatus === "success" ? "" : "hidden"}>
         <div className="p-3 bg-green-100 border border-green-400 text-green-700 rounded">
           Form submitted successfully!
         </div>
-      )}
+      </div>
 
-      {submitStatus === "error" && (
+      <div className={submitStatus === "error" ? "" : "hidden"}>
         <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
           There was an error submitting the form. Please try again.
         </div>
-      )}
+      </div>
     </form>
   );
 }
