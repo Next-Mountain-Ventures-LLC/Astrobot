@@ -274,10 +274,9 @@ export async function getPosts(
       const posts: WordPressPost[] = await response.json();
       return posts.map(processPost);
     } catch (fetchError) {
-      // Log more context about the error
+      // Log error but continue with mock data
       const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
-      console.warn(`⚠️  Failed to fetch from WordPress API (${WP_API_URL}): ${errorMessage}`);
-      console.info('📚 Using fallback mock data. This is normal for development.');
+      console.warn(`Failed to fetch from WordPress API: ${errorMessage}`);
 
       // Return paginated mock data
       const start = (page - 1) * perPage;
@@ -286,7 +285,7 @@ export async function getPosts(
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('❌ Error in getPosts:', errorMessage);
+    console.error('Error in getPosts:', errorMessage);
     // Fallback to mock data in case of any error
     const start = (page - 1) * perPage;
     const end = start + perPage;
