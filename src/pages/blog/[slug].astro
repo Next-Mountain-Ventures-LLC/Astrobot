@@ -8,16 +8,26 @@ import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 // This defines the dynamic paths that will be pre-rendered at build time
 export async function getStaticPaths() {
   try {
+    console.log("🔨 Astro: Starting blog page generation...");
     // Get all posts from our WordPress API
     const allPosts = await getPosts(1, 100);  // Increase if you have more posts
-    
+
+    console.log(`🔨 Astro: Generating ${allPosts.length} blog post pages from WordPress API`);
+
+    // Warn if we seem to be falling back to mock data
+    if (allPosts.length <= 3) {
+      console.warn(`⚠️ Astro: Only ${allPosts.length} posts found! This might indicate a WordPress API failure.`);
+      console.warn('⚠️ Astro: The site may be using mock/fallback data instead of live WordPress content.');
+      console.warn('⚠️ Astro: Check that WordPress API is accessible and the "astrobot-design" category exists.');
+    }
+
     // Create a path for each post
     return allPosts.map((post) => ({
       params: { slug: post.slug },
       props: { post },
     }));
   } catch (error) {
-    console.error("Error generating static paths:", error);
+    console.error("❌ Astro: Error generating static paths:", error);
     return [];
   }
 }
