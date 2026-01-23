@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { ProcessedPost } from '@/lib/wordpress';
 import { formatDate, cleanHtmlForDisplay } from '@/lib/utils';
 import { ArrowLeft, ArrowRight, Calendar, Tag } from 'lucide-react';
