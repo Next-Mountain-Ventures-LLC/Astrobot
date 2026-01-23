@@ -121,10 +121,6 @@ export async function getAstrobotCategoryId(): Promise<number | null> {
     return null;
   }
 
-  if (import.meta.env.DEV) {
-    console.log(`Found Astrobot category ID: ${astrobotCategory.id} (${astrobotCategory.name})`);
-  }
-
   return astrobotCategory.id;
 }
 
