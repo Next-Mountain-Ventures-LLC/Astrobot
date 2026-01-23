@@ -106,10 +106,12 @@ export async function getAstrobotCategoryId(): Promise<number | null> {
   const categories = await getCategories();
 
   if (categories.length === 0) {
-    console.warn('No categories found from WordPress API. This may indicate a connectivity issue.');
-    return null;
+    console.warn('⚠️ No categories found from WordPress API. This may indicate a connectivity issue.');
+    console.warn('🔧 Using hardcoded fallback: astrobot-design category ID is 6');
+    return 6;
   }
 
+  console.log(`🔍 Looking for category with slug "${ASTROBOT_CATEGORY_SLUG}" among ${categories.length} categories`);
   const astrobotCategory = categories.find(cat =>
     cat.slug === ASTROBOT_CATEGORY_SLUG ||
     cat.slug === 'astrobotdesign' ||
@@ -118,12 +120,14 @@ export async function getAstrobotCategoryId(): Promise<number | null> {
 
   if (!astrobotCategory) {
     console.warn(
-      `Category not found: "${ASTROBOT_CATEGORY_SLUG}". Available categories:`,
+      `⚠️ Category not found: "${ASTROBOT_CATEGORY_SLUG}". Available categories:`,
       categories.map(c => `${c.slug} (${c.name})`).join(', ')
     );
-    return null;
+    console.warn('🔧 Using hardcoded fallback: astrobot-design category ID is 6');
+    return 6;
   }
 
+  console.log(`✅ Found "${ASTROBOT_CATEGORY_SLUG}" category with ID: ${astrobotCategory.id}`);
   return astrobotCategory.id;
 }
 
