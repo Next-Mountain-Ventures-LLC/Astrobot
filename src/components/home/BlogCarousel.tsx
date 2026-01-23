@@ -17,11 +17,6 @@ const ensureDate = (date: Date | string | undefined): Date | null => {
 };
 
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
-  // Temporary: return null to debug
-  if (true) {
-    return <div>Blog Carousel - Testing</div>;
-  }
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
