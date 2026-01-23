@@ -17,8 +17,6 @@ const ensureDate = (date: Date | string | undefined): Date | null => {
 };
 
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
-  console.log('BlogCarousel mounted with', posts?.length || 0, 'posts');
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
