@@ -237,7 +237,7 @@ export default function MailingListSignup() {
                       name="phone"
                       value={phone}
                       onChange={handlePhoneChange}
-                      placeholder="Phone Number (optional but greatly appreciated 😊)"
+                      placeholder="Phone Number (optional but greatly appreciated)"
                       className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                     />
                     <p className="mt-1 text-xs text-muted-foreground">
