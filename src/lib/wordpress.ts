@@ -57,8 +57,8 @@ export interface ProcessedPost {
   title: string;
   content: string;
   excerpt: string;
-  date: Date;
-  modified: Date;
+  date: string;
+  modified: string;
   featuredMedia?: {
     url: string;
     alt: string;
@@ -369,8 +369,8 @@ function processPost(post: WordPressPost): ProcessedPost {
     title: post.title.rendered,
     content: sanitizeHtml(post.content.rendered),
     excerpt: sanitizeHtml(post.excerpt.rendered),
-    date: new Date(post.date),
-    modified: new Date(post.modified),
+    date: post.date,
+    modified: post.modified,
     featuredMedia: featuredMedia
       ? {
           url: featuredMedia.source_url,
