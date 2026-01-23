@@ -8,6 +8,14 @@ interface BlogCarouselProps {
   posts: ProcessedPost[];
 }
 
+// Helper to ensure date is a Date object (handles serialized strings from server)
+const ensureDate = (date: Date | string | undefined): Date | null => {
+  if (!date) return null;
+  if (date instanceof Date) return date;
+  if (typeof date === 'string') return new Date(date);
+  return null;
+};
+
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
