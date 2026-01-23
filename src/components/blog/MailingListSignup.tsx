@@ -98,40 +98,42 @@ export default function MailingListSignup() {
   // Handle final form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!firstName.trim()) {
-      setError('Please enter your first name');
+
+    // If phone number is provided, SMS checkbox must be checked
+    if (phone.trim() && !smsOptIn) {
+      setError('Please check the SMS consent box to provide your phone number.');
       return;
     }
-    
-    if (!lastName.trim()) {
-      setError('Please enter your last name');
-      return;
-    }
-    
+
     setIsSubmitting(true);
     setError('');
-    
+
     try {
-      // Send form data to the API
+      // Send form data to Zapier
       const formData = new FormData();
       formData.append('form_name', 'Blog Newsletter Signup');
       formData.append('email', email);
-      formData.append('first_name', firstName);
-      formData.append('last_name', lastName);
       formData.append('sms_opt_in', smsOptIn ? 'yes' : 'no');
+
+      if (firstName.trim()) {
+        formData.append('first_name', firstName);
+      }
+
+      if (lastName.trim()) {
+        formData.append('last_name', lastName);
+      }
 
       if (phone.trim()) {
         // Use the formatted phone number with country code
         const phoneWithCountryCode = formatPhoneWithCountryCode(phone);
         formData.append('phone', phoneWithCountryCode);
       }
-      
+
       const response = await fetch('https://hooks.zapier.com/hooks/catch/24996675/ur0odxr/', {
         method: 'POST',
         body: formData,
       });
-      
+
       if (response.ok) {
         setIsSuccess(true);
         // Reset form
