@@ -11,7 +11,11 @@ interface BlogCarouselProps {
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  
+
+  // Initialize with stable mobile default (1) to avoid hydration mismatch
+  // The actual value will be computed on the client in useEffect
+  const [postsPerSlide, setPostsPerSlide] = useState(1);
+
   // Calculate how many posts to show per slide based on viewport
   const getPostsPerSlide = () => {
     if (typeof window !== 'undefined') {
@@ -20,19 +24,18 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
     }
     return 1; // Mobile default
   };
-  
-  const [postsPerSlide, setPostsPerSlide] = useState(getPostsPerSlide());
-  
-  // Update postsPerSlide on window resize
+
+  // Set initial postsPerSlide on client mount and update on window resize
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
+    // Set initial value on client
+    setPostsPerSlide(getPostsPerSlide());
+
     const handleResize = () => {
       setPostsPerSlide(getPostsPerSlide());
       // Reset to first slide when layout changes to avoid empty slides
       setCurrentIndex(0);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
