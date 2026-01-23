@@ -316,37 +316,52 @@ export async function getPosts(
 // Fetch a single post by slug
 export async function getPostBySlug(slug: string): Promise<ProcessedPost | null> {
   try {
+    const apiUrl = `${WP_API_URL}/posts?_embed=true&slug=${slug}`;
+
+    if (import.meta.env.DEV) {
+      console.log(`Fetching post: ${apiUrl}`);
+    }
+
     try {
       const response = await fetch(
-        `${WP_API_URL}/posts?_embed=true&slug=${slug}`,
-        { signal: AbortSignal.timeout(5000) } // 5s timeout
+        apiUrl,
+        { signal: AbortSignal.timeout(10000) } // 10s timeout for build processes
       );
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch post: ${response.status}`);
+        throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
       }
 
       const posts: WordPressPost[] = await response.json();
       if (posts.length === 0) {
-        throw new Error(`Post not found: ${slug}`);
+        throw new Error(`Post with slug "${slug}" not found in WordPress API`);
       }
 
-      return processPost(posts[0]);
+      const processedPost = processPost(posts[0]);
+
+      if (import.meta.env.DEV) {
+        console.log(`Successfully fetched post: ${slug}`);
+      }
+
+      return processedPost;
     } catch (fetchError) {
-      console.warn(`Failed to fetch post ${slug} from WordPress API, using mock data:`, fetchError);
-      
+      const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
+      console.warn(`⚠️  Failed to fetch post "${slug}" from WordPress API: ${errorMessage}`);
+
       // Look for the post in mock data
       const mockPost = MOCK_POSTS.find(post => post.slug === slug);
       if (mockPost) {
+        console.info(`📚 Using mock data for post: ${slug}`);
         return mockPost;
       } else {
-        console.error(`Post ${slug} not found in mock data`);
+        console.error(`❌ Post "${slug}" not found in mock data either`);
         return null;
       }
     }
   } catch (error) {
-    console.error(`Error in getPostBySlug for ${slug}:`, error);
-    
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`❌ Error in getPostBySlug for "${slug}":`, errorMessage);
+
     // Last resort fallback to mock data
     const mockPost = MOCK_POSTS.find(post => post.slug === slug);
     return mockPost || null;
