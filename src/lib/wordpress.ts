@@ -159,8 +159,8 @@ const MOCK_POSTS: ProcessedPost[] = [
     <h2>Built for SEO</h2>
     <p>Astro's static site generation creates lightning-fast websites that search engines love. Better performance means better rankings.</p>`,
     excerpt: 'Discover why Astro is the perfect framework for building your business website with its zero-JavaScript-by-default approach and incredible speed.',
-    date: new Date('2023-12-15'),
-    modified: new Date('2023-12-16'),
+    date: '2023-12-15T00:00:00.000Z',
+    modified: '2023-12-16T00:00:00.000Z',
     featuredMedia: {
       url: 'https://plus.unsplash.com/premium_photo-1681487764745-a3b7f2841bec?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Astro framework visualization'
