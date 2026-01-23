@@ -320,13 +320,13 @@ export async function getPostBySlug(slug: string): Promise<ProcessedPost | null>
       if (mockPost) {
         return mockPost;
       } else {
-        console.error(`❌ Post "${slug}" not found in mock data either`);
+        console.error(`Post "${slug}" not found`);
         return null;
       }
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(`❌ Error in getPostBySlug for "${slug}":`, errorMessage);
+    console.error(`Error in getPostBySlug for "${slug}":`, errorMessage);
 
     // Last resort fallback to mock data
     const mockPost = MOCK_POSTS.find(post => post.slug === slug);
