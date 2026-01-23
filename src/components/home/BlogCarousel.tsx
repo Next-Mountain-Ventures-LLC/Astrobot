@@ -136,7 +136,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                         <div className="p-6">
                           <div className="flex items-center text-xs text-muted-foreground mb-3">
                             <Calendar className="h-3 w-3 mr-1" />
-                            <span>{formatDate(post.date)}</span>
+                            <span>{ensureDate(post.date) ? formatDate(ensureDate(post.date)!) : 'Date unavailable'}</span>
                             
                             {post.categories.length > 0 && (
                               <>
