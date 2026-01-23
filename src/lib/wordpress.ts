@@ -254,7 +254,7 @@ const MOCK_POSTS: ProcessedPost[] = [
 ];
 
 export async function getPosts(
-  page: number = 1, 
+  page: number = 1,
   perPage: number = 10,
   categoryId?: number
 ): Promise<ProcessedPost[]> {
@@ -263,39 +263,53 @@ export async function getPosts(
     if (!categoryId) {
       categoryId = await getAstrobotCategoryId();
       if (!categoryId) {
-        throw new Error('Could not determine Astrobot.design category ID');
+        throw new Error('Could not determine Astrobot.design category ID from WordPress API');
       }
     }
 
     // Construct the API URL with parameters
     let url = `${WP_API_URL}/posts?_embed=true&page=${page}&per_page=${perPage}`;
-    
+
     // Add category filter
     if (categoryId) {
       url += `&categories=${categoryId}`;
     }
 
+    if (import.meta.env.DEV) {
+      console.log(`Fetching posts from: ${url}`);
+    }
+
     try {
-      const response = await fetch(url, { signal: AbortSignal.timeout(5000) }); // 5s timeout
+      const response = await fetch(url, { signal: AbortSignal.timeout(10000) }); // 10s timeout for build processes
       if (!response.ok) {
-        throw new Error(`Failed to fetch posts: ${response.status}`);
+        throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
       }
 
       const posts: WordPressPost[] = await response.json();
+
+      if (import.meta.env.DEV) {
+        console.log(`Successfully fetched ${posts.length} posts from WordPress API`);
+      }
+
       return posts.map(processPost);
     } catch (fetchError) {
-      console.warn('Failed to fetch from WordPress API, using mock data:', fetchError);
-      console.info('Using mock posts data for development');
-      
+      // Log more context about the error
+      const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
+      console.warn(`⚠️  Failed to fetch from WordPress API (${WP_API_URL}): ${errorMessage}`);
+      console.info('📚 Using fallback mock data. This is normal for development.');
+
       // Return paginated mock data
       const start = (page - 1) * perPage;
       const end = start + perPage;
       return MOCK_POSTS.slice(start, end);
     }
   } catch (error) {
-    console.error('Error in getPosts:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('❌ Error in getPosts:', errorMessage);
     // Fallback to mock data in case of any error
-    return MOCK_POSTS;
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return MOCK_POSTS.slice(start, end);
   }
 }
 
