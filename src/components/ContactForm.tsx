@@ -18,7 +18,7 @@ export default function ContactForm() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://hooks.zapier.com/hooks/catch/24996675/ur0odxr/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
