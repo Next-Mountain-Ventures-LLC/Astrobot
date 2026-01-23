@@ -252,6 +252,8 @@ export default function MailingListSignup() {
                     onChange={handlePhoneChange}
                     placeholder="Phone Number (optional but greatly appreciated)"
                     className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
+                    autoComplete="tel"
+                    suppressHydrationWarning
                   />
                   <p className="mt-1 text-xs text-muted-foreground">
                     Providing your phone number helps us deliver personalized content and time-sensitive updates more effectively.
