@@ -253,9 +253,14 @@ export default function MailingListSignup() {
                         className="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary focus:ring-2 accent-primary"
                       />
                       <span className="text-xs text-muted-foreground leading-relaxed">
-                        I consent to receive marketing text messages. Message and data rates may apply. Reply STOP to unsubscribe. <span className="text-foreground">Optional.</span>
+                        I consent to receive marketing text messages. Message and data rates may apply. Reply STOP to unsubscribe.
                       </span>
                     </label>
+                    {phone.trim() && !smsOptIn && (
+                      <p className="mt-2 text-xs text-orange-600 font-medium">
+                        Please check this box to provide your phone number.
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex justify-between items-center">
