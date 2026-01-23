@@ -15,6 +15,7 @@ export default function MailingListSignup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [smsOptIn, setSmsOptIn] = useState(false);
 
   // Validate email
   const validateEmail = (email: string): boolean => {
