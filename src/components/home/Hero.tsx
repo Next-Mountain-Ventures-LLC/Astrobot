@@ -23,26 +23,26 @@ export default function Hero() {
 
       <div className="container relative pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className={`space-y-6 ${isVisible ? 'animate-fadeIn' : 'opacity-0'}`}>
+          <div className={`space-y-6 ${isVisible ? 'animate-fadeIn' : 'opacity-0'}`} suppressHydrationWarning>
             <div className="inline-block">
               <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
                 <Zap className="h-4 w-4 text-primary" />
                 <span className="text-xs font-medium text-primary">Blazing Fast Business Websites</span>
               </div>
             </div>
-            
+
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-foreground leading-[1.1] bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70">
               Launch Your Business <br className="hidden sm:block" />
               <span className="relative">
-                <span className="inline-block text-primary">Online</span> 
+                <span className="inline-block text-primary">Online</span>
                 <span className="absolute -top-1 -right-1 h-1 w-1 rounded-full bg-primary animate-ping"></span>
               </span>
             </h1>
-            
+
             <p className="text-xl text-muted-foreground max-w-lg">
               Human-designed sites powered by AI, <span className="text-primary font-medium">75% faster</span> than traditional websites. More speed, more conversions.
             </p>
-            
+
             <div className="flex flex-wrap items-center gap-4">
               <a href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="font-heading tracking-wide group bg-accent text-accent-foreground hover:bg-accent/90 border border-accent/50 shadow-[0_0_10px_rgba(255,50,50,0.25)]">
@@ -55,7 +55,7 @@ export default function Hero() {
                 </Button>
               </a>
             </div>
-            
+
             <div className="flex items-center space-x-4 text-muted-foreground text-sm pt-4">
               <div className="flex items-center">
                 <Rocket className="h-4 w-4 mr-1 text-primary" />
@@ -71,8 +71,8 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          
-          <div className={`relative ${isVisible ? 'animate-fadeInRight' : 'opacity-0'}`}>
+
+          <div className={`relative ${isVisible ? 'animate-fadeInRight' : 'opacity-0'}`} suppressHydrationWarning>
             {/* Simulated website UI with metallic accents */}
             <div className="relative mx-auto max-w-md">
               {/* UI Frame */}
