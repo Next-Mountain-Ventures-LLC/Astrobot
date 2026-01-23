@@ -61,16 +61,38 @@ export default function MailingListSignup() {
   };
 
   // Handle step 1 submission (email collection)
-  const handleStepOne = (e: React.FormEvent) => {
+  const handleStepOne = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !validateEmail(email)) {
       setError('Please enter a valid email address');
       return;
     }
-    
+
+    setIsSubmitting(true);
     setError('');
-    setStep(2);
+
+    try {
+      // Send email to Zapier
+      const formData = new FormData();
+      formData.append('form_name', 'Blog Newsletter Signup');
+      formData.append('email', email);
+
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/24996675/ur0odxr/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setStep(2);
+      } else {
+        throw new Error('Failed to subscribe');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Handle final form submission
