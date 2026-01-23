@@ -24,11 +24,6 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   // The actual value will be computed on the client in useEffect
   const [postsPerSlide, setPostsPerSlide] = useState(1);
 
-  // Debug logging
-  useEffect(() => {
-    console.log('[BlogCarousel] Component rendered with', posts?.length || 0, 'posts');
-  }, []);
-
   // Calculate how many posts to show per slide based on viewport
   const getPostsPerSlide = () => {
     if (typeof window !== 'undefined') {
