@@ -191,6 +191,8 @@ export default function MailingListSignup() {
                     className="flex-1 px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                     required
                     disabled={isSubmitting}
+                    autoComplete="email"
+                    suppressHydrationWarning
                   />
                   <Button 
                     type="submit" 
