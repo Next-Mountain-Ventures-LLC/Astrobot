@@ -134,8 +134,21 @@ export async function getAstrobotCategoryId(): Promise<number | null> {
   return astrobotCategory.id;
 }
 
-// Fetch posts from the WordPress API
-// Mock posts for development if API is unavailable
+/**
+ * Fetch posts from the WordPress API
+ *
+ * IMPORTANT: This function is called at BUILD TIME, not runtime.
+ *
+ * When deployed with GitHub Actions:
+ * 1. Zapier detects a new post in WordPress
+ * 2. Zapier triggers a GitHub Actions workflow via webhook
+ * 3. GitHub Actions runs: npm run build
+ * 4. During build, this function fetches the latest posts from WordPress
+ * 5. Static HTML is generated with the latest posts
+ * 6. Updated site is deployed
+ *
+ * Fallback: If WordPress API is unavailable, mock data is used for development
+ */
 const MOCK_POSTS: ProcessedPost[] = [
   {
     id: 1,
