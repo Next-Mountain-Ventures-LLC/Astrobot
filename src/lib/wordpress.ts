@@ -191,8 +191,8 @@ const MOCK_POSTS: ProcessedPost[] = [
     <h2>Real-World Results</h2>
     <p>Our clients have seen average speed improvements of 75% after migrating from traditional WordPress to Astro static sites. This translates to better SEO, higher conversion rates, and improved user experience.</p>`,
     excerpt: 'Discover how migrating from traditional WordPress to static site generation can make your business website up to 75% faster, improving SEO and conversions.',
-    date: new Date('2023-11-28'),
-    modified: new Date('2023-11-30'),
+    date: '2023-11-28T00:00:00.000Z',
+    modified: '2023-11-30T00:00:00.000Z',
     featuredMedia: {
       url: 'https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Speed visualization with light trails'
