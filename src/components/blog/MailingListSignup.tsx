@@ -219,7 +219,7 @@ export default function MailingListSignup() {
                     </p>
                   </div>
 
-                  <div className="space-y-3 p-3 bg-primary/5 border border-primary/20 rounded-md">
+                  <div className="p-3 bg-primary/5 border border-primary/20 rounded-md">
                     <label className="flex items-start space-x-3 cursor-pointer">
                       <input
                         type="checkbox"
@@ -229,13 +229,9 @@ export default function MailingListSignup() {
                         className="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary focus:ring-2 accent-primary"
                       />
                       <span className="text-xs text-muted-foreground leading-relaxed">
-                        <strong className="text-foreground block mb-1">Opt-in to SMS Messages</strong>
-                        I consent to receive recurring marketing text messages from astrobot at the phone number provided above. I understand that message and data rates may apply, that this consent is voluntary and not a condition of any purchase, and that I can reply STOP at any time to unsubscribe. Messages are sent using an automatic telephone dialing system.
+                        I consent to receive marketing text messages. Message and data rates may apply. Reply STOP to unsubscribe. <span className="text-foreground">Optional.</span>
                       </span>
                     </label>
-                    <p className="text-xs text-muted-foreground italic">
-                      We respect your privacy. You can opt out of SMS messages at any time by replying STOP.
-                    </p>
                   </div>
 
                   <div className="flex justify-between items-center">
