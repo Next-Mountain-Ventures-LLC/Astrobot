@@ -215,7 +215,7 @@ export default function MailingListSignup() {
                         name="first_name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="First Name (optional)"
+                        placeholder="First Name"
                         className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                       />
                     </div>
@@ -225,19 +225,19 @@ export default function MailingListSignup() {
                         name="last_name"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Last Name (optional)"
+                        placeholder="Last Name"
                         className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <input
                       type="tel"
                       name="phone"
                       value={phone}
                       onChange={handlePhoneChange}
-                      placeholder="Phone Number (optional)"
+                      placeholder="Phone Number (optional but greatly appreciated 😊)"
                       className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
                     />
                     <p className="mt-1 text-xs text-muted-foreground">
