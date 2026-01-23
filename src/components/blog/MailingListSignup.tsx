@@ -194,7 +194,7 @@ export default function MailingListSignup() {
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Subscribing...' : 'Next'}
-                      {!isSubmitting && <ArrowRight className="ml-1 w-4 h-4" />}
+                      <ArrowRight className={`ml-1 w-4 h-4 ${isSubmitting ? 'hidden' : ''}`} />
                     </Button>
                   </div>
                   
