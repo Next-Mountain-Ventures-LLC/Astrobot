@@ -72,13 +72,15 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   const nextPost = () => {
     if (isAnimatingRef.current || totalSlidesRef.current <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlidesRef.current);
+    const total = totalSlidesRef.current || 1; // Prevent modulo by zero
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
   };
 
   const prevPost = () => {
     if (isAnimatingRef.current || totalSlidesRef.current <= 1) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlidesRef.current) % totalSlidesRef.current);
+    const total = totalSlidesRef.current || 1; // Prevent modulo by zero
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + total) % total);
   };
 
   // Handle animation end
