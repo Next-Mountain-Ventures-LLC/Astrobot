@@ -107,13 +107,31 @@ export async function getCategories(): Promise<WordPressCategory[]> {
 // Get Astrobot.design category ID
 export async function getAstrobotCategoryId(): Promise<number | null> {
   const categories = await getCategories();
-  const astrobotCategory = categories.find(cat => 
-    cat.slug === ASTROBOT_CATEGORY_SLUG || 
-    cat.slug === 'astrobotdesign' || 
+
+  if (categories.length === 0) {
+    console.warn('No categories found from WordPress API. This may indicate a connectivity issue.');
+    return null;
+  }
+
+  const astrobotCategory = categories.find(cat =>
+    cat.slug === ASTROBOT_CATEGORY_SLUG ||
+    cat.slug === 'astrobotdesign' ||
     cat.name.toLowerCase().includes('astrobot')
   );
-  
-  return astrobotCategory?.id || null;
+
+  if (!astrobotCategory) {
+    console.warn(
+      `Category not found: "${ASTROBOT_CATEGORY_SLUG}". Available categories:`,
+      categories.map(c => `${c.slug} (${c.name})`).join(', ')
+    );
+    return null;
+  }
+
+  if (import.meta.env.DEV) {
+    console.log(`Found Astrobot category ID: ${astrobotCategory.id} (${astrobotCategory.name})`);
+  }
+
+  return astrobotCategory.id;
 }
 
 // Fetch posts from the WordPress API
