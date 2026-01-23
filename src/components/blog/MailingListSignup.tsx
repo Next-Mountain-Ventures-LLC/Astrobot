@@ -226,6 +226,8 @@ export default function MailingListSignup() {
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="First Name"
                       className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
+                      autoComplete="given-name"
+                      suppressHydrationWarning
                     />
                   </div>
                   <div>
