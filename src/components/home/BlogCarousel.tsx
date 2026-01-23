@@ -126,13 +126,14 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
           </p>
         </div>
         
-        <div className="relative overflow-hidden">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out" 
-            style={{ 
+        <div className="relative overflow-hidden" suppressHydrationWarning>
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
               transform: `translateX(-${currentIndex * 100}%)`,
               width: `${totalSlides * 100}%`
             }}
+            suppressHydrationWarning
           >
             {slides.map((slideItems, slideIndex) => (
               <div key={slideIndex} className="w-full flex-shrink-0">
