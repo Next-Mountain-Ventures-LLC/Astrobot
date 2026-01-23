@@ -265,10 +265,6 @@ export async function getPosts(
       url += `&categories=${categoryId}`;
     }
 
-    if (import.meta.env.DEV) {
-      console.log(`Fetching posts from: ${url}`);
-    }
-
     try {
       const response = await fetch(url, { signal: AbortSignal.timeout(10000) }); // 10s timeout for build processes
       if (!response.ok) {
@@ -276,11 +272,6 @@ export async function getPosts(
       }
 
       const posts: WordPressPost[] = await response.json();
-
-      if (import.meta.env.DEV) {
-        console.log(`Successfully fetched ${posts.length} posts from WordPress API`);
-      }
-
       return posts.map(processPost);
     } catch (fetchError) {
       // Log more context about the error
