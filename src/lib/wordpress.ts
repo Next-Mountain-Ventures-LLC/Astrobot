@@ -228,8 +228,8 @@ const MOCK_POSTS: ProcessedPost[] = [
     <h2>Real-World SEO Improvements</h2>
     <p>Our clients typically see Core Web Vitals scores improve from the 30-50 range to 90+ after migrating to Astro-powered sites, resulting in measurable ranking improvements.</p>`,
     excerpt: "Google's Core Web Vitals are now critical ranking factors. Learn how Astro-powered websites naturally excel at these performance metrics for better SEO results.",
-    date: new Date('2023-10-15'),
-    modified: new Date('2023-10-20'),
+    date: '2023-10-15T00:00:00.000Z',
+    modified: '2023-10-20T00:00:00.000Z',
     featuredMedia: {
       url: 'https://images.unsplash.com/photo-1562577308-c8b2614b9b9a?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'SEO and analytics visualization'
