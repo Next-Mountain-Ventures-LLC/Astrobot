@@ -299,10 +299,6 @@ export async function getPostBySlug(slug: string): Promise<ProcessedPost | null>
   try {
     const apiUrl = `${WP_API_URL}/posts?_embed=true&slug=${slug}`;
 
-    if (import.meta.env.DEV) {
-      console.log(`Fetching post: ${apiUrl}`);
-    }
-
     try {
       const response = await fetch(
         apiUrl,
@@ -318,21 +314,11 @@ export async function getPostBySlug(slug: string): Promise<ProcessedPost | null>
         throw new Error(`Post with slug "${slug}" not found in WordPress API`);
       }
 
-      const processedPost = processPost(posts[0]);
-
-      if (import.meta.env.DEV) {
-        console.log(`Successfully fetched post: ${slug}`);
-      }
-
-      return processedPost;
+      return processPost(posts[0]);
     } catch (fetchError) {
-      const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
-      console.warn(`⚠️  Failed to fetch post "${slug}" from WordPress API: ${errorMessage}`);
-
       // Look for the post in mock data
       const mockPost = MOCK_POSTS.find(post => post.slug === slug);
       if (mockPost) {
-        console.info(`📚 Using mock data for post: ${slug}`);
         return mockPost;
       } else {
         console.error(`❌ Post "${slug}" not found in mock data either`);
