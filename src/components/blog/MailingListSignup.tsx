@@ -93,7 +93,8 @@ export default function MailingListSignup() {
       formData.append('email', email);
       formData.append('first_name', firstName);
       formData.append('last_name', lastName);
-      
+      formData.append('sms_opt_in', smsOptIn ? 'yes' : 'no');
+
       if (phone.trim()) {
         // Use the formatted phone number with country code
         const phoneWithCountryCode = formatPhoneWithCountryCode(phone);
