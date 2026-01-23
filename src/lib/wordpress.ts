@@ -84,12 +84,6 @@ export interface ProcessedPost {
 const WP_API_URL = import.meta.env.WORDPRESS_API_URL || 'https://blog.nxtmt.ventures/wp-json/wp/v2';
 const ASTROBOT_CATEGORY_SLUG = import.meta.env.WORDPRESS_CATEGORY_SLUG || 'astrobot-design'; // Slug for filtering posts
 
-// Debug logging (remove in production)
-if (import.meta.env.DEV) {
-  console.log('WordPress API configured with URL:', WP_API_URL);
-  console.log('Filtering posts by category slug:', ASTROBOT_CATEGORY_SLUG);
-}
-
 // Fetch categories to get the ID of the Astrobot.design category
 export async function getCategories(): Promise<WordPressCategory[]> {
   try {
