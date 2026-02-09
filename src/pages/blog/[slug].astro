@@ -33,11 +33,8 @@ export async function getStaticPaths() {
   }
 }
 
-// Get the post for this page and all posts for related posts component
-const { post } = Astro.props;
-
-// Get all posts for related posts functionality
-const allPosts = await getPosts(1, 100);
+// Get the post and all posts from props (already fetched in getStaticPaths)
+const { post, allPosts } = Astro.props;
 
 // For SEO
 const metaDescription = generateExcerpt(post.excerpt, 160);
