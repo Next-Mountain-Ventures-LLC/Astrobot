@@ -17,7 +17,3 @@ claude_log.log
 screenshots/
 media/
 copytext/
-
-# NOTE: .wordpress-posts-manifest.json IS intentionally tracked in git
-# This file tracks which posts should exist in the static site and provides
-# an audit trail for post changes over time. It enables cleanup of orphaned posts.
