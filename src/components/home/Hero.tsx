@@ -59,7 +59,7 @@ export default function Hero() {
             <div className="flex items-center space-x-4 text-muted-foreground text-sm pt-4">
               <div className="flex items-center">
                 <Rocket className="h-4 w-4 mr-1 text-primary" />
-                <span>48hr Launch Time</span>
+                <span>7-day Launch Time</span>
               </div>
               <div className="flex items-center">
                 <Star className="h-4 w-4 mr-1 text-primary" />
@@ -118,7 +118,7 @@ export default function Hero() {
                   <div className="flex space-x-3">
                     <div className="w-1/3 h-8 bg-accent/80 rounded-md animate-pulse-slow relative">
                       <div className="absolute inset-0 flex items-center justify-center text-xs text-accent-foreground font-medium">
-                        LAUNCH IN 48 HRS
+                        LAUNCH IN 7 DAYS
                       </div>
                     </div>
                     <div className="w-1/3 h-8 bg-secondary-foreground/5 border border-border/40 rounded-md relative">

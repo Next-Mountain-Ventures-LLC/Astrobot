@@ -25,13 +25,13 @@ export default function CTA() {
               <div className="space-y-4">
                 <div className="inline-flex items-center px-3 py-1 space-x-2 bg-accent/10 rounded-full border border-accent/20 mb-4">
                   <Calendar className="h-4 w-4 text-accent" />
-                  <span className="text-xs font-medium text-accent">Book & Launch in 48 Hours</span>
+                  <span className="text-xs font-medium text-accent">Book & Launch in 7 Days</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">
                   Ready to Transform Your Business Online?
                 </h2>
                 <p className="text-muted-foreground">
-                  Book a 60-minute design consultation with our expert designers and launch your business website within 48 hours.
+                  Book a 60-minute design consultation with our expert designers and launch your business website within 7 days.
                 </p>
                 
                 <div className="pt-2">
@@ -81,7 +81,7 @@ export default function CTA() {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm">
-                          <span className="font-medium">Receive your website</span> within 48 hours, ready to launch and impress.
+                          <span className="font-medium">Receive your website</span> within 7 days, ready to launch and impress.
                         </p>
                       </div>
                     </li>
