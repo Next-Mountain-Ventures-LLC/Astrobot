@@ -22,10 +22,10 @@ export async function getStaticPaths() {
       console.warn('⚠️ Astro: Check that WordPress API is accessible and the "astrobot-design" category exists.');
     }
 
-    // Create a path for each post
+    // Create a path for each post, passing all posts to avoid re-fetching in component
     return allPosts.map((post) => ({
       params: { slug: post.slug },
-      props: { post },
+      props: { post, allPosts },
     }));
   } catch (error) {
     console.error("❌ Astro: Error generating static paths:", error);
