@@ -392,7 +392,9 @@ export async function getPosts(
     }
 
     // Construct the API URL with parameters
-    let url = `${WP_API_URL}/posts?_embed=true&page=${page}&per_page=${perPage}`;
+    // Add timestamp cache-buster to force fresh data (prevents HTTP caching)
+    const cacheBuster = new Date().getTime();
+    let url = `${WP_API_URL}/posts?_embed=true&page=${page}&per_page=${perPage}&_t=${cacheBuster}`;
 
     // Add category filter
     if (categoryId) {
