@@ -1,24 +1,19 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogPost from "@/components/blog/BlogPost.astro";
-import { getPosts, getPostBySlug, getPostsWithMetadata } from "@/lib/wordpress";
+import { getPosts, getPostBySlug } from "@/lib/wordpress";
 import { generateExcerpt, cleanHtmlForDisplay } from "@/lib/utils";
 import RelatedPosts from "@/components/blog/RelatedPosts.astro";
-import {
-  syncPostsWithManifest,
-  readPreviousManifest,
-} from "@/lib/build-utils";
 
 // This defines the dynamic paths that will be pre-rendered at build time
 export async function getStaticPaths() {
   try {
     console.log("🔨 Astro: Starting blog page generation...");
 
-    // Get posts with metadata about whether we're using fallback
-    const postsResult = await getPostsWithMetadata(1, 100);
-    const allPosts = postsResult.posts;
+    // Get all posts from WordPress API (astrobot-design category)
+    const allPosts = await getPosts(1, 100);
 
-    console.log(`🔨 Astro: Generating ${allPosts.length} blog post pages from WordPress API`);
+    console.log(`✅ Astro: Generated ${allPosts.length} blog post pages from WordPress API`);
 
     // Warn if we seem to be falling back to mock data
     if (allPosts.length <= 3) {
@@ -26,30 +21,6 @@ export async function getStaticPaths() {
       console.warn('⚠️ Astro: The site may be using mock/fallback data instead of live WordPress content.');
       console.warn('⚠️ Astro: Check that WordPress API is accessible and the "astrobot-design" category exists.');
     }
-
-    // ==================== POST SYNC & CLEANUP ====================
-    console.log('\n');
-
-    // Get previous post count for safety check
-    const previousManifest = readPreviousManifest();
-    const previousPostCount = previousManifest?.totalCount || 0;
-
-    // Perform full sync: compare manifests, delete orphaned posts, write new manifest
-    const syncResult = syncPostsWithManifest(
-      allPosts,
-      postsResult.categoryId,
-      postsResult.categorySlug,
-      postsResult.usingFallback,
-      previousPostCount
-    );
-
-    // Log sync summary
-    console.log(`\n📈 Final counts: ${allPosts.length} posts after sync`);
-    if (syncResult.deletedCount > 0) {
-      console.log(`   └─ Deleted ${syncResult.deletedCount} orphaned post(s)`);
-    }
-    console.log('');
-    // ==================== END POST SYNC ====================
 
     // Create a path for each post
     return allPosts.map((post) => ({
