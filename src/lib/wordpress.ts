@@ -94,6 +94,10 @@ export async function getCategories(): Promise<WordPressCategory[]> {
     }
     const categories = await response.json();
     console.log(`✅ Found ${categories.length} categories from WordPress`);
+    const astrobotCat = categories.find(c => c.slug === 'astrobot-design' || c.name.toLowerCase().includes('astrobot'));
+    if (astrobotCat) {
+      console.log(`   📌 astrobot-design category: ID=${astrobotCat.id}`);
+    }
     return categories;
   } catch (error) {
     console.error('❌ Error fetching WordPress categories:', error);
