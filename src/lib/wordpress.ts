@@ -84,6 +84,9 @@ export interface ProcessedPost {
 const WP_API_URL = import.meta.env.WORDPRESS_API_URL || 'https://blog.nxtmt.ventures/wp-json/wp/v2';
 const ASTROBOT_CATEGORY_SLUG = import.meta.env.WORDPRESS_CATEGORY_SLUG || 'astrobot-design'; // Slug for filtering posts
 
+// Simple cache to avoid redundant API calls during build
+const postCache = new Map<string, ProcessedPost[]>();
+
 // Fetch categories to get the ID of the Astrobot.design category
 export async function getCategories(): Promise<WordPressCategory[]> {
   try {
