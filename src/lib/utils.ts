@@ -71,12 +71,19 @@ export function sanitizeHtml(html: string): string {
 }
 
 // Format date to human-readable format
-export function formatDate(date: Date): string {
+export function formatDate(date: Date | string): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+  // Check if the date is valid
+  if (isNaN(dateObj.getTime())) {
+    return 'Invalid date';
+  }
+
   return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric', 
-    month: 'long', 
+    year: 'numeric',
+    month: 'long',
     day: 'numeric'
-  }).format(date);
+  }).format(dateObj);
 }
 
 // Clean HTML and decode entities for display as plain text
