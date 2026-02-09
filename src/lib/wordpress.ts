@@ -370,47 +370,19 @@ export async function healthCheckWordPress(): Promise<boolean> {
 }
 
 /**
- * Result type for getPosts that includes metadata about whether we're using real or fallback data
- */
-export interface GetPostsResult {
-  posts: ProcessedPost[];
-  usingFallback: boolean;
-  categoryId: number;
-  categorySlug: string;
-}
-
-/**
  * Fetch posts from WordPress API with automatic fallback to mock data
- * Also tracks whether we're using real data or fallback
  */
 export async function getPosts(
   page: number = 1,
   perPage: number = 10,
   categoryId?: number
 ): Promise<ProcessedPost[]> {
-  // Use simplified version for backwards compatibility
-  // Call the enhanced version and extract just the posts
-  const result = await getPostsWithMetadata(page, perPage, categoryId);
-  return result.posts;
-}
-
-/**
- * Enhanced version of getPosts that returns metadata about the fetch
- */
-export async function getPostsWithMetadata(
-  page: number = 1,
-  perPage: number = 10,
-  categoryId?: number
-): Promise<GetPostsResult> {
-  let actualCategoryId = categoryId;
-  let categorySlug = ASTROBOT_CATEGORY_SLUG;
-
   try {
     // If no categoryId provided, try to get the Astrobot category ID
     if (!categoryId) {
       console.log(`🔍 getPosts: Fetching category ID for "${ASTROBOT_CATEGORY_SLUG}"...`);
-      actualCategoryId = await getAstrobotCategoryId();
-      if (!actualCategoryId) {
+      categoryId = await getAstrobotCategoryId();
+      if (!categoryId) {
         throw new Error('Could not determine Astrobot.design category ID from WordPress API');
       }
     }
@@ -419,12 +391,12 @@ export async function getPostsWithMetadata(
     let url = `${WP_API_URL}/posts?_embed=true&page=${page}&per_page=${perPage}`;
 
     // Add category filter
-    if (actualCategoryId) {
-      url += `&categories=${actualCategoryId}`;
+    if (categoryId) {
+      url += `&categories=${categoryId}`;
     }
 
     try {
-      console.log(`📡 getPosts: Fetching from WordPress API with category ID ${actualCategoryId}...`);
+      console.log(`📡 getPosts: Fetching from WordPress API with category ID ${categoryId}...`);
       console.log(`📍 getPosts: API URL: ${url}`);
       const response = await fetchWithTimeout(url, { timeout: 15000, retries: 2 });
       if (!response.ok) {
@@ -434,12 +406,7 @@ export async function getPostsWithMetadata(
       const posts: WordPressPost[] = await response.json();
       const processedPosts = posts.map(processPost);
       console.log(`✅ getPosts: Successfully fetched ${posts.length} posts from WordPress API`);
-      return {
-        posts: processedPosts,
-        usingFallback: false,
-        categoryId: actualCategoryId,
-        categorySlug,
-      };
+      return processedPosts;
     } catch (fetchError) {
       // Log error but continue with mock data
       const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
@@ -449,12 +416,7 @@ export async function getPostsWithMetadata(
       // Return paginated mock data
       const start = (page - 1) * perPage;
       const end = start + perPage;
-      return {
-        posts: MOCK_POSTS.slice(start, end),
-        usingFallback: true,
-        categoryId: actualCategoryId || 6,
-        categorySlug,
-      };
+      return MOCK_POSTS.slice(start, end);
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -463,12 +425,7 @@ export async function getPostsWithMetadata(
     // Fallback to mock data in case of any error
     const start = (page - 1) * perPage;
     const end = start + perPage;
-    return {
-      posts: MOCK_POSTS.slice(start, end),
-      usingFallback: true,
-      categoryId: categoryId || 6,
-      categorySlug,
-    };
+    return MOCK_POSTS.slice(start, end);
   }
 }
 
