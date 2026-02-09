@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 env:
-  # WordPress API configuration - ensure we fetch from the correct endpoint
+  # WordPress API configuration
   WORDPRESS_API_URL: https://blog.nxtmt.ventures/wp-json/wp/v2
   WORDPRESS_CATEGORY_SLUG: astrobot-design
 
@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
