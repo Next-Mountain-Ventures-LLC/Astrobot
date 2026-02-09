@@ -3,8 +3,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogCard from "@/components/blog/BlogCard.astro";
 import { getPosts } from "@/lib/wordpress";
 
-// Fetch blog posts at build time
-const posts = await getPosts(1, 12);
+// Fetch blog posts at build time (use per_page=100 to ensure consistent WordPress API results)
+const allPosts = await getPosts(1, 100);
+// Display first 12 posts on this page
+const posts = allPosts.slice(0, 12);
 ---
 
 <BaseLayout
