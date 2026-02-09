@@ -478,7 +478,7 @@ export async function getPostBySlug(slug: string): Promise<ProcessedPost | null>
     const apiUrl = `${WP_API_URL}/posts?_embed=true&slug=${slug}`;
 
     try {
-      const response = await fetchWithTimeout(apiUrl, { timeout: 15000 }); // 15s timeout for build processes
+      const response = await fetchWithTimeout(apiUrl, { timeout: 15000, retries: 2 }); // Enhanced with retries
 
       if (!response.ok) {
         throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
