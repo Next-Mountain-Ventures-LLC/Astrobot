@@ -405,7 +405,9 @@ export async function getPosts(
 
       const posts: WordPressPost[] = await response.json();
       const processedPosts = posts.map(processPost);
+      const postSlugs = processedPosts.map(p => p.slug);
       console.log(`✅ getPosts: Successfully fetched ${posts.length} posts from WordPress API`);
+      console.log(`   📝 Post slugs: ${postSlugs.join(', ')}`);
       return processedPosts;
     } catch (fetchError) {
       // Log error but continue with mock data
