@@ -49,66 +49,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Pre-build diagnostics
-        run: |
-          echo "🔍 Build Environment Information:"
-          echo "  Node version: $(node --version)"
-          echo "  pnpm version: $(pnpm --version)"
-          echo "  WordPress API: ${{ env.WORDPRESS_API_URL }}"
-          echo "  Category slug: ${{ env.WORDPRESS_CATEGORY_SLUG }}"
-          echo "  GitHub Actions: true"
-
       - name: Build Astro site
         run: pnpm build
         env:
           WORDPRESS_API_URL: ${{ env.WORDPRESS_API_URL }}
           WORDPRESS_CATEGORY_SLUG: ${{ env.WORDPRESS_CATEGORY_SLUG }}
 
-      - name: Validate WordPress posts were fetched
-        run: |
-          echo "🔍 Validating build artifacts..."
-          
-          # Check if build succeeded
-          if [ ! -d "dist" ]; then
-            echo "❌ Build failed: dist directory not found"
-            exit 1
-          fi
-          
-          # Check if blog directory exists and has posts
-          if [ ! -d "dist/blog" ]; then
-            echo "⚠️ Warning: No blog directory created"
-          else
-            POST_COUNT=$(find dist/blog -name "index.html" -type f | wc -l)
-            echo "✅ Found $POST_COUNT blog posts in build"
-            if [ $POST_COUNT -eq 0 ]; then
-              echo "⚠️ Warning: No blog posts found. Verify WordPress API is accessible."
-            fi
-          fi
-          
-          # Check if manifest was created
-          if [ -f ".wordpress-posts-manifest.json" ]; then
-            echo "✅ Posts manifest created successfully"
-            cat .wordpress-posts-manifest.json | head -20
-          else
-            echo "⚠️ Warning: Posts manifest not found"
-          fi
-          
-          # Show build directory structure
-          echo ""
-          echo "📁 Build artifacts summary:"
-          du -sh dist/* 2>/dev/null | head -10
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-
-      - name: Post-build summary
-        if: always()
-        run: |
-          echo ""
-          echo "🎉 Build workflow completed"
-          echo "📝 Check the build logs above for WordPress API details"
 
   deploy:
     needs: build
@@ -120,9 +70,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Deployment summary
-        if: success()
-        run: |
-          echo "✅ Site deployed successfully!"
-          echo "📍 URL: ${{ steps.deployment.outputs.page_url }}"
