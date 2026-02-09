@@ -250,40 +250,167 @@ const MOCK_POSTS: ProcessedPost[] = [
   },
 ];
 
-// Helper function to fetch with timeout (compatible with all Node versions)
+/**
+ * Detect if running in GitHub Actions environment
+ */
+function isGitHubActions(): boolean {
+  return process.env.GITHUB_ACTIONS === 'true';
+}
+
+/**
+ * Get appropriate timeout based on environment
+ * GitHub Actions network is typically slower, so use longer timeout
+ */
+function getEnvironmentTimeout(baseTimeout: number = 15000): number {
+  if (isGitHubActions()) {
+    const envTimeout = baseTimeout * 1.5; // 50% longer for CI
+    console.log(`⏱️ GitHub Actions detected: using ${envTimeout}ms timeout`);
+    return envTimeout;
+  }
+  return baseTimeout;
+}
+
+/**
+ * Helper function to fetch with timeout, retry logic, and detailed diagnostics
+ */
 async function fetchWithTimeout(
   url: string,
-  options: RequestInit & { timeout?: number } = {}
+  options: RequestInit & { timeout?: number; retries?: number } = {}
 ): Promise<Response> {
-  const { timeout = 15000, ...fetchOptions } = options;
+  const { timeout = 15000, retries = 2, ...fetchOptions } = options;
+  const adjustedTimeout = getEnvironmentTimeout(timeout);
+  const userAgent = isGitHubActions()
+    ? 'AstrobotCI/1.0 (GitHub Actions)'
+    : 'AstrobotBuild/1.0';
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  let lastError: Error | null = null;
 
+  for (let attempt = 1; attempt <= retries + 1; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), adjustedTimeout);
+      const startTime = Date.now();
+
+      const response = await fetch(url, {
+        ...fetchOptions,
+        signal: controller.signal,
+        headers: {
+          ...fetchOptions.headers,
+          'User-Agent': userAgent,
+        }
+      });
+
+      const duration = Date.now() - startTime;
+      clearTimeout(timeoutId);
+
+      if (attempt > 1) {
+        console.log(`  ✅ Retry ${attempt - 1} succeeded (${duration}ms)`);
+      } else {
+        console.log(`  ⏱️ Request completed in ${duration}ms`);
+      }
+
+      return response;
+    } catch (error) {
+      lastError = error as Error;
+      const errorMsg = error instanceof Error ? error.message : String(error);
+
+      // Categorize the error
+      let errorCategory = 'Unknown';
+      if (errorMsg.includes('AbortError') || errorMsg.includes('timeout')) {
+        errorCategory = 'Timeout';
+      } else if (errorMsg.includes('ECONNREFUSED')) {
+        errorCategory = 'Connection Refused';
+      } else if (errorMsg.includes('ETIMEDOUT')) {
+        errorCategory = 'Network Timeout';
+      } else if (errorMsg.includes('ENOTFOUND') || errorMsg.includes('DNS')) {
+        errorCategory = 'DNS Error';
+      }
+
+      if (attempt === retries + 1) {
+        // Last attempt failed
+        console.error(`  ❌ Final attempt failed (${errorCategory}): ${errorMsg}`);
+        throw lastError;
+      } else {
+        // Retry with exponential backoff
+        const backoffMs = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+        console.warn(`  ⚠️ Attempt ${attempt} failed (${errorCategory}): ${errorMsg}`);
+        console.log(`  ⏳ Retrying in ${backoffMs}ms... (attempt ${attempt + 1}/${retries + 1})`);
+        await new Promise(resolve => setTimeout(resolve, backoffMs));
+      }
+    }
+  }
+
+  // Should never reach here, but just in case
+  throw lastError || new Error('Unknown fetch error');
+}
+
+/**
+ * Health check to verify WordPress API is accessible
+ */
+export async function healthCheckWordPress(): Promise<boolean> {
   try {
-    const response = await fetch(url, {
-      ...fetchOptions,
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
-    return response;
+    console.log('🏥 Checking WordPress API health...');
+    const response = await fetchWithTimeout(
+      `${WP_API_URL}/categories?per_page=1`,
+      { timeout: 5000, retries: 1 }
+    );
+
+    if (response.ok) {
+      console.log('✅ WordPress API is healthy and reachable');
+      return true;
+    } else {
+      console.warn(`⚠️ WordPress API returned status ${response.status}`);
+      return false;
+    }
   } catch (error) {
-    clearTimeout(timeoutId);
-    throw error;
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(`❌ WordPress API health check failed: ${errorMsg}`);
+    return false;
   }
 }
 
+/**
+ * Result type for getPosts that includes metadata about whether we're using real or fallback data
+ */
+export interface GetPostsResult {
+  posts: ProcessedPost[];
+  usingFallback: boolean;
+  categoryId: number;
+  categorySlug: string;
+}
+
+/**
+ * Fetch posts from WordPress API with automatic fallback to mock data
+ * Also tracks whether we're using real data or fallback
+ */
 export async function getPosts(
   page: number = 1,
   perPage: number = 10,
   categoryId?: number
 ): Promise<ProcessedPost[]> {
+  // Use simplified version for backwards compatibility
+  // Call the enhanced version and extract just the posts
+  const result = await getPostsWithMetadata(page, perPage, categoryId);
+  return result.posts;
+}
+
+/**
+ * Enhanced version of getPosts that returns metadata about the fetch
+ */
+export async function getPostsWithMetadata(
+  page: number = 1,
+  perPage: number = 10,
+  categoryId?: number
+): Promise<GetPostsResult> {
+  let actualCategoryId = categoryId;
+  let categorySlug = ASTROBOT_CATEGORY_SLUG;
+
   try {
     // If no categoryId provided, try to get the Astrobot category ID
     if (!categoryId) {
       console.log(`🔍 getPosts: Fetching category ID for "${ASTROBOT_CATEGORY_SLUG}"...`);
-      categoryId = await getAstrobotCategoryId();
-      if (!categoryId) {
+      actualCategoryId = await getAstrobotCategoryId();
+      if (!actualCategoryId) {
         throw new Error('Could not determine Astrobot.design category ID from WordPress API');
       }
     }
@@ -292,14 +419,14 @@ export async function getPosts(
     let url = `${WP_API_URL}/posts?_embed=true&page=${page}&per_page=${perPage}`;
 
     // Add category filter
-    if (categoryId) {
-      url += `&categories=${categoryId}`;
+    if (actualCategoryId) {
+      url += `&categories=${actualCategoryId}`;
     }
 
     try {
-      console.log(`📡 getPosts: Fetching from WordPress API with category ID ${categoryId}...`);
+      console.log(`📡 getPosts: Fetching from WordPress API with category ID ${actualCategoryId}...`);
       console.log(`📍 getPosts: API URL: ${url}`);
-      const response = await fetchWithTimeout(url, { timeout: 15000 }); // 15s timeout for build processes
+      const response = await fetchWithTimeout(url, { timeout: 15000, retries: 2 });
       if (!response.ok) {
         throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
       }
@@ -307,7 +434,12 @@ export async function getPosts(
       const posts: WordPressPost[] = await response.json();
       const processedPosts = posts.map(processPost);
       console.log(`✅ getPosts: Successfully fetched ${posts.length} posts from WordPress API`);
-      return processedPosts;
+      return {
+        posts: processedPosts,
+        usingFallback: false,
+        categoryId: actualCategoryId,
+        categorySlug,
+      };
     } catch (fetchError) {
       // Log error but continue with mock data
       const errorMessage = fetchError instanceof Error ? fetchError.message : String(fetchError);
@@ -317,7 +449,12 @@ export async function getPosts(
       // Return paginated mock data
       const start = (page - 1) * perPage;
       const end = start + perPage;
-      return MOCK_POSTS.slice(start, end);
+      return {
+        posts: MOCK_POSTS.slice(start, end),
+        usingFallback: true,
+        categoryId: actualCategoryId || 6,
+        categorySlug,
+      };
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -326,7 +463,12 @@ export async function getPosts(
     // Fallback to mock data in case of any error
     const start = (page - 1) * perPage;
     const end = start + perPage;
-    return MOCK_POSTS.slice(start, end);
+    return {
+      posts: MOCK_POSTS.slice(start, end),
+      usingFallback: true,
+      categoryId: categoryId || 6,
+      categorySlug,
+    };
   }
 }
 
