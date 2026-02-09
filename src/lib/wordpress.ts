@@ -88,7 +88,7 @@ const ASTROBOT_CATEGORY_SLUG = import.meta.env.WORDPRESS_CATEGORY_SLUG || 'astro
 export async function getCategories(): Promise<WordPressCategory[]> {
   try {
     console.log(`📡 Fetching categories from WordPress API at ${WP_API_URL}/categories`);
-    const response = await fetch(`${WP_API_URL}/categories?per_page=100`);
+    const response = await fetchWithTimeout(`${WP_API_URL}/categories?per_page=100`, { timeout: 15000 });
     if (!response.ok) {
       throw new Error(`Failed to fetch categories: ${response.status}`);
     }
