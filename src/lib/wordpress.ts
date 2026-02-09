@@ -378,6 +378,7 @@ export async function healthCheckWordPress(): Promise<boolean> {
 
 /**
  * Fetch posts from WordPress API with automatic fallback to mock data
+ * Uses in-memory cache to avoid redundant API calls during build
  */
 export async function getPosts(
   page: number = 1,
@@ -392,6 +393,14 @@ export async function getPosts(
       if (!categoryId) {
         throw new Error('Could not determine Astrobot.design category ID from WordPress API');
       }
+    }
+
+    // Check cache first (avoid redundant API calls during build)
+    const cacheKey = `posts_${categoryId}_${page}_${perPage}`;
+    if (postCache.has(cacheKey)) {
+      const cached = postCache.get(cacheKey)!;
+      console.log(`📦 getPosts: Using cached posts (${cached.length} posts)`);
+      return cached;
     }
 
     // Construct the API URL with parameters
@@ -417,6 +426,10 @@ export async function getPosts(
       const postSlugs = processedPosts.map(p => p.slug);
       console.log(`✅ getPosts: Successfully fetched ${posts.length} posts from WordPress API`);
       console.log(`   📝 Post slugs: ${postSlugs.join(', ')}`);
+
+      // Cache the result for this request
+      postCache.set(cacheKey, processedPosts);
+
       return processedPosts;
     } catch (fetchError) {
       // Log error but continue with mock data
