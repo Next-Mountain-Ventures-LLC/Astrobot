@@ -1,15 +1,23 @@
-CLAUDE.md
+# Build and dependency artifacts
+node_modules/
+dist/
+
+# Editor/IDE configuration
 .claude.json
 claude_log.log
 .claude/
 .config/
 .local/
 .npm/
-node_modules/
 .vercel/
-dist/
-screenshots/
+.vercel
 .cache/
+
+# Media and assets
+screenshots/
 media/
 copytext/
-.vercel
+
+# NOTE: .wordpress-posts-manifest.json IS intentionally tracked in git
+# This file tracks which posts should exist in the static site and provides
+# an audit trail for post changes over time. It enables cleanup of orphaned posts.
