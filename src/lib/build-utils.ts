@@ -71,7 +71,7 @@ export function compareManifests(
   currentPosts: ProcessedPost[]
 ): ManifestComparison {
   const currentSlugs = currentPosts.map(post => post.slug);
-  
+
   // If no previous manifest, all current posts are "new"
   if (!previousManifest) {
     return {
@@ -81,13 +81,20 @@ export function compareManifests(
       summary: `🆕 Initial build: ${currentSlugs.length} posts to create`,
     };
   }
-  
+
   const previousSlugs = previousManifest.postSlugs;
-  
+
+  console.log(`   📊 Previous posts (${previousSlugs.length}): ${previousSlugs.join(', ')}`);
+  console.log(`   📊 Current posts (${currentSlugs.length}): ${currentSlugs.join(', ')}`);
+
   const newPosts = currentSlugs.filter(slug => !previousSlugs.includes(slug));
   const orphanedPosts = previousSlugs.filter(slug => !currentSlugs.includes(slug));
   const unchangedPosts = currentSlugs.filter(slug => previousSlugs.includes(slug));
-  
+
+  if (orphanedPosts.length > 0) {
+    console.log(`   🗑️ Orphaned posts to remove: ${orphanedPosts.join(', ')}`);
+  }
+
   const summaryParts: string[] = [];
   if (unchangedPosts.length > 0) summaryParts.push(`${unchangedPosts.length} unchanged`);
   if (newPosts.length > 0) summaryParts.push(`+${newPosts.length} new`);
