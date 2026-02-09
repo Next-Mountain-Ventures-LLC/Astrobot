@@ -52,9 +52,13 @@ function getRelatedPosts(
   if (topPosts.length < limit) {
     const recentPosts = otherPosts
       .filter(post => !topPosts.includes(post)) // Exclude posts already in the list
-      .sort((a, b) => b.date.getTime() - a.date.getTime()) // Sort by date, newest first
+      .sort((a, b) => {
+        const dateA = typeof a.date === 'string' ? new Date(a.date) : a.date;
+        const dateB = typeof b.date === 'string' ? new Date(b.date) : b.date;
+        return dateB.getTime() - dateA.getTime();
+      }) // Sort by date, newest first
       .slice(0, limit - topPosts.length);
-    
+
     topPosts.push(...recentPosts);
   }
   
