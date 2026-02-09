@@ -250,6 +250,29 @@ const MOCK_POSTS: ProcessedPost[] = [
   },
 ];
 
+// Helper function to fetch with timeout (compatible with all Node versions)
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit & { timeout?: number } = {}
+): Promise<Response> {
+  const { timeout = 15000, ...fetchOptions } = options;
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, {
+      ...fetchOptions,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
 export async function getPosts(
   page: number = 1,
   perPage: number = 10,
@@ -276,7 +299,7 @@ export async function getPosts(
     try {
       console.log(`📡 getPosts: Fetching from WordPress API with category ID ${categoryId}...`);
       console.log(`📍 getPosts: API URL: ${url}`);
-      const response = await fetch(url, { signal: AbortSignal.timeout(10000) }); // 10s timeout for build processes
+      const response = await fetchWithTimeout(url, { timeout: 15000 }); // 15s timeout for build processes
       if (!response.ok) {
         throw new Error(`WordPress API returned status ${response.status}: ${response.statusText}`);
       }
