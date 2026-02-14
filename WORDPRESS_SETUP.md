@@ -713,12 +713,18 @@ if (post.featuredMedia?.url) {
 
 Lists all blog posts on a dedicated page. **Check if this file exists before creating.**
 
+**CRITICAL:** If `src/pages/blog/index.astro` already exists on this site, **DO NOT overwrite or redesign it**. Many sites have custom-designed blog listing pages with specific layouts, filters, or styling. Only create this file if it does not already exist.
+
+**When to create this file:**
+- ✅ File does not exist → Create it using the content below
+- ❌ File already exists → Leave it alone, preserve the existing design
+
 **Important:**
 - Always fetch with `per_page=100`
-- Slice locally to 12 posts
+- Slice locally to 12 posts (or adjust to your design)
 - Shows empty state if no posts found
 
-**Complete file content:**
+**Complete file content (if creating new):**
 
 ```astro
 ---
@@ -963,6 +969,37 @@ WORDPRESS_CATEGORY_SLUG=astrobot-design
 
 ---
 
+## Preserving Existing Site Customizations
+
+**IMPORTANT:** When adding WordPress integration to an existing site, always check for existing custom components before creating new ones. Sites with existing designs should keep those designs intact.
+
+### Files to Check Before Creating
+
+The following files should **only be created if they don't already exist**. If they exist with custom design, do NOT modify or recreate them:
+
+1. **`src/pages/blog/index.astro`** - Blog listing/index page
+   - ✅ If missing → Create from section 4.3
+   - ❌ If exists → Preserve the existing design
+
+2. **`src/components/home/BlogPreview.astro`** - Homepage blog carousel
+   - ✅ If missing → Create from section 4.4
+   - ❌ If exists → Preserve the existing design
+
+### Files That Are Safe to Create
+
+These files are typically new and safe to create:
+
+1. **`src/pages/blog/[slug].astro`** - Individual blog post pages
+2. **`src/lib/wordpress.ts`** - WordPress API integration layer
+
+### Why This Matters
+
+- **Custom designs take time** - Sites may have spent significant effort on custom blog layouts, carousels, or filtering logic
+- **Consistency** - Each site's design is unique and should be preserved
+- **Functionality over design** - The WordPress integration is about fetching data, not redesigning. Your existing design should work perfectly with the WordPress data layer.
+
+---
+
 ## Component Display Best Practices
 
 ### Displaying Excerpts Cleanly
@@ -1013,7 +1050,9 @@ Use this checklist when setting up a new Astro site with WordPress integration:
 - [ ] Copy `src/lib/wordpress.ts` from reference site (Astrobot)
 - [ ] Create blog pages structure:
   - [ ] Check if `src/pages/blog/[slug].astro` exists; create if not
-  - [ ] Check if `src/pages/blog/index.astro` exists; create if not
+  - [ ] **CRITICAL: Check if `src/pages/blog/index.astro` exists:**
+    - [ ] If it exists, **DO NOT modify or recreate it** - preserve the existing design
+    - [ ] If it does NOT exist, create it as shown in section 4.3
 - [ ] **CRITICAL: Check if homepage blog carousel exists:**
   - [ ] If `src/components/home/BlogPreview.astro` exists, **DO NOT modify or recreate it** - preserve the existing design
   - [ ] If it does NOT exist, create it as shown in section 4.4
@@ -1465,6 +1504,36 @@ The `per_page=100` value is magic—it's the only value that returns consistent 
 
 ---
 
+### Blog index page was redesigned during setup
+
+**Symptoms:**
+- Existing blog listing page styling/design was lost
+- Custom blog index layout was replaced with default design
+- Expected custom page design is now showing default design
+- Categories filter or custom features were removed
+
+**Cause:**
+- The setup process created/overwrote `src/pages/blog/index.astro`
+- Existing custom blog index page was not preserved
+
+**Prevention for future sites:**
+- **Always check if `src/pages/blog/index.astro` exists BEFORE creating it**
+- If it exists with custom design, **never overwrite it**
+- Only create the file if it doesn't exist
+- Update setup instructions to mention: "If `src/pages/blog/index.astro` exists, do NOT recreate it"
+
+**Recovery:**
+1. If you have git history, revert the file:
+   ```bash
+   git checkout HEAD~1 -- src/pages/blog/index.astro
+   ```
+
+2. If no git history, manually recreate your custom blog listing page
+
+3. Note: The WordPress integration only requires that the file fetches posts and displays them. The design and layout are completely customizable - preserve any custom implementations
+
+---
+
 ## Performance Characteristics
 
 ### Build Time Expectations
@@ -1521,9 +1590,8 @@ I have an Astro blog site that needs WordPress integration. Follow these instruc
 2. Implement sections 4.1 through 4.6 from that file
 3. CRITICAL - Before creating files, check if they already exist:
    - If src/pages/blog/[slug].astro exists, create if missing
-   - If src/pages/blog/index.astro exists, create if missing
-   - If src/components/home/BlogPreview.astro EXISTS, DO NOT modify or recreate it - preserve the existing design
-   - Only create BlogPreview.astro if it does NOT exist
+   - If src/pages/blog/index.astro EXISTS, DO NOT modify or recreate it - preserve the existing design (only create if missing)
+   - If src/components/home/BlogPreview.astro EXISTS, DO NOT modify or recreate it - preserve the existing design (only create if missing)
 4. When implementing:
    - Copy the complete file content from WORDPRESS_SETUP.md
    - Don't ask questions - just implement
