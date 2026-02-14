@@ -102,7 +102,40 @@ Third call to getPosts():     → Uses cached data (no API call)
 
 Without caching, each would make separate API calls. With caching, only the first call hits the API.
 
-### 3. Per-Page Parameter Importance
+### 3. Category Filtering: Filter Category vs. Display Categories
+
+**Important distinction:**
+
+- **Filter Category** (e.g., `astrobot-design`): Used internally to fetch only posts for this site. **NEVER displayed** on blog cards, carousels, or detail pages.
+- **Display Categories** (all other categories): Pulled from WordPress and **ALWAYS shown** as category tags/labels on blog posts.
+
+**How it works:**
+
+When a post is published in WordPress with multiple categories:
+```
+Post: "My Blog Post"
+  Categories: [astrobot-design, Web Development, Performance]
+```
+
+After processing:
+- `astrobot-design` is filtered out (hidden)
+- `Web Development` and `Performance` are displayed as category tags
+
+**In code (src/lib/wordpress.ts):**
+```typescript
+categories: categoriesArray
+  .filter(cat => cat.slug !== WORDPRESS_CATEGORY_SLUG) // Hide filter category
+  .map(cat => ({...})) // Keep other categories
+```
+
+**What users see:**
+- Blog cards show: "Web Development • Performance"
+- `astrobot-design` category is never visible
+- Each site only sees posts from its category, but displays all other categories
+
+---
+
+### 4. Per-Page Parameter Importance
 
 **Always use `per_page=100` in API requests, then slice locally in components.**
 
@@ -118,7 +151,7 @@ const allPosts = await getPosts(1, 100);  // Fetch all posts
 const posts = allPosts.slice(0, 12);      // Display first 12
 ```
 
-### 4. Static Generation
+### 5. Static Generation (Build-Time Rendering)
 
 Astro is a static site generator. At build time:
 
@@ -129,7 +162,7 @@ Astro is a static site generator. At build time:
 
 No runtime processing = blazing fast pages.
 
-### 5. GitHub Actions Trigger
+### 6. GitHub Actions Trigger
 
 The deploy workflow runs when:
 
@@ -155,9 +188,11 @@ This file is the core of the WordPress integration. It handles all API communica
 - `fetchWithTimeout()`: Fetch with timeout, retry logic, and detailed error categorization
 - `getAstrobotCategoryId()`: Get category ID for `WORDPRESS_CATEGORY_SLUG`
 - `getPosts()`: Main function with in-memory caching
-- `processPost()`: Convert WordPress data to clean format
+- `processPost()`: Convert WordPress data to clean format, strips HTML from excerpts
 - `healthCheckWordPress()`: Pre-flight connectivity check
 - Mock data fallback for development
+
+**Important excerpt handling:** The `processPost()` function extracts the excerpt from WordPress and sanitizes it. When displaying excerpts in components, always use `cleanHtmlForDisplay()` to remove any remaining HTML tags and decode entities. This prevents `<p>` tags or other HTML from appearing in preview text.
 
 **Complete file content:**
 
@@ -541,17 +576,20 @@ export async function getPostBySlug(slug: string): Promise<ProcessedPost | null>
 function processPost(post: WordPressPost): ProcessedPost {
   // Extract featured media
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-  
+
   // Extract categories
   const categoriesArray = post._embedded?.['wp:term']?.[0] as WordPressCategory[] || [];
-  
+
   // Extract tags
   const tagsArray = post._embedded?.['wp:term']?.[1] as WordPressTag[] || [];
-  
+
   // Extract author
   const author = post._embedded?.['author']?.[0];
 
-  // Create processed post - Filter out the primary category from display
+  // Create processed post - IMPORTANT: Filter out the primary filter category
+  // The WORDPRESS_CATEGORY_SLUG (e.g., "astrobot-design") is used internally for filtering posts.
+  // It should NEVER appear as a displayed category on blog cards, carousels, or detail pages.
+  // All OTHER categories are displayed normally as tags/category labels.
   return {
     id: post.id,
     slug: post.slug,
@@ -567,7 +605,7 @@ function processPost(post: WordPressPost): ProcessedPost {
         }
       : undefined,
     categories: categoriesArray
-      .filter(cat => cat.slug !== ASTROBOT_CATEGORY_SLUG) // Hide the primary filter category
+      .filter(cat => cat.slug !== WORDPRESS_CATEGORY_SLUG) // Hide the primary filter category from display
       .map(cat => ({
         id: cat.id,
         name: cat.name,
@@ -731,12 +769,19 @@ const posts = allPosts.slice(0, 12);
 
 Displays carousel of recent posts on homepage. **Check if this file exists before creating.**
 
+**CRITICAL:** If `src/components/home/BlogPreview.astro` already exists on this site, **DO NOT overwrite or rebuild it**. Many sites have custom-designed carousels with specific styling and functionality. Only create this file if it does not already exist.
+
 **Important:**
 - Same `per_page=100` pattern
 - Slice locally to 6 posts
 - Only renders if posts exist
+- Preserve existing carousels - don't rebuild them
 
-**Complete file content:**
+**When to create this file:**
+- ✅ File does not exist → Create it using the content below
+- ❌ File already exists → Leave it alone, preserve the existing design
+
+**Complete file content (if creating new):**
 
 ```astro
 ---
@@ -918,6 +963,47 @@ WORDPRESS_CATEGORY_SLUG=astrobot-design
 
 ---
 
+## Component Display Best Practices
+
+### Displaying Excerpts Cleanly
+
+When rendering blog post excerpts in cards and carousels, **always** use `cleanHtmlForDisplay()`:
+
+```astro
+// BlogCard.astro - CORRECT
+import { cleanHtmlForDisplay } from "@/lib/utils";
+
+<p class="text-sm text-muted-foreground">
+  {cleanHtmlForDisplay(post.excerpt).substring(0, 120)}...
+</p>
+```
+
+This removes all HTML tags (`<p>`, `<br>`, etc.) and decodes HTML entities before displaying. Without this, the preview text will show formatting tags and look broken.
+
+### Displaying Category Tags
+
+Always display the categories returned by the WordPress API. The filter category (e.g., `astrobot-design`) is **already hidden** by the WordPress layer, so you don't need to filter anything in your component.
+
+```astro
+// BlogCard.astro - CORRECT
+{post.categories.length > 0 && (
+  <div class="flex gap-2 flex-wrap text-xs">
+    {post.categories.map(cat => (
+      <span key={cat.id} class="bg-primary/10 text-primary px-2 py-1 rounded">
+        {cleanHtmlForDisplay(cat.name)}
+      </span>
+    ))}
+  </div>
+)}
+```
+
+**Important:**
+- All categories in `post.categories` are safe to display
+- The filter category is automatically removed by the WordPress layer
+- Don't add additional category filtering in components
+
+---
+
 ## Setup Checklist for New Sites
 
 Use this checklist when setting up a new Astro site with WordPress integration:
@@ -928,9 +1014,9 @@ Use this checklist when setting up a new Astro site with WordPress integration:
 - [ ] Create blog pages structure:
   - [ ] Check if `src/pages/blog/[slug].astro` exists; create if not
   - [ ] Check if `src/pages/blog/index.astro` exists; create if not
-- [ ] Check if homepage blog carousel exists:
-  - [ ] If `src/components/home/BlogPreview.astro` exists, verify it's configured
-  - [ ] If not, create it
+- [ ] **CRITICAL: Check if homepage blog carousel exists:**
+  - [ ] If `src/components/home/BlogPreview.astro` exists, **DO NOT modify or recreate it** - preserve the existing design
+  - [ ] If it does NOT exist, create it as shown in section 4.4
 - [ ] Update `astro.config.ts`:
   - [ ] Change `site:` to your domain (e.g., `https://thefordamily.life`)
 - [ ] Create `.github/workflows/deploy.yml`:
@@ -995,11 +1081,17 @@ For a different WordPress instance, change this URL.
 
 **Default:** `astrobot-design`
 
-This is the category slug to filter posts by. Each site has its own category:
+This is the **filter category slug** used internally to fetch only posts for this site. Each site has its own unique category:
 
-- **Astrobot:** `astrobot-design`
-- **TheFordFamily:** `thefordamily`
-- **YourSite:** `your-category-slug`
+- **Astrobot:** `astrobot-design` → only fetches posts tagged with "astrobot-design"
+- **TheFordFamily:** `thefordamily` → only fetches posts tagged with "thefordamily"
+- **YourSite:** `your-category-slug` → only fetches posts tagged with "your-category-slug"
+
+**Important behavior:**
+- This category is used **only for filtering** which posts to fetch
+- This category **never appears** as a displayed tag on blog cards, carousels, or detail pages
+- **All other categories** ARE displayed as category tags (e.g., "Web Development", "Performance")
+- Each site only sees posts from its category, but displays all secondary categories
 
 **How to find your category slug:**
 
@@ -1017,6 +1109,15 @@ curl "https://blog.nxtmt.ventures/wp-json/wp/v2/categories?search=astrobot-desig
 ```
 
 The response should include your category with the ID.
+
+**To verify posts are in your category:**
+
+```bash
+# Replace [ID] with your category ID from above
+curl "https://blog.nxtmt.ventures/wp-json/wp/v2/posts?categories=[ID]&per_page=100"
+```
+
+Should return posts assigned to your category.
 
 ---
 
@@ -1287,6 +1388,83 @@ The `per_page=100` value is magic—it's the only value that returns consistent 
 
 ---
 
+### HTML tags appearing in blog preview text (excerpt)
+
+**Symptoms:**
+- Blog cards or carousel show `<p>` tags or paragraph breaks
+- Excerpt text has visible HTML formatting
+- Preview text looks messy with HTML entities
+
+**Cause:**
+- Component is not properly cleaning HTML from excerpt text
+- Excerpt extraction is not stripping HTML tags
+
+**Solutions:**
+
+1. **Verify component is using `cleanHtmlForDisplay()`:**
+
+   In `src/components/blog/BlogCard.astro` and `src/components/home/BlogCarousel.tsx`:
+   ```astro
+   <!-- ✅ CORRECT -->
+   <p class="text-sm text-muted-foreground">
+     {cleanHtmlForDisplay(post.excerpt).substring(0, 120)}...
+   </p>
+
+   <!-- ❌ INCORRECT -->
+   <p class="text-sm text-muted-foreground">
+     {post.excerpt.substring(0, 120)}...
+   </p>
+   ```
+
+2. **Ensure `cleanHtmlForDisplay()` is imported:**
+   ```astro
+   import { cleanHtmlForDisplay } from "@/lib/utils";
+   ```
+
+3. **Check `src/lib/utils.ts` has proper HTML stripping:**
+   The `cleanHtmlForDisplay()` function should:
+   - Remove all HTML tags with regex `/<\/?[^>]+(>|$)/g`
+   - Decode HTML entities
+   - Return plain text
+
+4. **If issue persists, manually test:**
+   ```javascript
+   // Test in browser console
+   const { cleanHtmlForDisplay } = await import('@/lib/utils');
+   const excerpt = '<p>Test paragraph</p>';
+   console.log(cleanHtmlForDisplay(excerpt)); // Should print: Test paragraph
+   ```
+
+---
+
+### Blog carousel was overwritten during setup
+
+**Symptoms:**
+- Existing blog carousel styling/design was lost
+- Custom carousel implementation was replaced
+- Expected custom design is now showing default design
+
+**Cause:**
+- The setup process created/overwrote `src/components/home/BlogPreview.astro`
+- Existing custom carousel was not preserved
+
+**Prevention for future sites:**
+- **Always check if `src/components/home/BlogPreview.astro` exists BEFORE creating it**
+- If it exists with custom design, **never overwrite it**
+- Only create the file if it doesn't exist
+
+**Recovery:**
+1. If you have git history, revert the file:
+   ```bash
+   git checkout HEAD~1 -- src/components/home/BlogPreview.astro
+   ```
+
+2. If no git history, manually recreate your custom carousel
+
+3. Verify in your setup instructions: "If `src/components/home/BlogPreview.astro` exists, do NOT recreate it"
+
+---
+
 ## Performance Characteristics
 
 ### Build Time Expectations
@@ -1341,21 +1519,27 @@ I have an Astro blog site that needs WordPress integration. Follow these instruc
 
 1. Read the WORDPRESS_SETUP.md file in the root of the repository
 2. Implement sections 4.1 through 4.6 from that file
-3. When implementing:
+3. CRITICAL - Before creating files, check if they already exist:
+   - If src/pages/blog/[slug].astro exists, create if missing
+   - If src/pages/blog/index.astro exists, create if missing
+   - If src/components/home/BlogPreview.astro EXISTS, DO NOT modify or recreate it - preserve the existing design
+   - Only create BlogPreview.astro if it does NOT exist
+4. When implementing:
    - Copy the complete file content from WORDPRESS_SETUP.md
    - Don't ask questions - just implement
    - File paths: src/lib/wordpress.ts, src/pages/blog/[slug].astro, etc.
    - Update astro.config.ts with site: "[YOUR_SITE_URL]"
    - Update .github/workflows/deploy.yml env: WORDPRESS_CATEGORY_SLUG: "[YOUR_CATEGORY_SLUG]"
 
-4. Only variable input needed:
+5. Only variable input needed:
    - WORDPRESS_CATEGORY_SLUG: [INSERT_CATEGORY_SLUG_HERE]
    - Your site URL for astro.config.ts: [INSERT_SITE_URL_HERE]
 
-5. After implementation:
+6. After implementation:
    - Run `pnpm build` to test locally
    - Verify build completes and shows "✅ getPosts: Successfully fetched X posts"
    - Check that blog posts appear in the generated site
+   - Verify categories display correctly on blog cards (should not show the filter category)
 
 Reference site for comparison: Next-Mountain-Ventures-LLC/Astrobot (commit 928d956)
 ```
