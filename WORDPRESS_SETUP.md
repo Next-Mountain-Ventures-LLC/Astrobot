@@ -192,7 +192,20 @@ This file is the core of the WordPress integration. It handles all API communica
 - `healthCheckWordPress()`: Pre-flight connectivity check
 - Mock data fallback for development
 
-**Important excerpt handling:** The `processPost()` function extracts the excerpt from WordPress and sanitizes it. When displaying excerpts in components, always use `cleanHtmlForDisplay()` to remove any remaining HTML tags and decode entities. This prevents `<p>` tags or other HTML from appearing in preview text.
+**Important excerpt and entity handling:** The `processPost()` function extracts the excerpt from WordPress and sanitizes it. When displaying excerpts, titles, or any text in components, **always** use `cleanHtmlForDisplay()` to:
+1. Remove any HTML tags
+2. Decode HTML entities (see HTML Entity Handling section below)
+3. Convert special characters properly
+
+This prevents `<p>` tags and HTML entities from appearing in preview text.
+
+**HTML Entity Handling:** WordPress sometimes returns post titles and content with HTML entities instead of regular characters:
+- Apostrophes appear as `&rsquo;` or `&#39;`
+- Quotation marks appear as `&ldquo;` or `&rdquo;` or `&quot;`
+- Dashes appear as `&#8211;` (en dash) or `&#8212;` (em dash)
+- Other special characters like `&amp;`, `&copy;`, etc.
+
+The `cleanHtmlForDisplay()` function automatically decodes these entities to their proper characters. No additional configuration needed.
 
 **Complete file content:**
 
@@ -1002,6 +1015,24 @@ These files are typically new and safe to create:
 
 ## Component Display Best Practices
 
+### Understanding HTML Entities
+
+WordPress sometimes encodes special characters as "HTML entities" - this is a way of representing characters that have special meaning in HTML.
+
+**Common HTML entities you might see:**
+
+| Entity | What It Is | Example |
+|--------|-----------|---------|
+| `&rsquo;` or `&#39;` | Apostrophe | `It&#39;s` → `It's` |
+| `&ldquo;` `&rdquo;` | Quotation marks | `&ldquo;Hello&rdquo;` → `"Hello"` |
+| `&amp;` | Ampersand | `Q&amp;A` → `Q&A` |
+| `&#8211;` | En dash | `1–2` (slightly longer dash) |
+| `&#8212;` | Em dash | `Hello—world` (longer dash) |
+| `&nbsp;` | Non-breaking space | Extra space that doesn't wrap |
+| `&copy;` | Copyright | `2025&copy;` → `2025©` |
+
+**When you see these:** If you see these codes appearing in your blog posts, titles, or preview text instead of the actual characters, it means HTML entity decoding isn't being applied.
+
 ### Displaying Excerpts Cleanly
 
 When rendering blog post excerpts in cards and carousels, **always** use `cleanHtmlForDisplay()`:
@@ -1015,7 +1046,32 @@ import { cleanHtmlForDisplay } from "@/lib/utils";
 </p>
 ```
 
-This removes all HTML tags (`<p>`, `<br>`, etc.) and decodes HTML entities before displaying. Without this, the preview text will show formatting tags and look broken.
+This function:
+1. Removes all HTML tags (`<p>`, `<br>`, etc.)
+2. **Decodes HTML entities** (converts `&rsquo;` to `'`, `&amp;` to `&`, etc.)
+3. Returns plain text ready for display
+
+Without this, the preview text will show formatting tags AND encoded entities, looking broken.
+
+### Displaying Titles
+
+Blog post titles often contain special characters that WordPress encodes. **Always use `cleanHtmlForDisplay()`:**
+
+```astro
+// BlogCard.astro - CORRECT
+<h2 class="font-heading text-xl font-medium">
+  <a href={`/blog/${post.slug}`}>
+    {cleanHtmlForDisplay(post.title)}
+  </a>
+</h2>
+
+// BlogCarousel.tsx - CORRECT
+<h3 className="font-heading text-xl md:text-2xl font-medium">
+  {cleanHtmlForDisplay(post.title)}
+</h3>
+```
+
+This ensures titles like `It&rsquo;s a "Great" Day` display correctly as `It's a "Great" Day`.
 
 ### Displaying Category Tags
 
@@ -1038,6 +1094,25 @@ Always display the categories returned by the WordPress API. The filter category
 - All categories in `post.categories` are safe to display
 - The filter category is automatically removed by the WordPress layer
 - Don't add additional category filtering in components
+- **Always use `cleanHtmlForDisplay(cat.name)`** in case category names contain special characters
+
+---
+
+## Quick Reference: When to Use cleanHtmlForDisplay()
+
+Use `cleanHtmlForDisplay()` on **ALL text fields** pulled from WordPress to ensure proper character encoding:
+
+```astro
+{cleanHtmlForDisplay(post.title)}      // ✅ Always
+{cleanHtmlForDisplay(post.excerpt)}    // ✅ Always
+{cleanHtmlForDisplay(post.content)}    // ✅ Always
+{cleanHtmlForDisplay(cat.name)}        // ✅ Always
+{cleanHtmlForDisplay(post.author?.name)} // ✅ Always
+{post.date}                            // ❌ Dates don't need cleaning
+{post.slug}                            // ❌ Slugs don't need cleaning
+```
+
+This prevents apostrophes, quotes, and other special characters from displaying as encoded entities.
 
 ---
 
@@ -1427,6 +1502,53 @@ The `per_page=100` value is magic—it's the only value that returns consistent 
 
 ---
 
+### HTML entities appearing in text (apostrophes, quotes, etc.)
+
+**Symptoms:**
+- Apostrophes show as `&rsquo;` or `&#39;`
+- Quotation marks show as `&ldquo;` or `&rdquo;` or `&quot;`
+- Dashes show as `&#8211;` or `&#8212;`
+- Other special characters like `&amp;`, `&copy;`, etc. appear in text
+- Titles look like: `It&rsquo;s a &ldquo;Great&rdquo; Day` instead of `It's a "Great" Day`
+
+**Cause:**
+- Component is not using `cleanHtmlForDisplay()` to decode HTML entities
+- Entity decoding is not being applied to titles, excerpts, or other text
+
+**Solution:**
+
+1. **Verify all text fields use `cleanHtmlForDisplay()`:**
+
+   ```astro
+   <!-- ✅ CORRECT - All text fields are cleaned -->
+   {cleanHtmlForDisplay(post.title)}
+   {cleanHtmlForDisplay(post.excerpt)}
+   {cleanHtmlForDisplay(cat.name)} <!-- for categories -->
+
+   <!-- ❌ INCORRECT - Raw text shows entities -->
+   {post.title}
+   {post.excerpt}
+   ```
+
+2. **Ensure import is present:**
+   ```astro
+   import { cleanHtmlForDisplay } from "@/lib/utils";
+   ```
+
+3. **Common places to add cleaning:**
+   - Blog post titles: `{cleanHtmlForDisplay(post.title)}`
+   - Excerpts/preview text: `{cleanHtmlForDisplay(post.excerpt)}`
+   - Category names: `{cleanHtmlForDisplay(cat.name)}`
+   - Author names: `{cleanHtmlForDisplay(post.author?.name)}`
+   - Any text pulled from WordPress
+
+4. **If still seeing entities:**
+   - Check browser console for any JavaScript errors
+   - Verify the `decodeHtmlEntities()` function in `src/lib/utils.ts` is present and correct
+   - Test with a simple title that has an apostrophe
+
+---
+
 ### HTML tags appearing in blog preview text (excerpt)
 
 **Symptoms:**
@@ -1598,6 +1720,7 @@ I have an Astro blog site that needs WordPress integration. Follow these instruc
    - File paths: src/lib/wordpress.ts, src/pages/blog/[slug].astro, etc.
    - Update astro.config.ts with site: "[YOUR_SITE_URL]"
    - Update .github/workflows/deploy.yml env: WORDPRESS_CATEGORY_SLUG: "[YOUR_CATEGORY_SLUG]"
+   - **Ensure all components use `cleanHtmlForDisplay()` on text fields** (titles, excerpts, categories, etc.) to properly display special characters
 
 5. Only variable input needed:
    - WORDPRESS_CATEGORY_SLUG: [INSERT_CATEGORY_SLUG_HERE]
@@ -1608,6 +1731,8 @@ I have an Astro blog site that needs WordPress integration. Follow these instruc
    - Verify build completes and shows "✅ getPosts: Successfully fetched X posts"
    - Check that blog posts appear in the generated site
    - Verify categories display correctly on blog cards (should not show the filter category)
+   - **Important:** Verify text displays correctly - apostrophes should show as `'` not `&rsquo;`, quotes as `"` not `&ldquo;`/`&rdquo;`
+   - If seeing HTML entities in text, ensure components use `cleanHtmlForDisplay()` on all text fields
 
 Reference site for comparison: Next-Mountain-Ventures-LLC/Astrobot (commit 928d956)
 ```
@@ -1779,6 +1904,8 @@ export interface ProcessedPost {
 ```
 
 Then update `processPost()` to populate new fields.
+
+**Important:** Any new fields pulled from WordPress will need `cleanHtmlForDisplay()` applied in components if they contain text, to properly decode HTML entities.
 
 ### Custom Category Filtering Logic
 
