@@ -25,14 +25,68 @@
 
 ## Executive Summary
 
-This guide provides complete instructions for integrating a WordPress blog with Astro static sites. The system fetches posts from a shared WordPress instance at **build time**, generates beautiful static HTML pages, and deploys them to GitHub Pages. 
+This guide provides complete instructions for integrating a WordPress blog with Astro static sites. The system fetches posts from a shared WordPress instance at **build time**, generates beautiful static HTML pages, and deploys them to GitHub Pages.
 
 **Who should use this:** Developers setting up blog functionality for Astro sites that pull from the same WordPress API endpoint.
+
+**⚡ For AI Agents Setting Up WordPress Integration:**
+
+When using this guide with an AI agent (e.g., Builder.io, Claude, etc.), **ask for ONLY these two pieces of information:**
+
+1. **WordPress Category Slug** (e.g., `astrobot-design`, `thefordamily`)
+2. **Site Domain URL** (e.g., `https://yoursite.com`)
+
+The AI agent should then:
+- Read WORDPRESS_SETUP.md
+- Implement sections 4.1-4.6 exactly as documented
+- NOT ask follow-up questions
+- Preserve any existing custom designs
+- Use the standardized Builder.io prompt template (section 9)
+
+Everything else is handled automatically. Do NOT ask for WordPress API URL, Node version, package manager, or other configuration details.
 
 **Quick Links:**
 - [Setup Checklist](#setup-checklist-for-new-sites) - Start here for new sites
 - [Troubleshooting](#troubleshooting-guide) - Fix common issues
-- [Builder.io Prompt Template](#for-builderio-prompt-reference) - Use this exact prompt format
+- [Builder.io Prompt Template](#for-builderio-prompt-reference) - AI agents: Use this exact prompt format
+- [Information Needed From User](#information-needed-from-user) - AI agents: Ask ONLY for these two items
+
+---
+
+## ⚡ Quick Start for AI Agents
+
+If you're an AI agent (Claude, Builder.io, etc.) being asked to set up WordPress integration:
+
+1. **Get user input:**
+   - Ask: "What is your WordPress category slug?" (e.g., `thefordamily`, `spirituality`)
+   - Ask: "What is your site's domain?" (e.g., `https://mysite.com`)
+   - Stop asking questions after these two items
+
+2. **Implement automatically:**
+   - Read sections 4.1 through 4.6 of this document
+   - Check if `src/pages/blog/index.astro` and `src/components/home/BlogPreview.astro` exist
+   - If they exist → DO NOT modify them (preserve custom designs)
+   - If they don't exist → Create them from the templates
+   - Always create `src/lib/wordpress.ts` (safe, usually new)
+   - Always create `src/pages/blog/[slug].astro` (safe, usually new)
+
+3. **Update configuration:**
+   - `astro.config.ts`: Change `site:` to the user's domain
+   - `.github/workflows/deploy.yml`: Change `WORDPRESS_CATEGORY_SLUG` env var
+   - `.env.example`: Change `WORDPRESS_CATEGORY_SLUG` value
+
+4. **Do NOT change:**
+   - WordPress API URL (always `https://blog.nxtmt.ventures/wp-json/wp/v2`)
+   - Node version (always 20)
+   - pnpm version (always 10.29.2)
+   - Package manager
+   - Other configuration details
+
+5. **After implementation:**
+   - Suggest running `pnpm build` locally
+   - Verify output shows "✅ getPosts: Successfully fetched X posts"
+
+That's it! See [For Builder.io Prompt Reference](#for-builderio-prompt-reference) for the template prompt.
 
 ---
 
@@ -1701,69 +1755,100 @@ With caching:
 
 ## For Builder.io Prompt Reference
 
+### Information Needed From User
+
+**For AI Agents and Builder.io Users:** When setting up WordPress integration on a new site, ask the user ONLY for these two items:
+
+1. **WordPress Category Slug** (required)
+   - Example: `astrobot-design`, `thefordamily`, `spirituality`, etc.
+   - How they find it: WordPress admin → Posts → Categories → copy the slug
+   - This is the ONLY custom variable needed
+
+2. **Site Domain URL** (required)
+   - Example: `https://astrobot.design`, `https://thefordamily.life`
+   - This goes in `astro.config.ts`
+
+**DO NOT ask for:**
+- ❌ WordPress API URL (hardcoded to `https://blog.nxtmt.ventures/wp-json/wp/v2`)
+- ❌ Package manager (always `pnpm@10.29.2`)
+- ❌ Node version (always 20)
+- ❌ Build settings (all standardized in WORDPRESS_SETUP.md)
+- ❌ Custom component implementations (use the defaults from WORDPRESS_SETUP.md)
+- ❌ Astro configuration details (use the template)
+- ❌ GitHub Actions settings (use the template)
+- ❌ Environment variable choices (only WORDPRESS_CATEGORY_SLUG changes)
+- ❌ Other follow-up questions about implementation
+
+**Just ask for the two items above and implement without asking questions.**
+
+Everything else is handled by the standard implementation documented in sections 4.1-4.6.
+
 ### Template Prompt to Use
 
-When setting up a new site in Builder.io, use this prompt format:
+When setting up a new site in Builder.io, use this exact prompt format (AI agents should use this as a template):
 
 ```
-I have an Astro blog site that needs WordPress integration. Follow these instructions exactly:
+I need to add WordPress blog integration to my Astro site. Please follow WORDPRESS_SETUP.md exactly.
 
-1. Read the WORDPRESS_SETUP.md file in the root of the repository
-2. Implement sections 4.1 through 4.6 from that file
-3. CRITICAL - Before creating files, check if they already exist:
-   - If src/pages/blog/[slug].astro exists, create if missing
-   - If src/pages/blog/index.astro EXISTS, DO NOT modify or recreate it - preserve the existing design (only create if missing)
-   - If src/components/home/BlogPreview.astro EXISTS, DO NOT modify or recreate it - preserve the existing design (only create if missing)
-4. When implementing:
-   - Copy the complete file content from WORDPRESS_SETUP.md
-   - Don't ask questions - just implement
-   - File paths: src/lib/wordpress.ts, src/pages/blog/[slug].astro, etc.
-   - Update astro.config.ts with site: "[YOUR_SITE_URL]"
-   - Update .github/workflows/deploy.yml env: WORDPRESS_CATEGORY_SLUG: "[YOUR_CATEGORY_SLUG]"
-   - **Ensure all components use `cleanHtmlForDisplay()` on text fields** (titles, excerpts, categories, etc.) to properly display special characters
+USER INPUT REQUIRED:
+1. What is your WordPress category slug? (Example: astrobot-design, thefordamily, spirituality)
+   - Find it in WordPress admin: Posts → Categories → copy the slug
+2. What is your site's domain? (Example: https://mysite.com)
 
-5. Only variable input needed:
-   - WORDPRESS_CATEGORY_SLUG: [INSERT_CATEGORY_SLUG_HERE]
-   - Your site URL for astro.config.ts: [INSERT_SITE_URL_HERE]
+Once you have these two items, tell me and I will:
+1. Read WORDPRESS_SETUP.md from root of repository
+2. Implement sections 4.1 through 4.6 exactly as documented
+3. Check for existing files before creating (preserve any custom designs):
+   - src/pages/blog/index.astro - DO NOT recreate if exists
+   - src/components/home/BlogPreview.astro - DO NOT recreate if exists
+   - src/pages/blog/[slug].astro - create if missing (safe to create, typically new)
+4. Create/update only these files:
+   - src/lib/wordpress.ts (WordPress API layer - always safe to create/update)
+   - src/pages/blog/[slug].astro (dynamic post pages - always safe to create)
+   - astro.config.ts (update site URL only)
+   - .github/workflows/deploy.yml (update WORDPRESS_CATEGORY_SLUG only)
+   - .env.example (update WORDPRESS_CATEGORY_SLUG only)
+5. Verify all components use cleanHtmlForDisplay() for text fields (titles, excerpts, categories)
+6. Test with: pnpm build
+7. Verify output shows "✅ getPosts: Successfully fetched X posts"
 
-6. After implementation:
-   - Run `pnpm build` to test locally
-   - Verify build completes and shows "✅ getPosts: Successfully fetched X posts"
-   - Check that blog posts appear in the generated site
-   - Verify categories display correctly on blog cards (should not show the filter category)
-   - **Important:** Verify text displays correctly - apostrophes should show as `'` not `&rsquo;`, quotes as `"` not `&ldquo;`/`&rdquo;`
-   - If seeing HTML entities in text, ensure components use `cleanHtmlForDisplay()` on all text fields
+I will NOT:
+- Ask questions about implementation details
+- Change WordPress API URL (always https://blog.nxtmt.ventures/wp-json/wp/v2)
+- Change Node/pnpm versions
+- Modify any other configuration
 
-Reference site for comparison: Next-Mountain-Ventures-LLC/Astrobot (commit 928d956)
+Reference site: Next-Mountain-Ventures-LLC/Astrobot (commit 928d956)
 ```
 
 ### Variable Substitution Guide
 
-When using this prompt for a specific site, substitute:
+**These are the ONLY two variables in the entire WordPress integration:**
 
-```
-[YOUR_CATEGORY_SLUG] → the category slug from WordPress
-  Examples:
-  - astrobot-design
-  - thefordamily
-  - my-category-name
+1. **`[YOUR_CATEGORY_SLUG]`** - The category slug from WordPress
+   - Examples: `astrobot-design`, `thefordamily`, `spirituality`, `my-category`
+   - How user finds it: WordPress admin → Posts → Categories → copy the slug
+   - Used in: `.github/workflows/deploy.yml` and `.env.example`
 
-[YOUR_SITE_URL] → the site's actual domain
-  Examples:
-  - https://astrobot.design
-  - https://thefordamily.life
-  - https://yoursite.com
-```
+2. **`[YOUR_SITE_URL]`** - The site's actual domain
+   - Examples: `https://astrobot.design`, `https://thefordamily.life`, `https://yoursite.com`
+   - Used in: `astro.config.ts` site configuration
 
-### How to Find Category Slug
+**Everything else is unchanged.** The WordPress API URL, Node version, pnpm version, file paths, and all other settings remain exactly as documented.
 
-1. Go to WordPress: `blog.nxtmt.ventures/wp-admin/`
-2. Posts → Categories
-3. Find your category
-4. Note the slug (shown in list or in URL after editing)
-5. Use exact slug in both:
-   - .env.example
-   - .github/workflows/deploy.yml
+### How to Find Category Slug (Guide for Users)
+
+Share these instructions with users who need to find their category slug:
+
+1. Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
+2. Click **Posts → Categories**
+3. Find your category in the list
+4. The **slug** is shown in the category list (e.g., `thefordamily`, `spirituality`)
+5. Copy the slug exactly as shown (lowercase, hyphens for spaces)
+
+**Example:** If your category is named "The Ford Family", the slug might be `thefordamily` or `the-ford-family`
+
+If you're an AI agent: Ask the user to provide the exact category slug, and verify it matches a WordPress category before proceeding.
 
 ### Verification Steps After Implementation
 
