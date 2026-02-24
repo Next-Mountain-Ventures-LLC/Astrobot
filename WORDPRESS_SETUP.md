@@ -901,8 +901,9 @@ permissions:
 
 env:
   # WordPress API configuration
+  # Note: WORDPRESS_API_URL is the same for all sites (points to central WordPress instance)
+  # WORDPRESS_CATEGORY_SLUG must be configured as a GitHub repository secret per site
   WORDPRESS_API_URL: https://blog.nxtmt.ventures/wp-json/wp/v2
-  WORDPRESS_CATEGORY_SLUG: astrobot-design
 
 jobs:
   build:
@@ -942,7 +943,7 @@ jobs:
         run: pnpm build
         env:
           WORDPRESS_API_URL: ${{ env.WORDPRESS_API_URL }}
-          WORDPRESS_CATEGORY_SLUG: ${{ env.WORDPRESS_CATEGORY_SLUG }}
+          WORDPRESS_CATEGORY_SLUG: ${{ secrets.WORDPRESS_CATEGORY_SLUG }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -1170,6 +1171,60 @@ This prevents apostrophes, quotes, and other special characters from displaying 
 
 ---
 
+## GitHub Setup for Each Site
+
+### Configure Repository Secret for WORDPRESS_CATEGORY_SLUG
+
+**CRITICAL:** Each Astro site deployed via GitHub Actions requires a repository secret for `WORDPRESS_CATEGORY_SLUG`.
+
+**Why this is needed:**
+- The GitHub Actions workflow needs to know which WordPress category to filter for THIS specific site
+- Each site has a different category slug (e.g., `astrobot-design`, `thefordamily`, `spirituality`)
+- Without this secret, the live deployment will show the wrong blog posts
+
+**Setup Instructions:**
+
+1. **Go to your GitHub repository**
+   - Open: `https://github.com/[YOUR-USERNAME]/[YOUR-REPO-NAME]`
+
+2. **Navigate to Secrets & Variables**
+   - Click: Settings (top menu)
+   - Left sidebar: Click "Secrets and variables"
+   - Click: "Actions"
+
+3. **Create New Repository Secret**
+   - Click: "New repository secret" (green button)
+   - **Name:** `WORDPRESS_CATEGORY_SLUG` (must be exact)
+   - **Value:** Your WordPress category slug (e.g., `thefordamily`, `spirituality`, `my-category`)
+   - Click: "Add secret"
+
+4. **Find your category slug**
+   - If you don't know your category slug:
+     - Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
+     - Click: Posts → Categories
+     - Find your category in the list
+     - Copy the slug from the "Slug" column
+     - Examples: `astrobot-design`, `thefordamily`, `spirituality`
+
+**Verification:**
+- After setting the secret, push a commit to trigger GitHub Actions
+- Go to Actions tab → Select the workflow run
+- In the "Build Astro site" step, check logs for:
+  ```
+  ✅ Found "[YOUR-SLUG]" category with ID: ###
+  📡 getPosts: Fetching from WordPress API with category ID ###...
+  ✅ getPosts: Successfully fetched X posts from WordPress API
+  ```
+- If you see `🔧 Using hardcoded fallback: astrobot-design category ID is 6`, the secret wasn't set correctly
+
+**Troubleshooting:**
+- **Wrong posts showing on live site:** Verify the GitHub secret value matches your WordPress category slug
+- **Build fails with "secret not found" error:** Ensure the secret name is exactly `WORDPRESS_CATEGORY_SLUG` (case-sensitive)
+- **Still seeing astrobot-design posts:** The workflow may need to be re-run after setting the secret
+  - Go to Actions tab → "Deploy to GitHub Pages" → "Run workflow" → "Run workflow"
+
+---
+
 ## Setup Checklist for New Sites
 
 Use this checklist when setting up a new Astro site with WordPress integration:
@@ -1189,10 +1244,14 @@ Use this checklist when setting up a new Astro site with WordPress integration:
   - [ ] Change `site:` to your domain (e.g., `https://thefordamily.life`)
 - [ ] Create `.github/workflows/deploy.yml`:
   - [ ] Copy from reference (section 4.5)
-  - [ ] **Change `WORDPRESS_CATEGORY_SLUG` environment variable** to your category slug
+  - [ ] ⚠️ **DO NOT hardcode WORDPRESS_CATEGORY_SLUG** - it will be read from GitHub secret
 - [ ] Create `.env.example`:
   - [ ] Copy from reference (section 4.6)
-  - [ ] **Change `WORDPRESS_CATEGORY_SLUG` value** to your category slug
+  - [ ] Change the value for local development (for testing with custom category slug)
+- [ ] **CRITICAL: Set GitHub Repository Secret**
+  - [ ] Go to GitHub repository Settings → Secrets and variables → Actions
+  - [ ] Create new secret: `WORDPRESS_CATEGORY_SLUG` = your category slug
+  - [ ] See section "GitHub Setup for Each Site" for detailed instructions
 - [ ] Verify category slug:
   - [ ] Visit WordPress admin: `blog.nxtmt.ventures/wp-admin/`
   - [ ] Go to Posts → Categories
@@ -1200,7 +1259,7 @@ Use this checklist when setting up a new Astro site with WordPress integration:
   - [ ] Example slugs: `astrobot-design`, `thefordamily`, `my-category`
 - [ ] Test locally:
   - [ ] Run: `pnpm install`
-  - [ ] Run: `pnpm build`
+  - [ ] Run: `WORDPRESS_CATEGORY_SLUG=your-slug pnpm build` (or use .env.example value)
   - [ ] Verify blog posts appear in build output
   - [ ] Check console for `✅ getPosts: Successfully fetched X posts from WordPress API`
 - [ ] Configure GitHub repository:
@@ -1212,8 +1271,10 @@ Use this checklist when setting up a new Astro site with WordPress integration:
 - [ ] Configure GitHub Actions:
   - [ ] Go to Actions tab
   - [ ] Ensure "Deploy to GitHub Pages" workflow is enabled
+  - [ ] Verify `WORDPRESS_CATEGORY_SLUG` secret is set (see section above)
   - [ ] Click "Run workflow" to trigger initial build
   - [ ] Monitor the build in Actions tab
+  - [ ] Check logs for `✅ Found "[YOUR-SLUG]" category with ID`
 - [ ] Configure custom domain (optional):
   - [ ] In GitHub repository Settings → Pages → Custom domain
   - [ ] Enter your domain (e.g., `thefordamily.life`)
@@ -1247,6 +1308,10 @@ For a different WordPress instance, change this URL.
 
 ### WORDPRESS_CATEGORY_SLUG
 
+**Where it's set:**
+- **Local development:** `.env.example` (read by `pnpm build`)
+- **GitHub Actions deployment:** GitHub repository secret (see section "GitHub Setup for Each Site")
+
 **Default:** `astrobot-design`
 
 This is the **filter category slug** used internally to fetch only posts for this site. Each site has its own unique category:
@@ -1260,6 +1325,13 @@ This is the **filter category slug** used internally to fetch only posts for thi
 - This category **never appears** as a displayed tag on blog cards, carousels, or detail pages
 - **All other categories** ARE displayed as category tags (e.g., "Web Development", "Performance")
 - Each site only sees posts from its category, but displays all secondary categories
+
+**⚠️ CRITICAL: GitHub Actions Configuration**
+
+For live deployment to work correctly:
+1. The GitHub Actions workflow reads this value from the repository secret `WORDPRESS_CATEGORY_SLUG`
+2. If the secret is not set, the build will fail or use the fallback value `astrobot-design`
+3. **You MUST set this secret before deploying** (see "GitHub Setup for Each Site" section)
 
 **How to find your category slug:**
 
@@ -1384,40 +1456,76 @@ Should return posts assigned to your category.
 
 ---
 
-### Wrong posts showing (category mismatch)
+### Wrong posts showing on live deployment (dev works but live doesn't)
 
 **Symptoms:**
-- Seeing posts from other categories
-- Blog shows posts you didn't expect
-- Multiple sites showing same posts
+- Local dev (`pnpm build`) shows correct posts
+- Live deployment shows wrong posts (different category, or astrobot-design posts)
+- Blog carousel or blog index shows incorrect posts on live site
 
-**Causes:**
-- Category slug is wrong for this site
-- Category ID is incorrect
-- Posts assigned to multiple categories
+**Most Common Cause: GitHub Secret Not Set**
 
-**Solutions:**
+This happens when the `WORDPRESS_CATEGORY_SLUG` GitHub repository secret is not configured:
 
-1. **Verify correct category slug:**
-   - Each site must use its unique category slug
-   - Double-check spelling and hyphens
-   - Example: `thefordamily` not `the-ford-family`
+1. Live build uses fallback: `astrobot-design`
+2. Your custom category slug is ignored
+3. Site shows wrong blog posts
 
-2. **Check posts in category:**
-   ```bash
-   curl "https://blog.nxtmt.ventures/wp-json/wp/v2/posts?categories=[YOUR-CATEGORY-ID]&per_page=100"
-   ```
+**Solution (GitHub Secret):**
 
-3. **Update environment variable:**
-   - In `.env.example`: update `WORDPRESS_CATEGORY_SLUG`
-   - In `.github/workflows/deploy.yml`: update `WORDPRESS_CATEGORY_SLUG` in `env:` section
-   - Both must match
+1. Check if secret is set:
+   - Go to GitHub repository Settings → Secrets and variables → Actions
+   - Look for `WORDPRESS_CATEGORY_SLUG` in the list
+   - If not there, it's not set
 
-4. **Rebuild locally:**
-   ```bash
-   rm -rf dist
-   WORDPRESS_CATEGORY_SLUG=your-correct-slug pnpm build
-   ```
+2. Create the secret:
+   - See section "GitHub Setup for Each Site" for detailed instructions
+   - **Important:** Secret name must be exactly `WORDPRESS_CATEGORY_SLUG`
+
+3. Verify the secret value:
+   - Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
+   - Posts → Categories
+   - Find your category
+   - Copy the slug exactly (must match what you put in the GitHub secret)
+
+4. Re-run the workflow:
+   - Go to Actions tab
+   - Click "Deploy to GitHub Pages"
+   - Click "Run workflow" → "Run workflow"
+   - Wait for build to complete
+
+5. Check the build logs:
+   - In Actions, click the latest workflow run
+   - Expand "Build Astro site" step
+   - Look for: `✅ Found "[YOUR-SLUG]" category with ID: ###`
+   - If you see `🔧 Using hardcoded fallback: astrobot-design`, the secret wasn't set
+
+**Other Causes:**
+
+1. **Category slug mismatch between dev and live:**
+   - Local .env.example has one value
+   - GitHub secret has different value
+   - Use the GitHub secret value (live deployment uses it)
+
+2. **Posts assigned to multiple categories:**
+   - If posts are in both filter category AND other categories, they may appear unexpectedly
+   - Check WordPress: Edit post → check all assigned categories
+
+3. **Category slug changed in WordPress:**
+   - If you changed the category slug in WordPress after deployment
+   - Update the GitHub secret to match new slug
+   - Re-run the workflow
+
+**To verify locally:**
+
+```bash
+# Test with your specific category
+WORDPRESS_CATEGORY_SLUG=your-category-slug pnpm build
+
+# Check output - should show your category, not fallback
+# ✅ Found "your-category-slug" category with ID: 123
+# ✅ Successfully fetched X posts
+```
 
 ---
 
@@ -1763,6 +1871,7 @@ With caching:
    - Example: `astrobot-design`, `thefordamily`, `spirituality`, etc.
    - How they find it: WordPress admin → Posts → Categories → copy the slug
    - This is the ONLY custom variable needed
+   - **Note:** User will need to set this as a GitHub repository secret after implementation
 
 2. **Site Domain URL** (required)
    - Example: `https://astrobot.design`, `https://thefordamily.life`
@@ -1782,6 +1891,9 @@ With caching:
 **Just ask for the two items above and implement without asking questions.**
 
 Everything else is handled by the standard implementation documented in sections 4.1-4.6.
+
+**⚠️ Important Reminder for User:**
+After implementation, user MUST set up the GitHub repository secret (see "GitHub Setup for Each Site" section). Without this secret, the live deployment will show wrong posts.
 
 ### Template Prompt to Use
 
@@ -1806,11 +1918,18 @@ Once you have these two items, tell me and I will:
    - src/lib/wordpress.ts (WordPress API layer - always safe to create/update)
    - src/pages/blog/[slug].astro (dynamic post pages - always safe to create)
    - astro.config.ts (update site URL only)
-   - .github/workflows/deploy.yml (update WORDPRESS_CATEGORY_SLUG only)
+   - .github/workflows/deploy.yml (update to use GitHub secret - NOT hardcode category slug)
    - .env.example (update WORDPRESS_CATEGORY_SLUG only)
 5. Verify all components use cleanHtmlForDisplay() for text fields (titles, excerpts, categories)
 6. Test with: pnpm build
 7. Verify output shows "✅ getPosts: Successfully fetched X posts"
+
+⚠️ CRITICAL AFTER IMPLEMENTATION:
+After I implement the code, you MUST configure the GitHub repository secret:
+1. Go to GitHub repo Settings → Secrets and variables → Actions
+2. Create new secret: WORDPRESS_CATEGORY_SLUG = [your category slug]
+3. Then push the code and run the workflow
+4. Without this secret, live deployment will show wrong posts
 
 I will NOT:
 - Ask questions about implementation details
