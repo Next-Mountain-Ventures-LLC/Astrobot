@@ -899,56 +899,15 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  # WordPress API configuration
-  # Note: WORDPRESS_API_URL is the same for all sites (points to central WordPress instance)
-  # WORDPRESS_CATEGORY_SLUG must be configured as a GitHub repository secret per site
-  WORDPRESS_API_URL: https://blog.nxtmt.ventures/wp-json/wp/v2
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout your repository using git
+        uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10.29.2
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build Astro site
-        run: pnpm build
-        env:
-          WORDPRESS_API_URL: ${{ env.WORDPRESS_API_URL }}
-          WORDPRESS_CATEGORY_SLUG: ${{ secrets.WORDPRESS_CATEGORY_SLUG }}
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+      - name: Install, build, and upload your site
+        uses: withastro/action@v5
 
   deploy:
     needs: build
@@ -961,6 +920,12 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 ```
+
+**Key points:**
+- No environment variables or secrets needed in the workflow
+- `.env` file is automatically picked up by Astro when the repo is checked out
+- `withastro/action@v5` handles Node, pnpm, build, and artifact upload automatically
+- Much simpler and requires zero configuration
 
 ---
 
@@ -986,6 +951,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      // Expose environment variables to build-time code
+      "import.meta.env.WORDPRESS_CATEGORY_SLUG": JSON.stringify(
+        process.env.WORDPRESS_CATEGORY_SLUG || "fallback-slug"
+      ),
+    },
   },
 
   // Image optimization settings
@@ -998,6 +969,7 @@ export default defineConfig({
 
 **Changes for new sites:**
 - Update `site` to your domain (e.g., `https://thefordamily.life`)
+- The `vite.define` section automatically exposes WORDPRESS_CATEGORY_SLUG from your .env file to `import.meta.env` at build time
 
 #### package.json (relevant sections)
 
@@ -1021,19 +993,28 @@ export default defineConfig({
 }
 ```
 
-#### .env.example
+#### .env (Created from .env.example)
 
-```
-# WordPress API Configuration
-# The base URL of your WordPress REST API endpoint
-# Default: https://blog.nxtmt.ventures/wp-json/wp/v2
+**IMPORTANT:** This file should be committed to your repository (not gitignored). Each site has its own .env file with its specific values.
+
+```bash
+# Site Configuration
+SITE_URL=https://astrobot.design
+
+# WordPress Configuration
+# These environment variables are automatically read by Astro during both local development and GitHub Actions builds
 WORDPRESS_API_URL=https://blog.nxtmt.ventures/wp-json/wp/v2
-
-# WordPress Category Slug
-# Only posts from this category will be displayed on the blog
-# Change this for each site - examples: thefordamily, mycategory, etc.
 WORDPRESS_CATEGORY_SLUG=astrobot-design
 ```
+
+**To set up for your site:**
+1. Copy `.env.example` to `.env` (in the root directory)
+2. Update the values:
+   - `SITE_URL`: Your site's domain (e.g., `https://thefordamily.life`)
+   - `WORDPRESS_CATEGORY_SLUG`: Your WordPress category slug (e.g., `thefordamily`, `spirituality`)
+   - `WORDPRESS_API_URL`: Leave as-is (same for all sites)
+3. Commit `.env` to your repository
+4. When you push to GitHub, the workflow automatically uses these values
 
 ---
 
@@ -1171,57 +1152,62 @@ This prevents apostrophes, quotes, and other special characters from displaying 
 
 ---
 
-## GitHub Setup for Each Site
+## .env File Setup
 
-### Configure Repository Secret for WORDPRESS_CATEGORY_SLUG
+### Why .env File (Not GitHub Secrets)
 
-**CRITICAL:** Each Astro site deployed via GitHub Actions requires a repository secret for `WORDPRESS_CATEGORY_SLUG`.
+Instead of using GitHub repository secrets, we commit a site-specific `.env` file to the repository. This approach:
+- ✅ Works automatically without manual configuration
+- ✅ Keeps all configuration in the repo (no external secrets)
+- ✅ Is simpler to understand and debug
+- ✅ Works for all deployment platforms (GitHub, Netlify, Vercel, etc.)
+- ✅ Each site just has its own .env with its values
 
-**Why this is needed:**
-- The GitHub Actions workflow needs to know which WordPress category to filter for THIS specific site
-- Each site has a different category slug (e.g., `astrobot-design`, `thefordamily`, `spirituality`)
-- Without this secret, the live deployment will show the wrong blog posts
+### Setup Instructions
 
-**Setup Instructions:**
+1. **Copy `.env.example` to `.env`**
+   ```bash
+   cp .env.example .env
+   ```
 
-1. **Go to your GitHub repository**
-   - Open: `https://github.com/[YOUR-USERNAME]/[YOUR-REPO-NAME]`
+2. **Update `.env` for your site**
+   ```bash
+   SITE_URL=https://yoursite.com
+   WORDPRESS_CATEGORY_SLUG=your-category-slug
+   WORDPRESS_API_URL=https://blog.nxtmt.ventures/wp-json/wp/v2
+   ```
+   - Replace `yoursite.com` with your domain
+   - Replace `your-category-slug` with your WordPress category slug
 
-2. **Navigate to Secrets & Variables**
-   - Click: Settings (top menu)
-   - Left sidebar: Click "Secrets and variables"
-   - Click: "Actions"
+3. **Find your category slug**
+   - Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
+   - Click: Posts → Categories
+   - Find your category in the list
+   - Copy the slug (e.g., `thefordamily`, `spirituality`, `my-category`)
 
-3. **Create New Repository Secret**
-   - Click: "New repository secret" (green button)
-   - **Name:** `WORDPRESS_CATEGORY_SLUG` (must be exact)
-   - **Value:** Your WordPress category slug (e.g., `thefordamily`, `spirituality`, `my-category`)
-   - Click: "Add secret"
+4. **Commit `.env` to your repository**
+   ```bash
+   git add .env
+   git commit -m "Configure WordPress category for this site"
+   git push
+   ```
+   - ✅ `.env` should be committed (not gitignored)
+   - ✅ When GitHub Actions checks out your repo, `.env` is automatically included
+   - ✅ Astro automatically reads `.env` values during build
 
-4. **Find your category slug**
-   - If you don't know your category slug:
-     - Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
-     - Click: Posts → Categories
-     - Find your category in the list
-     - Copy the slug from the "Slug" column
-     - Examples: `astrobot-design`, `thefordamily`, `spirituality`
+5. **Verify it works**
+   - Push your changes to GitHub
+   - Go to Actions tab → Watch the build
+   - Build should complete successfully
+   - Check logs for: `✅ getPosts: Successfully fetched X posts`
 
-**Verification:**
-- After setting the secret, push a commit to trigger GitHub Actions
-- Go to Actions tab → Select the workflow run
-- In the "Build Astro site" step, check logs for:
-  ```
-  ✅ Found "[YOUR-SLUG]" category with ID: ###
-  📡 getPosts: Fetching from WordPress API with category ID ###...
-  ✅ getPosts: Successfully fetched X posts from WordPress API
-  ```
-- If you see `🔧 Using hardcoded fallback: astrobot-design category ID is 6`, the secret wasn't set correctly
-
-**Troubleshooting:**
-- **Wrong posts showing on live site:** Verify the GitHub secret value matches your WordPress category slug
-- **Build fails with "secret not found" error:** Ensure the secret name is exactly `WORDPRESS_CATEGORY_SLUG` (case-sensitive)
-- **Still seeing astrobot-design posts:** The workflow may need to be re-run after setting the secret
-  - Go to Actions tab → "Deploy to GitHub Pages" → "Run workflow" → "Run workflow"
+**How it works:**
+1. You commit `.env` to the repository with your site's values
+2. GitHub Actions checks out the code (including `.env`)
+3. Astro reads `.env` automatically via `process.env`
+4. `astro.config.ts` exposes `WORDPRESS_CATEGORY_SLUG` to build-time code via Vite `define`
+5. `src/lib/wordpress.ts` uses the correct category slug to fetch posts
+6. Site builds with the correct blog posts
 
 ---
 
@@ -1242,39 +1228,41 @@ Use this checklist when setting up a new Astro site with WordPress integration:
   - [ ] If it does NOT exist, create it as shown in section 4.4
 - [ ] Update `astro.config.ts`:
   - [ ] Change `site:` to your domain (e.g., `https://thefordamily.life`)
+  - [ ] Verify `vite.define` section is present (exposes WORDPRESS_CATEGORY_SLUG to build)
 - [ ] Create `.github/workflows/deploy.yml`:
   - [ ] Copy from reference (section 4.5)
-  - [ ] ⚠️ **DO NOT hardcode WORDPRESS_CATEGORY_SLUG** - it will be read from GitHub secret
-- [ ] Create `.env.example`:
-  - [ ] Copy from reference (section 4.6)
-  - [ ] Change the value for local development (for testing with custom category slug)
-- [ ] **CRITICAL: Set GitHub Repository Secret**
-  - [ ] Go to GitHub repository Settings → Secrets and variables → Actions
-  - [ ] Create new secret: `WORDPRESS_CATEGORY_SLUG` = your category slug
-  - [ ] See section "GitHub Setup for Each Site" for detailed instructions
+  - [ ] No changes needed - uses simplified `withastro/action@v5`
+- [ ] **CRITICAL: Create `.env` file**
+  - [ ] Copy `.env.example` to `.env` (in root directory)
+  - [ ] Update values:
+    - `SITE_URL`: Your site's domain
+    - `WORDPRESS_CATEGORY_SLUG`: Your WordPress category slug
+    - `WORDPRESS_API_URL`: Leave as-is
+  - [ ] Commit `.env` to the repository (NOT gitignored)
+  - [ ] This is how GitHub Actions knows which category to fetch
 - [ ] Verify category slug:
   - [ ] Visit WordPress admin: `blog.nxtmt.ventures/wp-admin/`
   - [ ] Go to Posts → Categories
-  - [ ] Find your category and copy the slug from URL or category list
-  - [ ] Example slugs: `astrobot-design`, `thefordamily`, `my-category`
+  - [ ] Find your category and copy the slug
+  - [ ] Example slugs: `astrobot-design`, `thefordamily`, `spirituality`
 - [ ] Test locally:
   - [ ] Run: `pnpm install`
-  - [ ] Run: `WORDPRESS_CATEGORY_SLUG=your-slug pnpm build` (or use .env.example value)
+  - [ ] Run: `pnpm build`
   - [ ] Verify blog posts appear in build output
   - [ ] Check console for `✅ getPosts: Successfully fetched X posts from WordPress API`
+  - [ ] If wrong posts appear, verify `.env` has correct `WORDPRESS_CATEGORY_SLUG`
 - [ ] Configure GitHub repository:
-  - [ ] Push code to GitHub
+  - [ ] Push code to GitHub (including `.env` file)
   - [ ] Go to repository Settings → Pages
   - [ ] Set source to "Deploy from a branch"
   - [ ] Set branch to "gh-pages"
   - [ ] Set folder to "/ (root)"
-- [ ] Configure GitHub Actions:
+- [ ] GitHub Actions deployment:
   - [ ] Go to Actions tab
-  - [ ] Ensure "Deploy to GitHub Pages" workflow is enabled
-  - [ ] Verify `WORDPRESS_CATEGORY_SLUG` secret is set (see section above)
-  - [ ] Click "Run workflow" to trigger initial build
-  - [ ] Monitor the build in Actions tab
-  - [ ] Check logs for `✅ Found "[YOUR-SLUG]" category with ID`
+  - [ ] Watch the workflow run (automatically triggered by push)
+  - [ ] Workflow should complete successfully
+  - [ ] Check logs for: `✅ getPosts: Successfully fetched X posts`
+  - [ ] No secrets to configure - `.env` is automatically picked up
 - [ ] Configure custom domain (optional):
   - [ ] In GitHub repository Settings → Pages → Custom domain
   - [ ] Enter your domain (e.g., `thefordamily.life`)
@@ -1309,8 +1297,9 @@ For a different WordPress instance, change this URL.
 ### WORDPRESS_CATEGORY_SLUG
 
 **Where it's set:**
-- **Local development:** `.env.example` (read by `pnpm build`)
-- **GitHub Actions deployment:** GitHub repository secret (see section "GitHub Setup for Each Site")
+- Both local development AND GitHub Actions read from `.env` file
+- Copy `.env.example` to `.env` and update the value for your site
+- Commit `.env` to the repository
 
 **Default:** `astrobot-design`
 
@@ -1326,12 +1315,17 @@ This is the **filter category slug** used internally to fetch only posts for thi
 - **All other categories** ARE displayed as category tags (e.g., "Web Development", "Performance")
 - Each site only sees posts from its category, but displays all secondary categories
 
-**⚠️ CRITICAL: GitHub Actions Configuration**
+**⚠️ How it works:**
 
-For live deployment to work correctly:
-1. The GitHub Actions workflow reads this value from the repository secret `WORDPRESS_CATEGORY_SLUG`
-2. If the secret is not set, the build will fail or use the fallback value `astrobot-design`
-3. **You MUST set this secret before deploying** (see "GitHub Setup for Each Site" section)
+1. Create `.env` file in repository root (copied from `.env.example`)
+2. Update `WORDPRESS_CATEGORY_SLUG` value for your site
+3. Commit `.env` to repository
+4. When you push to GitHub:
+   - GitHub Actions checks out the code (including `.env`)
+   - Astro reads `.env` automatically via `process.env`
+   - `astro.config.ts` exposes the value via Vite `define`
+   - Build uses the correct category
+5. Same process for local `pnpm build` - reads from `.env`
 
 **How to find your category slug:**
 
@@ -1463,66 +1457,79 @@ Should return posts assigned to your category.
 - Live deployment shows wrong posts (different category, or astrobot-design posts)
 - Blog carousel or blog index shows incorrect posts on live site
 
-**Most Common Cause: GitHub Secret Not Set**
+**Most Common Cause: .env File Not Committed or Incorrect Value**
 
-This happens when the `WORDPRESS_CATEGORY_SLUG` GitHub repository secret is not configured:
+When .env is not in the repository or has the wrong category slug:
 
-1. Live build uses fallback: `astrobot-design`
-2. Your custom category slug is ignored
+1. GitHub Actions checks out the code without `.env`
+2. Build falls back to default: `astrobot-design`
 3. Site shows wrong blog posts
 
-**Solution (GitHub Secret):**
+**Solution:**
 
-1. Check if secret is set:
-   - Go to GitHub repository Settings → Secrets and variables → Actions
-   - Look for `WORDPRESS_CATEGORY_SLUG` in the list
-   - If not there, it's not set
+1. **Verify `.env` file exists in repository:**
+   - Go to your GitHub repo
+   - Look in the root directory for `.env` file
+   - If not there, it wasn't committed
 
-2. Create the secret:
-   - See section "GitHub Setup for Each Site" for detailed instructions
-   - **Important:** Secret name must be exactly `WORDPRESS_CATEGORY_SLUG`
+2. **Check `.env` has correct value:**
+   ```bash
+   WORDPRESS_CATEGORY_SLUG=your-category-slug
+   ```
+   - Replace `your-category-slug` with your WordPress category slug
+   - Must match exactly (case-sensitive, hyphens matter)
 
-3. Verify the secret value:
-   - Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
-   - Posts → Categories
-   - Find your category
-   - Copy the slug exactly (must match what you put in the GitHub secret)
+3. **If `.env` is missing or wrong:**
+   - Create/update `.env` in your repository root:
+     ```bash
+     cp .env.example .env
+     # Edit .env and update WORDPRESS_CATEGORY_SLUG
+     git add .env
+     git commit -m "Configure WordPress category for this site"
+     git push
+     ```
+   - Push the changes to GitHub
+   - GitHub Actions will automatically trigger and use the new `.env`
 
-4. Re-run the workflow:
+4. **Verify the fix:**
    - Go to Actions tab
-   - Click "Deploy to GitHub Pages"
-   - Click "Run workflow" → "Run workflow"
-   - Wait for build to complete
+   - Watch the workflow run
+   - Check logs for: `✅ getPosts: Successfully fetched X posts`
 
-5. Check the build logs:
-   - In Actions, click the latest workflow run
-   - Expand "Build Astro site" step
-   - Look for: `✅ Found "[YOUR-SLUG]" category with ID: ###`
-   - If you see `🔧 Using hardcoded fallback: astrobot-design`, the secret wasn't set
+**How to find your correct category slug:**
+
+1. Go to WordPress admin: `blog.nxtmt.ventures/wp-admin/`
+2. Click: Posts → Categories
+3. Find your category in the list
+4. Copy the slug (e.g., `thefordamily`, `spirituality`)
+5. Update `.env` to match exactly
 
 **Other Causes:**
 
-1. **Category slug mismatch between dev and live:**
-   - Local .env.example has one value
-   - GitHub secret has different value
-   - Use the GitHub secret value (live deployment uses it)
-
-2. **Posts assigned to multiple categories:**
+1. **Posts assigned to multiple categories:**
    - If posts are in both filter category AND other categories, they may appear unexpectedly
    - Check WordPress: Edit post → check all assigned categories
 
-3. **Category slug changed in WordPress:**
+2. **Category slug changed in WordPress:**
    - If you changed the category slug in WordPress after deployment
-   - Update the GitHub secret to match new slug
-   - Re-run the workflow
+   - Update `.env` with new slug and push
+   - GitHub Actions will automatically rebuild with the new value
+
+3. **Local dev uses different .env:**
+   - Make sure local `.env` matches the one in GitHub
+   - Local build (`pnpm build`) reads from local `.env`
+   - Live build reads from `.env` in the repository
 
 **To verify locally:**
 
 ```bash
-# Test with your specific category
-WORDPRESS_CATEGORY_SLUG=your-category-slug pnpm build
+# Make sure your local .env has the correct value
+cat .env
 
-# Check output - should show your category, not fallback
+# Then rebuild
+pnpm build
+
+# Check output - should show your category
 # ✅ Found "your-category-slug" category with ID: 123
 # ✅ Successfully fetched X posts
 ```
@@ -1917,19 +1924,21 @@ Once you have these two items, tell me and I will:
 4. Create/update only these files:
    - src/lib/wordpress.ts (WordPress API layer - always safe to create/update)
    - src/pages/blog/[slug].astro (dynamic post pages - always safe to create)
-   - astro.config.ts (update site URL only)
-   - .github/workflows/deploy.yml (update to use GitHub secret - NOT hardcode category slug)
-   - .env.example (update WORDPRESS_CATEGORY_SLUG only)
+   - astro.config.ts (update site URL + verify Vite define config)
+   - .github/workflows/deploy.yml (use simplified withastro/action@v5 pattern)
+   - .env.example (for reference)
+   - .env (CREATE THIS FILE - copy from .env.example and update values, then COMMIT it)
 5. Verify all components use cleanHtmlForDisplay() for text fields (titles, excerpts, categories)
 6. Test with: pnpm build
 7. Verify output shows "✅ getPosts: Successfully fetched X posts"
 
 ⚠️ CRITICAL AFTER IMPLEMENTATION:
-After I implement the code, you MUST configure the GitHub repository secret:
-1. Go to GitHub repo Settings → Secrets and variables → Actions
-2. Create new secret: WORDPRESS_CATEGORY_SLUG = [your category slug]
-3. Then push the code and run the workflow
-4. Without this secret, live deployment will show wrong posts
+After I implement the code, you MUST commit the .env file:
+1. Copy .env.example to .env in the repository root
+2. Update WORDPRESS_CATEGORY_SLUG and SITE_URL for your site
+3. Commit .env to GitHub: `git add .env && git commit -m "Configure WordPress for this site" && git push`
+4. GitHub Actions automatically uses this .env file during deployment
+5. No manual secrets configuration needed - just commit the file!
 
 I will NOT:
 - Ask questions about implementation details
