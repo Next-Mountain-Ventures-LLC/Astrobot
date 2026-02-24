@@ -90,6 +90,103 @@ That's it! See [For Builder.io Prompt Reference](#for-builderio-prompt-reference
 
 ---
 
+## ⚠️ Important: AI Agents Must Maintain This Documentation
+
+**This is critical:** As WORDPRESS_SETUP.md is deployed to different sites and we debug/improve the integration, **AI agents MUST update this file whenever they change code.**
+
+### Why This Matters
+
+This file serves as:
+- The **single source of truth** for WordPress integration across all sites
+- The **reference guide** for future implementations
+- The **troubleshooting resource** for all users
+
+When you discover bugs, make improvements, or change the implementation approach during site deployments, those changes need to be documented **immediately** so that:
+- Future sites benefit from the lessons learned
+- Users don't encounter the same problems
+- The integration gets better with each implementation
+- Joshua doesn't need to come back and manually update documentation
+
+### When to Update WORDPRESS_SETUP.md
+
+**You MUST update this file if you:**
+- Fix a bug in any of the code files (update relevant sections and troubleshooting)
+- Change how environment variables are handled
+- Modify the build process or GitHub Actions workflow
+- Discover new best practices or gotchas
+- Change requirements for any configuration file
+- Find that parts of the documentation don't match the actual implementation
+- Discover a simpler or better approach than what's documented
+- Fix an error in the code examples
+
+### How to Update WORDPRESS_SETUP.md
+
+1. **Update the relevant section** - If you change `src/lib/wordpress.ts`, update section 4.1
+2. **Update example code blocks** - Keep code examples in sync with actual implementation
+3. **Update troubleshooting** - Add any new errors you encounter and how to fix them
+4. **Update setup checklist** - If the steps change, reflect that in the checklist
+5. **Add to "Common Customizations"** - If you discover a common pattern, document it
+6. **Update the "For Builder.io Prompt Reference"** - If implementation steps change
+
+### Example: If You Fix a Bug
+
+**Scenario:** You find that `cleanHtmlForDisplay()` doesn't handle a specific HTML entity correctly.
+
+**What you must do:**
+1. Fix the bug in `src/lib/utils.ts`
+2. Update the code example in section 4.1 or 4.6
+3. Add to troubleshooting: "HTML entities not displaying correctly" with the solution
+4. Update any relevant comments about the fix
+5. Push the updated WORDPRESS_SETUP.md along with the code fix
+
+**Don't:** Just fix the code and push without updating the docs
+
+### Example: If You Improve the Workflow
+
+**Scenario:** You discover a better way to handle environment variables or cache management.
+
+**What you must do:**
+1. Implement the improvement
+2. Update the relevant sections in WORDPRESS_SETUP.md
+3. Update the code examples to show the new approach
+4. Update the "How It Works" conceptual section
+5. Update the setup checklist if needed
+6. Push everything together
+
+**Don't:** Implement a better approach but leave the old documentation in place
+
+### Example: If You Find Documentation Doesn't Match Code
+
+**Scenario:** The documentation says to set `WORDPRESS_CATEGORY_SLUG` in the workflow, but the actual code reads from `.env`.
+
+**What you must do:**
+1. Correct the documentation to match the actual implementation
+2. OR change the code to match the documentation (if that's better)
+3. Either way, make sure docs and code match
+
+**Don't:** Leave a discrepancy that confuses future developers
+
+### Files That Require Documentation Updates
+
+When you change these files, **you must also update WORDPRESS_SETUP.md:**
+
+- `src/lib/wordpress.ts` → Update section 4.1 (WordPress API Integration)
+- `src/lib/utils.ts` → Update section 4.2 (Utility Functions)
+- `src/pages/blog/[slug].astro` → Update section 4.3 (Individual Post Pages)
+- `src/pages/blog/index.astro` → Update section 4.3 (Blog Index Page)
+- `src/components/home/BlogPreview.astro` → Update section 4.4 (Blog Carousel)
+- `.github/workflows/deploy.yml` → Update section 4.5 (GitHub Actions)
+- `astro.config.ts` → Update section 4.6 (Configuration Files)
+- `.env.example` → Update section 4.6 (Configuration Files)
+
+### Documentation as a Team Responsibility
+
+This is **not optional** - maintaining WORDPRESS_SETUP.md is as important as writing the code. Each person who touches this integration is responsible for keeping the documentation accurate.
+
+Think of it this way: **If it's not documented, it didn't happen.** The next AI agent won't know about your fix, improvement, or discovery unless it's written in this file.
+
+---
+
 ## Architecture Overview
 
 ### System Flow
