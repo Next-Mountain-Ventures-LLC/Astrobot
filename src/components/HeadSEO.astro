@@ -2,7 +2,6 @@
 import "@/styles/global.css";
 import "@/styles/fonts.css";
 import { Image } from 'astro:assets';
-import seoImage from '../assets/img_2806_nw_1d1484c0.jpeg';
 
 interface Props {
   title?: string | undefined;
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const defaultOgImage = new URL(seoImage.src, Astro.site);
+const defaultOgImage = "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F668915a8513d4fea92b04ead0561d272?format=webp&width=800&height=1200";
 
 if (Astro.props.ogImage === undefined) {
   Astro.props.ogImage = defaultOgImage;
