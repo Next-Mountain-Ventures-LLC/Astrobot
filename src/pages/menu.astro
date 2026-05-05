@@ -1,0 +1,570 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Menu - Limerick's Sandwich Junction"
+  description="Full menu of sandwiches, salads, sides and more. 29+ signature sandwiches with 13 bread choices."
+>
+  <!-- HERO SECTION -->
+  <section class="relative h-96 w-full overflow-hidden bg-primary">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/821365/pexels-photo-821365.jpeg"
+        alt="Menu"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-primary/70"></div>
+    </div>
+
+    <div class="relative container flex items-center justify-center h-full">
+      <div class="text-center space-y-4">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-accent drop-shadow-lg">
+          Our Menu
+        </h1>
+        <p class="text-lg text-background/90 drop-shadow">
+          All sandwiches come with House Chips
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU CONTENT -->
+  <section class="py-16 md:py-20 bg-background">
+    <div class="container max-w-3xl">
+      <!-- DELI SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">DELI</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Weinberger Reuben</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Corned Beef & Pastrami, Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Rich & Rich</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Pastrami, Swiss, Creamy Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Wallstreeter</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Pastrami, Melted Swiss, Russian Dressing, Grilled Pumpernickel Roll</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Rich & Poorer</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Pastrami, Melted Swiss, Creamy Jalapeno Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Rachel</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Turkey, Melted Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-secondary">SUBS</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Italian Sub</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Provolone, Mortadella, Genoa Salami, Ham, Basil Mayo, Banana Peppers, Lettuce, Tomato, Red Onion, Oil & Vinegar Dressing, Italian Seasoning, Garlic Toasted Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Dagwood</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">American Cheese, Lettuce, Ham, Muenster Cheese, Turkey, Red Onion, Swiss, Roast Beef, Mayo, Tomato, Garlic Toasted Onion Roll</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Heaton</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Mortadella, Genoa Salami, Ham, Pepperoni, Provolone, Giardiniera Peppers, Basil Mayo, Lettuce, Tomato, Red Onion, Italian Seasoning, Italian Dressing, Garlic Toasted Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">The Godfather</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Provolone, Grilled Mortadella, Grilled Genoa Salami, Grilled Ham, Grilled Pepperoni, Miracle Whip, Lettuce, Red Onion, Pepperoncini, Red Wine Vinegar, Salt, Pepper, Italian Seasoning, Garlic Toasted Hoagie</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CUBANO SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">CUBANO</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Hollingshayes</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Roast Pork, Ham, Yellow Mustard, Kosher Dill Planks, Provolone, Pressed Cuban Roll</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Medianoche</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Roast Pork, Ham, Genoa Salami, Butter Chip Jalapeno Chow Chow, Honey Sriracha Mustard, Melted Swiss, Pressed Brioche</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Habana</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Genoa Salami, Roast Pork, Ham, Pickle Planks, Mojo Creole Mustard, Provolone, Pressed Cuban Roll</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEEF SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">BEEF</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Italian Beef</h3>
+              <span class="text-accent font-bold">$13.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Italian Style Roasted Beef Dipped in Au Jus, Served on a Baguette</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">The Cosmo</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot BBQ Seasoned Roast Beef, Melted Cheddar, Jalapeno Cole Slaw, Chipotle Dressing, Grilled Black Bread</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Beef Bacon Cheddar</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Roast Beef, Bacon, Grilled Onions, Melted Cheddar, Toasted Onion Roll</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHEESESTEAKS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-secondary">CHEESESTEAKS</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Cheese Steak</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Peppers and Onions, American and Mozzarella Cheese, Steamed Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Big Johnson</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Roast Beef, Grilled Onions and Mushrooms, Melted Provolone, Steamed Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Cheesesteak Sub</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, American and Mozzarella Cheese, Mayo, Lettuce, Sliced Tomatoes, Red Onion, Italian Seasoning, Steamed Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">The Tyrant</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, Grilled Jalapenos, American and Mozzarella Cheese, Steamed Hoagie</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TURKEY SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">TURKEY</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Dianes Club</h3>
+              <span class="text-accent font-bold">$13.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Spring Mix, Red Onion, Honey Sriracha Mustard, Turkey, Avocado, Bacon, Tomato, Cheddar Cheese, Grilled Multigrain</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Medinah</h3>
+              <span class="text-accent font-bold">$13.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Cheddar, Lettuce, Cold Turkey, Basil Mayo, Avocado, on Wheatberry Bread</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Turkey Ciabatta</h3>
+              <span class="text-accent font-bold">$13.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Spring Mix, Red Onion, Balsamic Dressing, Turkey, Basil Mayo, Olive Mix, Tomato, Provolone, Garlic Toasted Telera Roll</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Harley's Turkey</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Provolone, Cold Turkey, Basil Mayo, Banana Peppers, Grilled Pepperoni, Lettuce, Red Onion, Seasoned Diced Tomatoes, Italian Dressing, Garlic Toasted Hoagie</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW ORLEANS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">NEW ORLEANS</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Debris</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">New Orleans Pot Roast, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Ferdie</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">New Orleans Pot Roast, Cajun Candied Ham, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Muffuletta</h3>
+              <span class="text-accent font-bold">$17.00</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Mortadella, Genoa Salami, Capicola, Provolone, Swiss, Olive Mix, Italian Seasoning, Olive Oil, Toasted Muffuletta Roll</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEATLOAF SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-secondary">MEATLOAF</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Merkley</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grill Meatloaf, Melted American Cheese, Grilled Onions, Ketchup, Texas Toast</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">The Patty Melt</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Meatloaf, Melted Cheddar, Grilled Onions, Toasted Rye Bread</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HAM SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">HAM</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Stoney</h3>
+              <span class="text-accent font-bold">$12.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Hot Ham and Turkey, Deli Mustard, Melted Swiss Cheese, Toasted Onion Roll</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Big Deal</h3>
+              <span class="text-accent font-bold">$12.49</span>
+            </div>
+            <p class="text-foreground/70 text-sm">A Pile of Grilled Ham, Red Onion, Yellow Mustard, Melted American Cheese, Garlic Toasted Telera Roll</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- VEGGIE SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-secondary">VEGGIE</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Reita Pita</h3>
+              <span class="text-accent font-bold">$12.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Spring Mix, Hummus, Banana Peppers, Lettuce, Olive Mix, Cucumber, Feta, Chopped Tomato, Chili Oil, Garlic Toasted Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Queen of Hearts</h3>
+              <span class="text-accent font-bold">$12.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Grilled Artichoke Hearts, Mushrooms, Mozzarella, Spring Mix, Banana Peppers, Sun Dried Tomato, Olive Oil, Italian Seasonings, Garlic Toasted Hoagie</p>
+          </div>
+          <div class="border-t border-border/20 pt-4">
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-secondary text-lg">Dlabaj</h3>
+              <span class="text-accent font-bold">$12.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm">Provolone, Spring Mix, Red Onion, Balsamic Dressing, Olive Mix, Basil Mayo, Tomato, Grilled Pumpernickel</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALTER EGO SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">ALTER EGO - BUILD YOUR OWN</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
+        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
+          <div>
+            <div class="flex justify-between items-baseline gap-4 mb-2">
+              <h3 class="font-heading font-bold text-primary text-lg">Build Your Own</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-foreground/70 text-sm mb-3">Choose any one meat: Corned Beef, Pastrami, Turkey, Ham, Salami, Mortadella, Roast Beef, Capicola, Meatloaf</p>
+            <p class="text-foreground/70 text-sm mb-2"><strong>Free add-ons:</strong> Lettuce, Tomato, Onion, Pickle, Olive Mix, Hot/Mild Peppers, Sauerkraut, Condiments</p>
+            <p class="text-foreground/70 text-sm"><strong>Paid:</strong> Bacon $.70, Avocado $.70, Cole Slaw $.50, Gluten Free Bread $1.95, Cheese $.70</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDES & EXTRAS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Jambalaya -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-heading text-xl font-bold text-primary">JAMBALAYA/RED BEANS</h2>
+            <div class="flex-1 h-0.5 bg-accent/40"></div>
+          </div>
+          <div class="space-y-4 bg-card rounded-lg p-6 border border-border/40">
+            <div>
+              <div class="flex justify-between items-baseline gap-4 mb-1">
+                <h3 class="font-heading font-bold text-primary">Jambalaya</h3>
+                <span class="text-accent font-bold">$8.49</span>
+              </div>
+              <p class="text-foreground/70 text-sm">Dirty Rice with Sausage, Chopped Green Onion</p>
+            </div>
+            <div class="border-t border-border/20 pt-3">
+              <div class="flex justify-between items-baseline gap-4 mb-1">
+                <h3 class="font-heading font-bold text-primary">Red Beans and Rice</h3>
+                <span class="text-accent font-bold">$6.49</span>
+              </div>
+              <p class="text-foreground/70 text-sm">Sausage, Chopped Green Onion</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Salads -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-heading text-xl font-bold text-primary">SALADS</h2>
+            <div class="flex-1 h-0.5 bg-accent/40"></div>
+          </div>
+          <div class="space-y-4 bg-card rounded-lg p-6 border border-border/40">
+            <div>
+              <div class="flex justify-between items-baseline gap-4 mb-1">
+                <h3 class="font-heading font-bold text-primary">Greek Salad</h3>
+                <span class="text-accent font-bold">$11.49</span>
+              </div>
+              <p class="text-foreground/70 text-sm">Romaine, Onion, Chopped Tomato, Cucumber, Pepperoncini, Feta, Greek Olive, Pita Chips, Greek Dressing</p>
+            </div>
+            <div class="border-t border-border/20 pt-3">
+              <div class="flex justify-between items-baseline gap-4 mb-1">
+                <h3 class="font-heading font-bold text-primary">Chef Salad</h3>
+                <span class="text-accent font-bold">$11.99</span>
+              </div>
+              <p class="text-foreground/70 text-sm">Romaine, Shredded Cheddar, Tomato, Red Onion, Cucumber, Ham, Turkey, Salami, Hard Boiled Egg, Dressing</p>
+            </div>
+            <div class="border-t border-border/20 pt-3">
+              <div class="flex justify-between items-baseline gap-4 mb-1">
+                <h3 class="font-heading font-bold text-primary">Field of Greens</h3>
+                <span class="text-accent font-bold">$9.49</span>
+              </div>
+              <p class="text-foreground/70 text-sm">Romaine, Red Onions, Tomato, Cucumber, Dressing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <!-- Sides -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-heading text-xl font-bold text-primary">SIDES</h2>
+            <div class="flex-1 h-0.5 bg-accent/40"></div>
+          </div>
+          <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Baked Potato Salad</span>
+              <span class="text-accent font-bold">$2.95</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Creamy Cole Slaw</span>
+              <span class="text-accent font-bold">$2.95</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Jalapeno Cole Slaw</span>
+              <span class="text-accent font-bold">$2.95</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Macaroni Salad</span>
+              <span class="text-accent font-bold">$2.95</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Specialty Chips</span>
+              <span class="text-accent font-bold">$2.00</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Pickle</span>
+              <span class="text-accent font-bold">$.50</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kids -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-heading text-xl font-bold text-secondary">KIDS</h2>
+            <div class="flex-1 h-0.5 bg-accent/40"></div>
+          </div>
+          <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
+            <div>
+              <div class="flex justify-between items-baseline gap-2 mb-1">
+                <span class="text-foreground/70">Hot Dog</span>
+                <span class="text-accent font-bold">$5.49</span>
+              </div>
+              <p class="text-xs text-foreground/50">w/ Chips, Cookie, Drink</p>
+            </div>
+            <div>
+              <div class="flex justify-between items-baseline gap-2 mb-1">
+                <span class="text-foreground/70">Grilled Cheese</span>
+                <span class="text-accent font-bold">$5.49</span>
+              </div>
+              <p class="text-xs text-foreground/50">w/ Chips, Cookie, Drink</p>
+            </div>
+            <div>
+              <div class="flex justify-between items-baseline gap-2 mb-1">
+                <span class="text-foreground/70">Turkey</span>
+                <span class="text-accent font-bold">$6.49</span>
+              </div>
+              <p class="text-xs text-foreground/50">w/ Chips, Cookie, Drink</p>
+            </div>
+            <div>
+              <div class="flex justify-between items-baseline gap-2 mb-1">
+                <span class="text-foreground/70">PB&J</span>
+                <span class="text-accent font-bold">$5.49</span>
+              </div>
+              <p class="text-xs text-foreground/50">w/ Chips, Cookie, Drink</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desserts & Drinks -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-heading text-lg font-bold text-primary">DESSERTS</h2>
+            <div class="flex-1 h-0.5 bg-accent/40"></div>
+          </div>
+          <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Reese's Peanut Butter Cookie</span>
+              <span class="text-accent font-bold">$2.75</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2 pb-3 border-b border-border/20">
+              <span class="text-foreground/70">Triple Chocolate Chip Cookie</span>
+              <span class="text-accent font-bold">$2.75</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Fountain Drink</span>
+              <span class="text-accent font-bold">$3.00</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">12oz Cans</span>
+              <span class="text-accent font-bold">$1.50</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Bottled Water</span>
+              <span class="text-accent font-bold">$2.50</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <span class="text-foreground/70">Bottled Iced Tea</span>
+              <span class="text-accent font-bold">$3.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="bg-primary py-12">
+    <div class="container text-center space-y-4">
+      <h2 class="font-heading text-3xl font-bold text-accent">Ready to Order?</h2>
+      <p class="text-background/90 text-lg max-w-xl mx-auto">
+        Call us at <a href="tel:+19034051995" class="font-bold hover:underline">(903) 405-1995</a> or order online below
+      </p>
+      <a
+        href="https://limerickssandwichjunction.smartonlineorder.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block px-8 py-4 bg-accent text-primary font-bold rounded hover:bg-accent/90 transition-all duration-300 text-lg"
+      >
+        Order Online Now
+      </a>
+    </div>
+  </section>
+</BaseLayout>

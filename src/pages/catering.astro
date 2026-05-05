@@ -1,0 +1,320 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Catering - Limerick's Sandwich Junction"
+  description="Catering services for events, meetings, and gatherings in Ennis, TX. Box lunches, sandwich trays, salads and more."
+>
+  <!-- HERO SECTION -->
+  <section class="relative h-96 w-full overflow-hidden bg-primary">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/5282004/pexels-photo-5282004.jpeg"
+        alt="Catering"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-primary/70"></div>
+    </div>
+
+    <div class="relative container flex items-center justify-center h-full">
+      <div class="text-center space-y-4">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-accent drop-shadow-lg">
+          Feed the Whole Crew
+        </h1>
+        <p class="text-lg text-background/90 drop-shadow">
+          Professional catering for your event
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATERING CONTENT -->
+  <section class="py-16 md:py-24 bg-background">
+    <div class="container max-w-4xl">
+      <!-- WHAT WE OFFER -->
+      <div class="mb-16">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+          What We Offer
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-card rounded-lg p-6 border border-border/40 hover:shadow-lg transition-shadow">
+            <div class="text-3xl mb-3">📦</div>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Box Lunches</h3>
+            <p class="text-foreground/70">Individual sandwich boxes perfect for corporate lunches and meetings. Each includes sandwich, chips, and cookie.</p>
+          </div>
+          <div class="bg-card rounded-lg p-6 border border-border/40 hover:shadow-lg transition-shadow">
+            <div class="text-3xl mb-3">🥪</div>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Sandwich Trays</h3>
+            <p class="text-foreground/70">Beautiful platters of our signature sandwiches, sliced and arranged for easy serving at any gathering.</p>
+          </div>
+          <div class="bg-card rounded-lg p-6 border border-border/40 hover:shadow-lg transition-shadow">
+            <div class="text-3xl mb-3">🥗</div>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Salad Trays</h3>
+            <p class="text-foreground/70">Fresh green salads, grain salads, and specialty sides to complement your meal.</p>
+          </div>
+          <div class="bg-card rounded-lg p-6 border border-border/40 hover:shadow-lg transition-shadow">
+            <div class="text-3xl mb-3">🍞</div>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Sides & Extras</h3>
+            <p class="text-foreground/70">Chips, pickles, beverages, desserts, and all the fixings to make your event complete.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW TO ORDER -->
+      <div class="mb-16 bg-accent/5 rounded-lg p-8 border-2 border-accent/30">
+        <h2 class="font-heading text-2xl font-bold text-primary mb-6">How to Order Catering</h2>
+        <div class="space-y-4">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-accent font-bold">
+                1
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-primary mb-1">Call or Email</h3>
+              <p class="text-foreground/70">
+                Contact us at <a href="tel:+19034051995" class="text-primary font-bold hover:underline">(903) 405-1995</a> to discuss your event size and needs.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-accent font-bold">
+                2
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-primary mb-1">Get a Quote</h3>
+              <p class="text-foreground/70">
+                Our team will provide pricing based on your guest count, menu choices, and delivery needs.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-accent font-bold">
+                3
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-primary mb-1">Place Your Order</h3>
+              <p class="text-foreground/70">
+                Finalize your selections and confirm your event date and delivery time.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-accent font-bold">
+                4
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-primary mb-1">Enjoy Your Event</h3>
+              <p class="text-foreground/70">
+                We'll deliver fresh, hot catering to your location ready to serve.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM SECTION -->
+      <div class="mb-16">
+        <h2 class="font-heading text-2xl font-bold text-primary mb-8 text-center">Request Catering</h2>
+        <div class="bg-card rounded-lg p-8 border border-border/40">
+          <form class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Your Name"
+                required
+                class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                required
+                class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                required
+                class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <input
+                type="date"
+                placeholder="Event Date"
+                required
+                class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <input
+              type="number"
+              placeholder="Number of Guests"
+              min="1"
+              required
+              class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <textarea
+              placeholder="Tell us about your event and any special requests..."
+              rows="4"
+              class="w-full px-4 py-3 rounded border border-border/40 bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full px-6 py-3 bg-primary text-accent font-bold rounded hover:bg-primary/90 transition-all duration-300"
+            >
+              Request Quote
+            </button>
+          </form>
+          <p class="text-center text-foreground/60 text-sm mt-4">
+            Or call us directly at <a href="tel:+19034051995" class="text-primary font-bold hover:underline">(903) 405-1995</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ SECTION -->
+      <div class="mb-16">
+        <h2 class="font-heading text-2xl font-bold text-primary mb-8 text-center">Catering FAQ</h2>
+        <div class="space-y-4">
+          <details class="bg-card rounded-lg p-6 border border-border/40 group cursor-pointer">
+            <summary class="font-heading font-bold text-primary flex justify-between items-center">
+              What is the minimum order?
+              <span class="transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p class="text-foreground/70 mt-3">
+              We can accommodate orders for as few as 5 guests. Larger orders may qualify for volume discounts.
+            </p>
+          </details>
+
+          <details class="bg-card rounded-lg p-6 border border-border/40 group cursor-pointer">
+            <summary class="font-heading font-bold text-primary flex justify-between items-center">
+              How much lead time do you need?
+              <span class="transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p class="text-foreground/70 mt-3">
+              We recommend at least 48 hours advance notice for catering orders. Larger events (50+ guests) should order 1 week in advance.
+            </p>
+          </details>
+
+          <details class="bg-card rounded-lg p-6 border border-border/40 group cursor-pointer">
+            <summary class="font-heading font-bold text-primary flex justify-between items-center">
+              Do you deliver?
+              <span class="transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p class="text-foreground/70 mt-3">
+              Yes! We deliver within the Ennis area. Delivery fees may apply depending on distance. Call for details.
+            </p>
+          </details>
+
+          <details class="bg-card rounded-lg p-6 border border-border/40 group cursor-pointer">
+            <summary class="font-heading font-bold text-primary flex justify-between items-center">
+              Can you accommodate dietary restrictions?
+              <span class="transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p class="text-foreground/70 mt-3">
+              Absolutely! We can accommodate vegetarian, vegan, gluten-free, and other dietary needs. Please let us know in advance.
+            </p>
+          </details>
+
+          <details class="bg-card rounded-lg p-6 border border-border/40 group cursor-pointer">
+            <summary class="font-heading font-bold text-primary flex justify-between items-center">
+              Do you provide service and tableware?
+              <span class="transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p class="text-foreground/70 mt-3">
+              Yes, we provide serving platters, utensils, napkins, and containers. Ask about additional service options.
+            </p>
+          </details>
+        </div>
+      </div>
+
+      <!-- TESTIMONIAL -->
+      <div class="bg-accent/10 rounded-lg p-8 border-l-4 border-primary">
+        <div class="flex items-center gap-1 mb-3">
+          {[1, 2, 3, 4, 5].map(() => (
+            <span class="text-accent text-lg">★</span>
+          ))}
+        </div>
+        <p class="text-foreground/80 italic text-lg mb-4">
+          "Limerick's catered our team lunch and everyone raved about the sandwiches. Professional, on-time, and delicious. We'll definitely use them again!"
+        </p>
+        <p class="text-sm font-bold text-primary">Sarah M.</p>
+        <p class="text-xs text-foreground/60">Corporate Event, Ennis, TX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING GUIDE -->
+  <section class="bg-primary py-16">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading text-3xl font-bold text-accent text-center mb-12">
+        Catering Pricing Guide
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-background rounded-lg p-6">
+          <h3 class="font-heading font-bold text-primary text-lg mb-4">Box Lunches</h3>
+          <div class="space-y-2 text-foreground/80 text-sm">
+            <p><strong>Single Sandwich Box</strong><br />$14.99 - $18.99 per person</p>
+            <p><strong>Includes:</strong> Sandwich, Chips, Cookie, Napkins</p>
+          </div>
+        </div>
+        <div class="bg-background rounded-lg p-6">
+          <h3 class="font-heading font-bold text-primary text-lg mb-4">Sandwich Trays</h3>
+          <div class="space-y-2 text-foreground/80 text-sm">
+            <p><strong>Serves 10-15 people</strong><br />$99.99 - $149.99</p>
+            <p><strong>Includes:</strong> Assorted sandwiches, platters, napkins</p>
+          </div>
+        </div>
+        <div class="bg-background rounded-lg p-6">
+          <h3 class="font-heading font-bold text-primary text-lg mb-4">Salad Trays</h3>
+          <div class="space-y-2 text-foreground/80 text-sm">
+            <p><strong>Serves 15-20 people</strong><br />$49.99 - $79.99</p>
+            <p><strong>Includes:</strong> Fresh salad, dressing, utensils</p>
+          </div>
+        </div>
+        <div class="bg-background rounded-lg p-6">
+          <h3 class="font-heading font-bold text-primary text-lg mb-4">Sides & Extras</h3>
+          <div class="space-y-2 text-foreground/80 text-sm">
+            <p><strong>Chips, Pickles, Beverages</strong><br />$2-$5 per person</p>
+            <p><strong>Ask about</strong> appetizers and dessert platters</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-background/80 mt-8 text-sm">
+        *Pricing varies based on selections and party size. Call for a custom quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section class="bg-background py-16">
+    <div class="container text-center">
+      <h2 class="font-heading text-3xl font-bold text-primary mb-4">
+        Ready to Cater Your Event?
+      </h2>
+      <p class="text-foreground/80 text-lg mb-8 max-w-xl mx-auto">
+        Let Limerick's bring fresh, hand-crafted sandwiches and delicious food to your next gathering.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="tel:+19034051995"
+          class="inline-block px-8 py-4 bg-primary text-accent font-bold rounded hover:bg-primary/90 transition-all duration-300 text-lg"
+        >
+          Call (903) 405-1995
+        </a>
+        <a
+          href="#"
+          class="inline-block px-8 py-4 bg-secondary text-background font-bold rounded hover:bg-secondary/90 transition-all duration-300 text-lg"
+        >
+          Request Quote
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -7,6 +7,7 @@ interface MobileMenuProps {
     label: string;
     isButton?: boolean;
     variant?: string;
+    external?: boolean;
   }>;
 }
 
@@ -59,6 +60,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
               key={i}
               href={link.href}
               onClick={closeMenu}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
               style={{
                 color: 'white',
                 fontSize: '1.5rem',

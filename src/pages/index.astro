@@ -1,41 +1,341 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Hero from '@/components/home/Hero';
-import Features from '@/components/home/Features';
-import HowItWorks from '@/components/home/HowItWorks';
-import MicroInteractions from '@/components/home/MicroInteractions';
-import Pricing from '@/components/home/Pricing';
-import Newsletter from '@/components/home/Newsletter';
-import BlogPreview from '@/components/home/BlogPreview.astro';
-import CTA from '@/components/home/CTA';
 ---
 
 <BaseLayout
-  title="Blazing Fast Websites, Dedicated Designer"
-  description="AI-powered, human-designed websites that load up to 75% faster than traditional sites. Book your designer today."
+  title="Limerick's Sandwich Junction - Best Sandwiches in Downtown Ennis, TX"
+  description="Award-winning sandwich restaurant in downtown Ennis, TX. Hand-crafted sandwiches, 13 bread choices, locally sourced ingredients."
 >
-  <!-- Hero Section (critical) -->
-  <Hero client:load />
+  <!-- HERO SECTION -->
+  <section class="relative h-[500px] md:h-[600px] w-full overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/1268558/pexels-photo-1268558.jpeg"
+        alt="Delicious sandwich"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-primary/70"></div>
+    </div>
 
-  <!-- Features Section (visible on load) -->
-  <Features client:visible />
+    <div class="relative container flex items-center justify-center h-full">
+      <div class="text-center space-y-6 max-w-2xl mx-auto">
+        <h1 class="font-heading text-4xl md:text-6xl font-bold text-accent drop-shadow-lg">
+          Best Sandwiches in Town
+        </h1>
+        <p class="text-lg md:text-xl text-background/90 drop-shadow">
+          Locally sourced. Hand-crafted. Served with heart in Downtown Ennis, TX.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <a
+            href="/menu"
+            class="inline-flex px-8 py-4 bg-accent text-primary font-bold rounded hover:bg-accent/90 transition-all duration-300 text-lg"
+          >
+            View Our Menu
+          </a>
+          <a
+            href="https://limerickssandwichjunction.smartonlineorder.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex px-8 py-4 bg-background text-primary font-bold rounded hover:bg-background/90 transition-all duration-300 text-lg"
+          >
+            Order Online Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- How It Works Section -->
-  <HowItWorks client:idle />
+  <!-- RATINGS STRIP -->
+  <section class="bg-accent/10 border-y-4 border-accent/30 py-6">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="space-y-2">
+          <div class="text-2xl font-bold text-primary">4.7★</div>
+          <p class="text-sm text-foreground/80">Yelp (87 reviews)</p>
+        </div>
+        <div class="space-y-2">
+          <div class="text-2xl font-bold text-primary">4.8★</div>
+          <p class="text-sm text-foreground/80">DoorDash (500+ reviews)</p>
+        </div>
+        <div class="space-y-2">
+          <div class="font-bold text-primary">Featured</div>
+          <p class="text-sm text-foreground/80">Ennis NOW Magazine March 2022</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Micro-Interactions Section -->
-  <MicroInteractions client:idle />
+  <!-- WHY LIMERICK'S -->
+  <section class="py-16 md:py-24 bg-background">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+        Why Limerick's
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
+          <div class="text-4xl">✋</div>
+          <h3 class="font-heading font-bold text-primary">Hand-Crafted Daily</h3>
+          <p class="text-sm text-foreground/70">Made fresh to order every single day</p>
+        </div>
+        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
+          <div class="text-4xl">🥪</div>
+          <h3 class="font-heading font-bold text-primary">29+ Signature Sandwiches</h3>
+          <p class="text-sm text-foreground/70">From Reuben to Muffuletta</p>
+        </div>
+        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
+          <div class="text-4xl">🍞</div>
+          <h3 class="font-heading font-bold text-primary">13 Bread Choices</h3>
+          <p class="text-sm text-foreground/70">Marble Rye, Cuban, Ciabatta & more</p>
+        </div>
+        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
+          <div class="text-4xl">👨‍👩‍👧‍👦</div>
+          <h3 class="font-heading font-bold text-primary">Family Owned</h3>
+          <p class="text-sm text-foreground/70">Serving Ennis since Chris Limerick</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Pricing Section -->
-  <Pricing client:idle />
+  <!-- FAN FAVORITES -->
+  <section class="py-16 md:py-24 bg-accent/5">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+        Fan Favorites
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Weinberger Reuben -->
+        <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
+          <div class="h-48 overflow-hidden bg-gray-200">
+            <img
+              src="https://images.pexels.com/photos/5537874/pexels-photo-5537874.jpeg"
+              alt="Weinberger Reuben"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between items-start">
+              <h3 class="font-heading font-bold text-primary text-lg">Weinberger Reuben</h3>
+              <span class="text-accent font-bold">$14.49</span>
+            </div>
+            <p class="text-sm text-foreground/70 leading-relaxed">
+              Hot Corned Beef & Pastrami, Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye
+            </p>
+            <a
+              href="https://limerickssandwichjunction.smartonlineorder.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center px-3 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
+            >
+              Order
+            </a>
+          </div>
+        </div>
 
-  <!-- Newsletter Section -->
-  <Newsletter client:idle />
+        <!-- The Dagwood -->
+        <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
+          <div class="h-48 overflow-hidden bg-gray-200">
+            <img
+              src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg"
+              alt="The Dagwood"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between items-start">
+              <h3 class="font-heading font-bold text-primary text-lg">The Dagwood</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-sm text-foreground/70 leading-relaxed">
+              Ham, Turkey, Roast Beef, Swiss, Muenster, American Cheese, Mayo, Tomato
+            </p>
+            <a
+              href="https://limerickssandwichjunction.smartonlineorder.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center px-3 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
+            >
+              Order
+            </a>
+          </div>
+        </div>
 
-  <!-- Blog Preview Section -->
-  <BlogPreview />
+        <!-- Muffuletta -->
+        <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
+          <div class="h-48 overflow-hidden bg-gray-200">
+            <img
+              src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg"
+              alt="Muffuletta"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between items-start">
+              <h3 class="font-heading font-bold text-primary text-lg">Muffuletta</h3>
+              <span class="text-accent font-bold">$17.00</span>
+            </div>
+            <p class="text-sm text-foreground/70 leading-relaxed">
+              Mortadella, Genoa Salami, Capicola, Provolone, Swiss, Olive Mix, Olive Oil
+            </p>
+            <a
+              href="https://limerickssandwichjunction.smartonlineorder.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center px-3 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
+            >
+              Order
+            </a>
+          </div>
+        </div>
 
+        <!-- Hollingshayes Cubano -->
+        <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
+          <div class="h-48 overflow-hidden bg-gray-200">
+            <img
+              src="https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg"
+              alt="Hollingshayes Cubano"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between items-start">
+              <h3 class="font-heading font-bold text-primary text-lg">Hollingshayes Cubano</h3>
+              <span class="text-accent font-bold">$13.99</span>
+            </div>
+            <p class="text-sm text-foreground/70 leading-relaxed">
+              Grilled Roast Pork, Ham, Yellow Mustard, Kosher Dill, Provolone
+            </p>
+            <a
+              href="https://limerickssandwichjunction.smartonlineorder.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center px-3 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
+            >
+              Order
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- CTA Section -->
-  <CTA client:idle />
+  <!-- REVIEWS SECTION -->
+  <section class="py-16 md:py-24 bg-background">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+        What Our Customers Say
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "I want to go back here every day for lunch... The Italian Sandwich is delish!"
+          </p>
+          <p class="text-sm font-bold text-primary">Lana Y.</p>
+          <p class="text-xs text-foreground/60">Yelp Elite, Waxahachie TX</p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "The Weinberger Reuben was as amazing as everyone said. A big sandwich with a perfect blend of flavors."
+          </p>
+          <p class="text-sm font-bold text-primary">Russell W.</p>
+          <p class="text-xs text-foreground/60">Verified Reviewer</p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "Hollingshayes cubano is AMAZING... get the baked potato salad, super fresh and flavorful. Love the deli vibes!"
+          </p>
+          <p class="text-sm font-bold text-primary">Yelp Reviewer</p>
+          <p class="text-xs text-foreground/60">Ennis, TX</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COME FIND US SECTION -->
+  <section class="py-16 md:py-24 bg-accent/5">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+        Come Find Us
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Left: Info and Hours -->
+        <div class="space-y-8">
+          <!-- Hours Table -->
+          <div class="bg-card rounded-lg p-6 border border-border/40">
+            <h3 class="font-heading font-bold text-primary text-lg mb-4">Hours</h3>
+            <table class="w-full text-sm">
+              <tbody>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 text-foreground/70 font-medium">Monday - Saturday</td>
+                  <td class="py-2 text-right text-foreground font-bold">11:00 AM - 5:00 PM</td>
+                </tr>
+                <tr>
+                  <td class="py-2 text-foreground/70 font-medium">Sunday</td>
+                  <td class="py-2 text-right text-foreground font-bold">Closed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Address and Phone -->
+          <div class="bg-card rounded-lg p-6 border border-border/40 space-y-4">
+            <div>
+              <h4 class="font-heading font-bold text-primary text-sm mb-2">Address</h4>
+              <p class="text-foreground/80 leading-relaxed">
+                213 W. Ennis Avenue, Ste 100<br />
+                Downtown Ennis, TX 75119
+              </p>
+            </div>
+            <div>
+              <h4 class="font-heading font-bold text-primary text-sm mb-2">Phone</h4>
+              <a href="tel:+19034051995" class="text-primary hover:text-primary/80 font-bold transition-colors">
+                (903) 405-1995
+              </a>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="https://limerickssandwichjunction.smartonlineorder.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block w-full text-center px-8 py-4 bg-primary text-accent font-bold rounded text-lg hover:bg-primary/90 transition-all duration-300"
+          >
+            Order Online Now
+          </a>
+        </div>
+
+        <!-- Right: Map -->
+        <div class="bg-gray-200 rounded-lg overflow-hidden h-96 md:h-full border-4 border-accent/30">
+          <iframe
+            width="100%"
+            height="100%"
+            frameborder="0"
+            style="border:0"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.5559815887246!2d-96.6127456!3d32.3254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c1d5a5e5e5e5d%3A0x1e5e5e5e5e5e5e5!2s213%20W%20Ennis%20Ave%20%23100%2C%20Ennis%2C%20TX%2075119!5e0!3m2!1sen!2sus!4v1234567890"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
