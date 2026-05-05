@@ -7,15 +7,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   description="Stories, specials, and sandwich love from downtown Ennis."
 >
   <!-- HERO SECTION -->
-  <section class="relative h-96 w-full overflow-hidden bg-secondary">
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/546069/pexels-photo-546069.jpeg"
-        alt="Blog"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-secondary/70"></div>
-    </div>
+  <section
+    class="relative h-96 w-full overflow-hidden bg-cover bg-center"
+    style="background-image: url('https://images.pexels.com/photos/541216/pexels-photo-541216.jpeg?auto=compress&cs=tinysrgb&w=1200');"
+  >
+    <div class="absolute inset-0 bg-secondary/70"></div>
 
     <div class="relative container flex items-center justify-center h-full">
       <div class="text-center space-y-4">
@@ -35,11 +31,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Blog Post 1 -->
         <article class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/5537874/pexels-photo-5537874.jpeg"
+              src="https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Weinberger Reuben"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-6">
@@ -65,11 +62,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Blog Post 2 -->
         <article class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/5632621/pexels-photo-5632621.jpeg"
+              src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Local sourcing"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-6">
@@ -95,11 +93,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Blog Post 3 -->
         <article class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg"
+              src="https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Muffuletta"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-6">

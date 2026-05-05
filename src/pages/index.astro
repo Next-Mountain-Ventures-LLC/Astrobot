@@ -7,15 +7,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   description="Award-winning sandwich restaurant in downtown Ennis, TX. Hand-crafted sandwiches, 13 bread choices, locally sourced ingredients."
 >
   <!-- HERO SECTION -->
-  <section class="relative h-[500px] md:h-[600px] w-full overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/1268558/pexels-photo-1268558.jpeg"
-        alt="Delicious sandwich"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-primary/70"></div>
-    </div>
+  <section
+    class="relative h-[500px] md:h-[600px] w-full overflow-hidden bg-cover bg-center"
+    style="background-image: url('https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&w=1600');"
+  >
+    <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="relative container flex items-center justify-center h-full">
       <div class="text-center space-y-6 max-w-2xl mx-auto">
@@ -105,11 +101,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Weinberger Reuben -->
         <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/5537874/pexels-photo-5537874.jpeg"
+              src="https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Weinberger Reuben"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-4 space-y-3">
@@ -133,11 +130,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- The Dagwood -->
         <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/2955819/pexels-photo-2955819.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg"
+              src="https://images.pexels.com/photos/2955819/pexels-photo-2955819.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="The Dagwood"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-4 space-y-3">
@@ -161,11 +159,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Muffuletta -->
         <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg"
+              src="https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Muffuletta"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-4 space-y-3">
@@ -189,11 +188,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Hollingshayes Cubano -->
         <div class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-48 overflow-hidden bg-gray-200">
+          <div class="h-48 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1647163/pexels-photo-1647163.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg"
+              src="https://images.pexels.com/photos/1647163/pexels-photo-1647163.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Hollingshayes Cubano"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-4 space-y-3">

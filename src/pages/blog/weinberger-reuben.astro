@@ -7,13 +7,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   description="Discover the history and inspiration behind one of our most beloved sandwiches."
 >
   <!-- ARTICLE HERO -->
-  <section class="relative h-96 md:h-[500px] w-full overflow-hidden bg-gray-200">
-    <img
-      src="https://images.pexels.com/photos/5537874/pexels-photo-5537874.jpeg"
-      alt="Weinberger Reuben"
-      class="w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-primary/40"></div>
+  <section
+    class="relative h-96 md:h-[500px] w-full overflow-hidden bg-cover bg-center"
+    style="background-image: url('https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=1600');"
+  >
+    <div class="absolute inset-0 bg-primary/50"></div>
   </section>
 
   <!-- ARTICLE CONTENT -->
@@ -134,11 +132,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Related Post 1 -->
         <article class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-40 overflow-hidden bg-gray-200">
+          <div class="h-40 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/5632621/pexels-photo-5632621.jpeg"
+              src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Local sourcing"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-6">
@@ -160,11 +159,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Related Post 2 -->
         <article class="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-border/40">
-          <div class="h-40 overflow-hidden bg-gray-200">
+          <div class="h-40 overflow-hidden bg-gray-200" style="background-image: url('https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800'); background-size: cover; background-position: center;">
             <img
-              src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg"
+              src="https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Muffuletta"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
           <div class="p-6">
