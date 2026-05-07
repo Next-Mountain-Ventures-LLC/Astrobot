@@ -20,17 +20,24 @@ import { MobileMenu } from "@/components/MobileMenu";
     </div>
     <div class="flex flex-1 items-center justify-end space-x-4">
       <nav class="hidden md:flex items-center space-x-3">
+        <div class="relative group">
+          <button class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+            Services
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-48 bg-background border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+            <a href="/services/web-design" class="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              Web Design
+            </a>
+          </div>
+        </div>
         <a
-          href="/?section=features"
+          href="/blog"
           class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
-          Features
-        </a>
-        <a
-          href="/?section=pricing"
-          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Pricing
+          Blog
         </a>
         <a
           href="/headless-cms"
@@ -39,17 +46,24 @@ import { MobileMenu } from "@/components/MobileMenu";
           Headless CMS
         </a>
         <a
-          href="https://nxtmt.bloom.io/login"
+          href="/websites-for-sale"
           class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
-          Login
+          Websites for Sale
+        </a>
+        <a
+          href="/pricing"
+          class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Pricing
         </a>
       </nav>
       <MobileMenu client:load links={[
-        { href: "/?section=features", label: "Features" },
-        { href: "/?section=pricing", label: "Pricing" },
+        { href: "/services/web-design", label: "Web Design" },
+        { href: "/blog", label: "Blog" },
         { href: "/headless-cms", label: "Headless CMS" },
-        { href: "https://nxtmt.bloom.io/login", label: "Login" }
+        { href: "/websites-for-sale", label: "Websites for Sale" },
+        { href: "/pricing", label: "Pricing" }
       ]} />
     </div>
   </div>

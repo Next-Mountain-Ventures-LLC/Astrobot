@@ -1,10 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from '@/components/home/Hero';
-import Features from '@/components/home/Features';
-import HowItWorks from '@/components/home/HowItWorks';
-import MicroInteractions from '@/components/home/MicroInteractions';
-import Pricing from '@/components/home/Pricing';
 import Newsletter from '@/components/home/Newsletter';
 import BlogPreview from '@/components/home/BlogPreview.astro';
 import CTA from '@/components/home/CTA';
@@ -17,24 +13,52 @@ import CTA from '@/components/home/CTA';
   <!-- Hero Section (critical) -->
   <Hero client:load />
 
-  <!-- Features Section (visible on load) -->
-  <Features client:visible />
+  <!-- Trust & Social Proof Section -->
+  <section class="py-16 md:py-24 bg-muted/30">
+    <div class="container">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Trusted by small businesses</h2>
+        <p class="text-muted-foreground mb-8">
+          Join hundreds of small business owners who've built their online presence with Astrobot.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-muted-foreground">
+          <div>
+            <p class="font-bold text-foreground">200+</p>
+            <p class="text-sm">Websites Launched</p>
+          </div>
+          <div>
+            <p class="font-bold text-foreground">4.9★</p>
+            <p class="text-sm">Average Rating</p>
+          </div>
+          <div>
+            <p class="font-bold text-foreground">75%</p>
+            <p class="text-sm">Faster Sites</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- How It Works Section -->
-  <HowItWorks client:idle />
-
-  <!-- Micro-Interactions Section -->
-  <MicroInteractions client:idle />
-
-  <!-- Pricing Section -->
-  <Pricing client:idle />
+  <!-- Blog Preview Section -->
+  <section class="py-16 md:py-24">
+    <div class="container">
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold mb-3">Latest from the Blog</h2>
+        <p class="text-muted-foreground max-w-xl">
+          Learn about web design, speed optimization, SEO, and how to grow your business online.
+        </p>
+      </div>
+      <BlogPreview />
+      <div class="text-center mt-12">
+        <a href="/blog" class="inline-block border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+          Read All Articles
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Newsletter Section -->
   <Newsletter client:idle />
-
-  <!-- Blog Preview Section -->
-  <BlogPreview />
-
 
   <!-- CTA Section -->
   <CTA client:idle />

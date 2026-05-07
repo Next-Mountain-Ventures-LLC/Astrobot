@@ -1,13 +1,17 @@
 ---
 import { getPosts } from "@/lib/wordpress";
-import BlogCarousel from "./BlogCarousel";
+import BlogCard from "@/components/blog/BlogCard.astro";
 
-// Fetch blog posts at build time (use per_page=100 to ensure consistent WordPress API results)
+// Fetch blog posts at build time
 const allPosts = await getPosts(1, 100);
-// Display first 6 posts in carousel
-const posts = allPosts.slice(0, 6);
+// Display first 3 posts
+const posts = allPosts.slice(0, 3);
 ---
 
 {posts.length > 0 && (
-  <BlogCarousel posts={posts} client:load />
+  <div class="grid md:grid-cols-3 gap-8">
+    {posts.map((post) => (
+      <BlogCard post={post} />
+    ))}
+  </div>
 )}
