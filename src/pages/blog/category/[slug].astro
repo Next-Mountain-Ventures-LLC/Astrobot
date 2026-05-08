@@ -1,107 +1,76 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogCard from "@/components/blog/BlogCard.astro";
-import { getPosts } from "@/lib/wordpress";
+import { getCategoriesWithNames, getCategoryDisplayName, getPostsByCategory, getAllCategories } from "@/lib/blog-utils";
 
-// Fetch all posts to determine available categories
-const allPosts = await getPosts(1, 100);
-
-// Get unique category slugs from all posts
-const uniqueCategories = new Set<string>();
-allPosts.forEach(post => {
-  post.categories.forEach(cat => {
-    uniqueCategories.add(cat.slug);
-  });
-});
-
-// Define category metadata
-const categoryMetadata: Record<string, { name: string; description: string }> = {
-  "web-design": {
-    name: "Web Design",
-    description: "Responsive design, UX, design trends, and CSS tips for modern websites."
-  },
-  "web-speed": {
-    name: "Web Speed",
-    description: "Page speed optimization, core web vitals, lighthouse scores, and performance best practices."
-  },
-  "seo-technical": {
-    name: "Technical SEO",
-    description: "Technical SEO, on-page optimization, schema markup, and indexing strategies."
-  },
-  "websites-for-sale": {
-    name: "Websites for Sale",
-    description: "Pre-built websites, templates, quick launches, and ready-made solutions."
-  },
-  "case-studies": {
-    name: "Case Studies",
-    description: "Real client success stories, before/after results, and project breakdowns."
-  },
-  "news-trends": {
-    name: "News & Trends",
-    description: "Web development trends, industry updates, and emerging technologies."
-  }
-};
+// Get all categories dynamically from WordPress
+// This ensures new categories automatically appear as tabs
+const allCategories = await getAllCategories();
+const categoriesWithNames = await getCategoriesWithNames();
 
 export async function getStaticPaths() {
-  // Fetch all posts
-  const posts = await getPosts(1, 100);
+  // Generate a page for each category found in WordPress posts
+  const categories = await getAllCategories();
   
-  // Get unique category slugs
-  const categories = new Set<string>();
-  posts.forEach(post => {
-    post.categories.forEach(cat => {
-      categories.add(cat.slug);
-    });
-  });
-  
-  // Generate paths for each category
-  return Array.from(categories).map(slug => ({
+  return categories.map(slug => ({
     params: { slug }
   }));
 }
 
 const { slug } = Astro.params;
 
-// Filter posts by the current category slug
-const categoryPosts = allPosts.filter(post => 
-  post.categories.some(cat => cat.slug === slug)
-);
+// Get posts for this specific category
+const categoryPosts = await getPostsByCategory(slug);
 
-// Get metadata for the current category
-const metadata = categoryMetadata[slug] || {
-  name: slug.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
-  description: `Articles about ${slug.replace(/-/g, ' ')}`
-};
-
-// Get other categories for related links
-const otherCategories = Array.from(uniqueCategories)
-  .filter(cat => cat !== slug)
-  .slice(0, 3)
-  .map(cat => ({
-    slug: cat,
-    ...categoryMetadata[cat]
-  }));
+// Get display name for this category
+const categoryDisplayName = getCategoryDisplayName(slug);
 ---
 
 <BaseLayout
-  title={`${metadata.name} | Blog | Astrobot.design`}
-  description={metadata.description}
+  title={`${categoryDisplayName} | Blog | Astrobot.design`}
+  description={`Browse blog posts in the ${categoryDisplayName} category.`}
 >
+  <!-- Breadcrumb Navigation -->
+  <nav class="py-4 border-b border-border/40">
+    <div class="container text-sm text-muted-foreground">
+      <a href="/" class="hover:text-foreground transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/blog" class="hover:text-foreground transition-colors">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-foreground font-medium">{categoryDisplayName}</span>
+    </div>
+  </nav>
+
   <section class="py-16 md:py-24">
     <div class="container">
-      <div class="max-w-3xl mx-auto mb-12">
-        <nav class="mb-6">
-          <a href="/blog" class="text-muted-foreground hover:text-foreground transition-colors">
-            ← Back to Blog
-          </a>
-        </nav>
-        
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          {metadata.name}
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold tracking-tight mb-6">
+          Our Blog
         </h1>
-        <p class="text-xl text-muted-foreground">
-          {metadata.description}
+        <p class="text-xl text-muted-foreground mb-8">
+          Insights and tips for building faster, better websites
         </p>
+
+        <!-- Category Navigation Tabs -->
+        <!-- These automatically update whenever new categories are added to WordPress -->
+        <!-- Selected category highlighted with primary color -->
+        <div class="flex flex-wrap gap-2 justify-center mb-8">
+          <a href="/blog" class="px-4 py-2 rounded-full bg-muted text-muted-foreground text-sm font-medium hover:bg-muted/80 hover:text-foreground transition-colors">
+            All Posts
+          </a>
+          {categoriesWithNames.map(({ slug: catSlug, displayName }) => (
+            <a
+              href={`/blog/category/${catSlug}`}
+              class={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                catSlug === slug 
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+              }`}
+            >
+              {displayName}
+            </a>
+          ))}
+        </div>
       </div>
 
       {categoryPosts.length === 0 ? (
@@ -112,34 +81,11 @@ const otherCategories = Array.from(uniqueCategories)
           </a>
         </div>
       ) : (
-        <>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {categoryPosts.map(post => (
-              <BlogCard post={post} />
-            ))}
-          </div>
-
-          {otherCategories.length > 0 && (
-            <section class="mt-20 pt-16 border-t border-border">
-              <h2 class="text-2xl font-bold mb-8">Explore Other Categories</h2>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {otherCategories.map((cat) => (
-                  <a 
-                    href={`/blog/category/${cat.slug}`}
-                    class="p-6 bg-muted/30 rounded-lg border border-border hover:border-primary hover:bg-muted/50 transition-all group"
-                  >
-                    <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
-                      {cat.name}
-                    </h3>
-                    <p class="text-sm text-muted-foreground">
-                      {cat.description}
-                    </p>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
-        </>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categoryPosts.map(post => (
+            <BlogCard post={post} />
+          ))}
+        </div>
       )}
     </div>
   </section>

@@ -2,32 +2,17 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogCard from "@/components/blog/BlogCard.astro";
 import { getPosts } from "@/lib/wordpress";
+import { getCategoriesWithNames } from "@/lib/blog-utils";
 
-// Fetch blog posts at build time (use per_page=100 to ensure consistent WordPress API results)
+// Fetch all blog posts at build time
 const allPosts = await getPosts(1, 100);
-// Display first 12 posts on this page
-const posts = allPosts.slice(0, 12);
 
-// Get unique categories from posts
-const categories = new Set<string>();
-allPosts.forEach(post => {
-  post.categories.forEach(cat => {
-    categories.add(cat.slug);
-  });
-});
+// Get all categories dynamically from WordPress posts
+// This automatically includes any new categories added to blog posts
+const categories = await getCategoriesWithNames();
 
-const categoryMetadata: Record<string, string> = {
-  "web-design": "Web Design",
-  "web-speed": "Web Speed",
-  "seo-technical": "Technical SEO",
-  "websites-for-sale": "Websites for Sale",
-  "case-studies": "Case Studies",
-  "news-trends": "News & Trends",
-  "about-astro": "About Astro",
-  "case-study": "Case Studies",
-  "how-to": "How To",
-  "human-designers": "Human Designers"
-};
+// Display all posts on this page
+const posts = allPosts;
 ---
 
 <BaseLayout
@@ -53,17 +38,18 @@ const categoryMetadata: Record<string, string> = {
           Insights and tips for building faster, better websites
         </p>
 
-        <!-- Category Navigation -->
+        <!-- Category Navigation Tabs -->
+        <!-- This automatically updates when new categories are added to blog posts -->
         <div class="flex flex-wrap gap-2 justify-center mb-8">
           <a href="/blog" class="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
             All Posts
           </a>
-          {Array.from(categories).map(slug => (
+          {categories.map(({ slug, displayName }) => (
             <a
               href={`/blog/category/${slug}`}
               class="px-4 py-2 rounded-full bg-muted text-muted-foreground text-sm font-medium hover:bg-muted/80 hover:text-foreground transition-colors"
             >
-              {categoryMetadata[slug] || slug.replace(/-/g, ' ')}
+              {displayName}
             </a>
           ))}
         </div>
