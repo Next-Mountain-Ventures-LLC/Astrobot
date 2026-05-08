@@ -1,12 +1,129 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import AdvancedBlogging from '@/components/home/AdvancedBlogging';
+import BlogCarousel from '@/components/home/BlogCarousel';
+import { getPosts } from '@/lib/wordpress';
+
+// Fetch headless CMS related posts (will be empty until category exists)
+const allPosts = await getPosts(1, 100);
+const cmsRelatedPosts = allPosts.filter(post => 
+  post.categories.some(cat => 
+    cat.slug === 'headless-cms' || cat.name.toLowerCase().includes('headless')
+  )
+);
 ---
 
 <BaseLayout
   title="Headless CMS | Astrobot.design"
   description="Get the best of both worlds: WordPress's content management with Astro's blazing fast performance."
 >
-  <!-- Advanced Blogging Section -->
+  <!-- Advanced Blogging / Main Features Section -->
   <AdvancedBlogging client:load />
+
+  <!-- Headless CMS Supernova Info Section -->
+  <section class="py-20 md:py-32 bg-gradient-to-b from-background via-primary/5 to-background">
+    <div class="container">
+      <div class="max-w-3xl mx-auto bg-secondary/30 border border-primary/30 rounded-lg p-8 shadow-[0_0_15px_rgba(0,128,255,0.1)]">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Headless CMS Included in Supernova</h2>
+          <p class="text-lg text-muted-foreground mb-6">
+            Our Supernova plan comes with full WordPress headless CMS capabilities built-in. Get WordPress's powerful content management combined with Astro's blazing-fast performance at no extra cost.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="p-6 bg-background rounded-lg border border-border">
+            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+              <span class="text-primary">✓</span> What's Included
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>WordPress Dashboard for content management</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Unlimited blog posts & articles</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Static pre-rendering for speed</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>SEO-optimized pages</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Custom categories & tags</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 bg-background rounded-lg border border-border">
+            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+              <span class="text-primary">⚡</span> Benefits
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Sub-second page load times</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>No database overhead</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Familiar WordPress interface</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>Perfect for blogging & content</span>
+              </li>
+              <li class="flex gap-2 text-muted-foreground">
+                <span class="text-primary">•</span>
+                <span>No setup or maintenance required</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground mb-6">
+            Ready to combine WordPress's content power with Astro's performance?
+          </p>
+          <a 
+            href="https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          >
+            Get Started with Supernova
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Headless CMS Related Articles Carousel -->
+  <section class="py-20 md:py-32">
+    <div class="container">
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold mb-3">Learn About Headless CMS</h2>
+        <p class="text-muted-foreground max-w-xl">
+          Explore our articles on WordPress headless CMS, content management strategies, and more.
+        </p>
+      </div>
+
+      {cmsRelatedPosts.length > 0 ? (
+        <BlogCarousel posts={cmsRelatedPosts} client:load />
+      ) : (
+        <div class="text-center py-16 border border-border/40 rounded-lg bg-secondary/20">
+          <p class="text-muted-foreground mb-4">No articles about headless CMS yet.</p>
+          <p class="text-sm text-muted-foreground">Check back soon as we publish content about WordPress headless CMS best practices and strategies.</p>
+        </div>
+      )}
+    </div>
+  </section>
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PricingToggle from "@/components/pricing/PricingToggle";
 ---
 
 <BaseLayout
@@ -24,113 +25,65 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="p-8 bg-background rounded-lg border border-border">
-          <h3 class="font-bold text-2xl mb-2">Websites for Sale</h3>
-          <p class="text-muted-foreground mb-6">Pre-built templates</p>
-          <p class="text-4xl font-bold mb-6">$599<span class="text-lg text-muted-foreground"> - $1,299</span></p>
-          
-          <h4 class="font-bold mb-4">What's Included:</h4>
-          <ul class="space-y-3 mb-8">
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Professional template</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Customization & setup</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">1 year hosting included</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">3-5 day launch</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">SEO optimized</span>
-            </li>
-          </ul>
-          
-          <a href="/websites-for-sale" class="block w-full bg-primary text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-center">
-            Browse Websites
-          </a>
-        </div>
-
-        <div class="p-8 bg-background rounded-lg border border-2 border-primary relative">
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-            Most Popular
-          </div>
-          
-          <h3 class="font-bold text-2xl mb-2">Web Design (Orbit)</h3>
-          <p class="text-muted-foreground mb-6">Custom 5-page site</p>
-          <p class="text-4xl font-bold mb-6">$1,500</p>
-          
-          <h4 class="font-bold mb-4">What's Included:</h4>
-          <ul class="space-y-3 mb-8">
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">5 custom pages</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Mobile responsive</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">SEO optimized</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">1 week launch</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Maintenance included</span>
-            </li>
-          </ul>
-          
-          <a href="/services/web-design" class="block w-full bg-primary text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-center">
-            Book Consultation
-          </a>
-        </div>
-
-        <div class="p-8 bg-background rounded-lg border border-border">
-          <h3 class="font-bold text-2xl mb-2">Web Design (Supernova)</h3>
-          <p class="text-muted-foreground mb-6">Custom unlimited pages</p>
-          <p class="text-4xl font-bold mb-6">$3,500</p>
-          
-          <h4 class="font-bold mb-4">What's Included:</h4>
-          <ul class="space-y-3 mb-8">
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Unlimited pages</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Blog integration</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Advanced SEO</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">3 week launch</span>
-            </li>
-            <li class="flex gap-2">
-              <span class="text-primary">✓</span>
-              <span class="text-muted-foreground">Ongoing support</span>
-            </li>
-          </ul>
-          
-          <a href="/services/web-design" class="block w-full bg-primary text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-center">
-            Book Consultation
-          </a>
-        </div>
-      </div>
+      <PricingToggle 
+        client:load
+        plans={[
+          {
+            name: "Websites for Sale",
+            description: "Ready-made templates",
+            monthlyPrice: 299,
+            annualPrice: 299,
+            monthlyStripeLink: "https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01",
+            annualStripeLink: "https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01",
+            features: [
+              "Professional template",
+              "One design session for rebranding",
+              "No-cost hosting with GitHub",
+              "Mobile responsive",
+              "SEO optimized",
+              "3-5 day launch"
+            ],
+            isPopular: false,
+            buttonText: "Browse Websites"
+          },
+          {
+            name: "Web Design (Orbit)",
+            description: "Custom 5-page site",
+            monthlyPrice: 149,
+            annualPrice: 1500,
+            monthlyStripeLink: "https://buy.stripe.com/28o3dAc9k3lk95u6op",
+            annualStripeLink: "https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01",
+            features: [
+              "5 custom pages",
+              "Mobile responsive",
+              "SEO optimized",
+              "1-week launch",
+              "Maintenance included",
+              "1 year hosting included"
+            ],
+            isPopular: false,
+            buttonText: "Book Consultation"
+          },
+          {
+            name: "Web Design (Supernova)",
+            description: "Custom unlimited pages",
+            monthlyPrice: 299,
+            annualPrice: 3500,
+            monthlyStripeLink: "https://buy.stripe.com/14kaHE8xs3lk6d2aTe",
+            annualStripeLink: "https://buy.stripe.com/5kQbJ2dec6ZIc7L0HKgMw01",
+            features: [
+              "Unlimited pages",
+              "Blog integration",
+              "Advanced SEO",
+              "3-week launch",
+              "Ongoing support",
+              "1 year hosting + maintenance"
+            ],
+            isPopular: true,
+            buttonText: "Book Consultation"
+          }
+        ]}
+      />
 
       <div class="mt-16 p-8 bg-muted/30 rounded-lg border border-border max-w-2xl mx-auto">
         <h3 class="font-bold text-2xl mb-4">Headless CMS Add-on</h3>
@@ -162,9 +115,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           <tbody>
             <tr class="border-b border-border">
               <td class="py-3 px-4">Price</td>
-              <td class="text-center py-3 px-4">$599-1,299</td>
-              <td class="text-center py-3 px-4">$1,500</td>
-              <td class="text-center py-3 px-4">$3,500</td>
+              <td class="text-center py-3 px-4">$299 one-time</td>
+              <td class="text-center py-3 px-4">$1,500/year</td>
+              <td class="text-center py-3 px-4">$3,500/year</td>
             </tr>
             <tr class="border-b border-border bg-muted/20">
               <td class="py-3 px-4">Design</td>
@@ -180,7 +133,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
             </tr>
             <tr class="border-b border-border bg-muted/20">
               <td class="py-3 px-4">Blog</td>
-              <td class="text-center py-3 px-4">Add-on</td>
+              <td class="text-center py-3 px-4">Optional</td>
               <td class="text-center py-3 px-4">Add-on</td>
               <td class="text-center py-3 px-4">Included</td>
             </tr>
@@ -197,13 +150,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
               <td class="text-center py-3 px-4">✓</td>
             </tr>
             <tr class="border-b border-border">
-              <td class="py-3 px-4">Hosting (Year 1)</td>
-              <td class="text-center py-3 px-4">Included</td>
-              <td class="text-center py-3 px-4">Included</td>
-              <td class="text-center py-3 px-4">Included</td>
+              <td class="py-3 px-4">Hosting Included</td>
+              <td class="text-center py-3 px-4">✓ (GitHub)</td>
+              <td class="text-center py-3 px-4">✓ 1 year</td>
+              <td class="text-center py-3 px-4">✓ 1 year</td>
             </tr>
             <tr class="border-b border-border bg-muted/20">
-              <td class="py-3 px-4">Turnaround Time</td>
+              <td class="py-3 px-4">Launch Time</td>
               <td class="text-center py-3 px-4">3-5 days</td>
               <td class="text-center py-3 px-4">1 week</td>
               <td class="text-center py-3 px-4">3 weeks</td>
