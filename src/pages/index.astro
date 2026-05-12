@@ -122,6 +122,55 @@ const whyCards = [
     </div>
   </section>
 
+  <!-- REVIEWS SECTION -->
+  <section class="py-16 md:py-24 bg-background">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+        What Our Customers Say
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "I want to go back here every day for lunch... The Italian Sandwich is delish!"
+          </p>
+          <p class="text-sm font-bold text-primary">Lana Y.</p>
+          <p class="text-xs text-foreground/60">Yelp Elite, Waxahachie TX</p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "The Weinberger Reuben was as amazing as everyone said. A big sandwich with a perfect blend of flavors."
+          </p>
+          <p class="text-sm font-bold text-primary">Russell W.</p>
+          <p class="text-xs text-foreground/60">Verified Reviewer</p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
+          <div class="flex items-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(() => (
+              <span class="text-accent text-lg">★</span>
+            ))}
+          </div>
+          <p class="text-foreground/80 italic mb-4">
+            "Hollingshayes cubano is AMAZING... get the baked potato salad, super fresh and flavorful. Love the deli vibes!"
+          </p>
+          <p class="text-sm font-bold text-primary">Yelp Reviewer</p>
+          <p class="text-xs text-foreground/60">Ennis, TX</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- WHY LIMERICK'S -->
   <section class="py-16 md:py-24 bg-background">
     <div class="container">
@@ -259,55 +308,6 @@ const whyCards = [
               Order
             </a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS SECTION -->
-  <section class="py-16 md:py-24 bg-background">
-    <div class="container">
-      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
-        What Our Customers Say
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
-          <div class="flex items-center gap-1 mb-3">
-            {[1, 2, 3, 4, 5].map(() => (
-              <span class="text-accent text-lg">★</span>
-            ))}
-          </div>
-          <p class="text-foreground/80 italic mb-4">
-            "I want to go back here every day for lunch... The Italian Sandwich is delish!"
-          </p>
-          <p class="text-sm font-bold text-primary">Lana Y.</p>
-          <p class="text-xs text-foreground/60">Yelp Elite, Waxahachie TX</p>
-        </div>
-
-        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
-          <div class="flex items-center gap-1 mb-3">
-            {[1, 2, 3, 4, 5].map(() => (
-              <span class="text-accent text-lg">★</span>
-            ))}
-          </div>
-          <p class="text-foreground/80 italic mb-4">
-            "The Weinberger Reuben was as amazing as everyone said. A big sandwich with a perfect blend of flavors."
-          </p>
-          <p class="text-sm font-bold text-primary">Russell W.</p>
-          <p class="text-xs text-foreground/60">Verified Reviewer</p>
-        </div>
-
-        <div class="bg-card rounded-lg p-6 border-l-4 border-accent shadow-md">
-          <div class="flex items-center gap-1 mb-3">
-            {[1, 2, 3, 4, 5].map(() => (
-              <span class="text-accent text-lg">★</span>
-            ))}
-          </div>
-          <p class="text-foreground/80 italic mb-4">
-            "Hollingshayes cubano is AMAZING... get the baked potato salad, super fresh and flavorful. Love the deli vibes!"
-          </p>
-          <p class="text-sm font-bold text-primary">Yelp Reviewer</p>
-          <p class="text-xs text-foreground/60">Ennis, TX</p>
         </div>
       </div>
     </div>
