@@ -1,5 +1,43 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { MenuSection } from "@/components/MenuSection";
+
+// Vegetarian menu items with images
+const vegItems = [
+  {
+    name: "Reita Pita",
+    price: "$12.99",
+    description: "Spring Mix, Hummus, Banana Peppers, Lettuce, Olive Mix, Cucumber, Feta, Chopped Tomato, Chili Oil, Garlic Toasted Hoagie",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F04e7beaabe6747a1afbae4b08e176c75?format=webp&width=800&height=1200"
+  },
+  {
+    name: "Queen of Hearts",
+    price: "$12.99",
+    description: "Grilled Artichoke Hearts, Mushrooms, Mozzarella, Spring Mix, Banana Peppers, Sun Dried Tomato, Olive Oil, Italian Seasonings, Garlic Toasted Hoagie",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1585dca5dbcf47a3810f4f1bdde5b9cd?format=webp&width=800&height=1200"
+  },
+  {
+    name: "Dlabaj",
+    price: "$12.99",
+    description: "Provolone, Spring Mix, Red Onion, Balsamic Dressing, Olive Mix, Basil Mayo, Tomato, Grilled Pumpernickel",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F6d76f501b77f41cf8459b7c9f120cc42?format=webp&width=800&height=1200"
+  }
+];
+
+const saladItems = [
+  {
+    name: "Greek Salad",
+    price: "$11.49",
+    description: "Romaine, Onion, Chopped Tomato, Cucumber, Pepperoncini, Feta, Greek Olive, Pita Chips, Greek Dressing",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fad5c930febf641b6ade44b77cab35cdc?format=webp&width=800&height=1200"
+  },
+  {
+    name: "Field of Greens",
+    price: "$9.49",
+    description: "Romaine, Red Onions, Tomato, Cucumber, Dressing",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F4f1a093fa1fc4ee6aed211503601f9c0?format=webp&width=800&height=1200"
+  }
+];
 ---
 
 <BaseLayout
@@ -29,109 +67,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   <section class="py-16 md:py-24 bg-background">
     <div class="container max-w-3xl">
       <!-- FEATURED SANDWICHES -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-secondary">VEGETARIAN SANDWICHES</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Reita Pita</h3>
-              <span class="text-accent font-bold">$12.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm mb-3">
-              Spring Mix, Hummus, Banana Peppers, Lettuce, Olive Mix, Cucumber, Feta, Chopped Tomato, Chili Oil, Garlic Toasted Hoagie
-            </p>
-            <a
-              href="https://limerickssandwichjunction.smartonlineorder.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-secondary text-background font-bold rounded text-sm hover:bg-secondary/90 transition-all duration-300"
-            >
-              Order
-            </a>
-          </div>
-          <div class="border-t border-border/20 pt-6">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Queen of Hearts</h3>
-              <span class="text-accent font-bold">$12.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm mb-3">
-              Grilled Artichoke Hearts, Mushrooms, Mozzarella, Spring Mix, Banana Peppers, Sun Dried Tomato, Olive Oil, Italian Seasonings, Garlic Toasted Hoagie
-            </p>
-            <a
-              href="https://limerickssandwichjunction.smartonlineorder.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-secondary text-background font-bold rounded text-sm hover:bg-secondary/90 transition-all duration-300"
-            >
-              Order
-            </a>
-          </div>
-          <div class="border-t border-border/20 pt-6">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Dlabaj</h3>
-              <span class="text-accent font-bold">$12.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm mb-3">
-              Provolone, Spring Mix, Red Onion, Balsamic Dressing, Olive Mix, Basil Mayo, Tomato, Grilled Pumpernickel
-            </p>
-            <a
-              href="https://limerickssandwichjunction.smartonlineorder.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-secondary text-background font-bold rounded text-sm hover:bg-secondary/90 transition-all duration-300"
-            >
-              Order
-            </a>
-          </div>
-        </div>
-      </div>
+      <MenuSection client:load title="VEGETARIAN SANDWICHES" color="secondary" items={vegItems} />
 
       <!-- SALADS -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">SALADS</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Greek Salad</h3>
-              <span class="text-accent font-bold">$11.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm mb-3">
-              Romaine, Onion, Chopped Tomato, Cucumber, Pepperoncini, Feta, Greek Olive, Pita Chips, Greek Dressing
-            </p>
-            <a
-              href="https://limerickssandwichjunction.smartonlineorder.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
-            >
-              Order
-            </a>
-          </div>
-          <div class="border-t border-border/20 pt-6">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Field of Greens</h3>
-              <span class="text-accent font-bold">$9.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm mb-3">
-              Romaine, Red Onions, Tomato, Cucumber, Dressing
-            </p>
-            <a
-              href="https://limerickssandwichjunction.smartonlineorder.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
-            >
-              Order
-            </a>
-          </div>
-        </div>
-      </div>
+      <MenuSection client:load title="SALADS" color="primary" items={saladItems} />
 
       <!-- KIDS OPTIONS -->
       <div class="mb-12">
