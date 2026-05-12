@@ -7,12 +7,23 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   description="Award-winning sandwich restaurant in downtown Ennis, TX. Hand-crafted sandwiches, 13 bread choices, locally sourced ingredients."
 >
   <!-- HERO SECTION -->
-  <section
-    class="relative h-[500px] md:h-[600px] w-full overflow-hidden bg-cover bg-center"
-    style="background-image: url('https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&w=1600');"
-  >
+  <section class="relative h-[500px] md:h-[600px] w-full overflow-hidden">
+    <!-- Video Background -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+      poster="https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    >
+      <source src="https://videos.files.wordpress.com/cHScOtA2/website.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Dark Overlay for Text Readability -->
     <div class="absolute inset-0 bg-black/50"></div>
 
+    <!-- Content -->
     <div class="relative container flex items-center justify-center h-full">
       <div class="text-center space-y-6 max-w-2xl mx-auto">
         <h1 class="font-heading text-4xl md:text-6xl font-bold text-accent drop-shadow-lg">
