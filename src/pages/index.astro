@@ -50,38 +50,49 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   </section>
 
   <!-- RATINGS STRIP -->
-  <section class="bg-accent/10 border-y-4 border-accent/30 py-6">
+  <section class="bg-accent/10 border-y-4 border-accent/30 py-12">
     <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        <div class="space-y-2">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Yelp Card -->
+        <div class="flex items-center gap-4 bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fddc8d91775f349cdb2d5832d37b936bf?format=webp&width=120&height=40"
+            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fddc8d91775f349cdb2d5832d37b936bf?format=webp&width=100&height=40"
             alt="Yelp"
-            class="h-8 w-auto mx-auto mb-2"
+            class="h-10 w-auto flex-shrink-0"
             loading="lazy"
           />
-          <div class="text-2xl font-bold text-primary">4.7★</div>
-          <p class="text-sm text-foreground/80">87 reviews</p>
+          <div>
+            <div class="text-3xl font-bold text-accent">4.7★</div>
+            <p class="text-sm text-foreground/70 font-medium">87 reviews</p>
+          </div>
         </div>
-        <div class="space-y-2">
+
+        <!-- DoorDash Card -->
+        <div class="flex items-center gap-4 bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fbd030c0b510348e78181e8e68e34686c?format=webp&width=150&height=50"
+            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fbd030c0b510348e78181e8e68e34686c?format=webp&width=120&height=40"
             alt="DoorDash"
-            class="h-8 w-auto mx-auto mb-2"
+            class="h-10 w-auto flex-shrink-0"
             loading="lazy"
           />
-          <div class="text-2xl font-bold text-primary">4.8★</div>
-          <p class="text-sm text-foreground/80">500+ reviews</p>
+          <div>
+            <div class="text-3xl font-bold text-accent">4.8★</div>
+            <p class="text-sm text-foreground/70 font-medium">500+ reviews</p>
+          </div>
         </div>
-        <div class="space-y-2">
+
+        <!-- Google Card -->
+        <div class="flex items-center gap-4 bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F8d66a665163641a1876ffac7dab6fec2?format=webp&width=150&height=50"
+            src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F8d66a665163641a1876ffac7dab6fec2?format=webp&width=100&height=40"
             alt="Google"
-            class="h-8 w-auto mx-auto mb-2"
+            class="h-10 w-auto flex-shrink-0"
             loading="lazy"
           />
-          <div class="text-2xl font-bold text-primary">4.8★</div>
-          <p class="text-sm text-foreground/80">269 reviews</p>
+          <div>
+            <div class="text-3xl font-bold text-accent">4.8★</div>
+            <p class="text-sm text-foreground/70 font-medium">269 reviews</p>
+          </div>
         </div>
       </div>
     </div>
@@ -90,29 +101,36 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   <!-- WHY LIMERICK'S -->
   <section class="py-16 md:py-24 bg-background">
     <div class="container">
-      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-16">
         Why Limerick's
       </h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
-          <div class="text-4xl">✋</div>
-          <h3 class="font-heading font-bold text-primary">Hand-Crafted Daily</h3>
-          <p class="text-sm text-foreground/70">Made fresh to order every single day</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Card 1 -->
+        <div class="flex flex-col group">
+          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
+          <h3 class="font-heading text-xl font-bold text-primary mb-3">Hand-Crafted Daily</h3>
+          <p class="text-foreground/70 leading-relaxed flex-1">Every sandwich is made fresh to order with premium ingredients and attention to detail.</p>
         </div>
-        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
-          <div class="text-4xl">🥪</div>
-          <h3 class="font-heading font-bold text-primary">29+ Signature Sandwiches</h3>
-          <p class="text-sm text-foreground/70">From Reuben to Muffuletta</p>
+
+        <!-- Card 2 -->
+        <div class="flex flex-col group">
+          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
+          <h3 class="font-heading text-xl font-bold text-primary mb-3">29+ Signature Sandwiches</h3>
+          <p class="text-foreground/70 leading-relaxed flex-1">From classic Reubens and Italian subs to New Orleans specials and Cuban presses. Something for everyone.</p>
         </div>
-        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
-          <div class="text-4xl">🍞</div>
-          <h3 class="font-heading font-bold text-primary">13 Bread Choices</h3>
-          <p class="text-sm text-foreground/70">Marble Rye, Cuban, Ciabatta & more</p>
+
+        <!-- Card 3 -->
+        <div class="flex flex-col group">
+          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
+          <h3 class="font-heading text-xl font-bold text-primary mb-3">13 Bread Choices</h3>
+          <p class="text-foreground/70 leading-relaxed flex-1">Marble Rye, Cuban, Ciabatta, Pumpernickel, and more. Choose your perfect base.</p>
         </div>
-        <div class="bg-card rounded-lg p-6 text-center space-y-3 hover:shadow-lg transition-shadow duration-300 border-2 border-accent/20">
-          <div class="text-4xl">👨‍👩‍👧‍👦</div>
-          <h3 class="font-heading font-bold text-primary">Family Owned</h3>
-          <p class="text-sm text-foreground/70">Serving Ennis since Chris Limerick</p>
+
+        <!-- Card 4 -->
+        <div class="flex flex-col group">
+          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
+          <h3 class="font-heading text-xl font-bold text-primary mb-3">Family Owned & Operated</h3>
+          <p class="text-foreground/70 leading-relaxed flex-1">Proudly serving Downtown Ennis with passion, pride, and a commitment to quality that shows in every bite.</p>
         </div>
       </div>
     </div>
