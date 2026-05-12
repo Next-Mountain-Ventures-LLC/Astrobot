@@ -26,6 +26,7 @@ const platformLogos = {
 export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [hoveredSide, setHoveredSide] = useState<"left" | "right" | null>(null);
   const itemsPerView = 3;
 
   useEffect(() => {
@@ -38,73 +39,110 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
     return () => clearInterval(timer);
   }, [isHovering, reviews.length]);
 
+  const handleLeftHover = () => {
+    setHoveredSide("left");
+    setIsHovering(true);
+  };
+
+  const handleRightHover = () => {
+    setHoveredSide("right");
+    setIsHovering(true);
+  };
+
+  const handleCardHoverLeave = () => {
+    setHoveredSide(null);
+    setIsHovering(false);
+  };
+
+  const handleLeftClick = () => {
+    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+  };
+
+  const handleRightClick = () => {
+    setCurrentIndex((prev) => (prev + 1) % reviews.length);
+  };
+
   const visibleReviews = reviews.slice(currentIndex, currentIndex + itemsPerView).concat(
-    currentIndex + itemsPerView > reviews.length 
+    currentIndex + itemsPerView > reviews.length
       ? reviews.slice(0, (currentIndex + itemsPerView) % reviews.length)
       : []
   );
 
   return (
     <div
-      class="w-full"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      className="w-full"
+      onMouseLeave={handleCardHoverLeave}
     >
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {visibleReviews.map((review) => (
-          <div key={review.id} class="bg-white rounded-2xl p-8 shadow-lg border border-border/20 hover:shadow-xl transition-all duration-300 hover:border-accent/40">
-            {/* Header with Platform and Rating */}
-            <div class="flex items-center justify-between mb-6">
-              <img
-                src={platformLogos[review.platform]}
-                alt={review.platform}
-                class="h-5 w-auto"
-                loading="lazy"
-              />
-              <div class="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <span
-                    key={i}
-                    class={`text-base ${
-                      i < review.rating ? "text-accent" : "text-border/30"
-                    }`}
-                  >
-                    ★
-                  </span>
-                ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center justify-center">
+        {visibleReviews.map((review, idx) => {
+          const isLeftCard = idx === 0;
+          const isMiddleCard = idx === 1;
+          const isRightCard = idx === 2;
+
+          return (
+            <div
+              key={review.id}
+              onMouseEnter={isLeftCard ? handleLeftHover : isRightCard ? handleRightHover : undefined}
+              onClick={isLeftCard ? handleLeftClick : isRightCard ? handleRightClick : undefined}
+              className={`bg-white rounded-2xl p-8 shadow-lg border border-border/20 transition-all duration-300 ${
+                isMiddleCard
+                  ? "md:scale-110 md:z-10 hover:shadow-xl hover:border-accent/40"
+                  : "md:scale-75 opacity-60 hover:opacity-100 hover:shadow-lg"
+              } ${(isLeftCard || isRightCard) ? "cursor-pointer" : ""}`}
+            >
+              {/* Header with Platform and Rating */}
+              <div className="flex items-center justify-between mb-6">
+                <img
+                  src={platformLogos[review.platform]}
+                  alt={review.platform}
+                  className="h-5 w-auto"
+                  loading="lazy"
+                />
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={`text-base ${
+                        i < review.rating ? "text-accent" : "text-border/30"
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Review Text */}
+              <blockquote className="text-foreground/80 italic mb-6 leading-relaxed text-sm">
+                "{review.text}"
+              </blockquote>
+
+              {/* Author Info */}
+              <div className="flex items-center gap-3">
+                <img
+                  src={review.profileImage}
+                  alt={review.author}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
+                  loading="lazy"
+                />
+                <div>
+                  <p className="font-bold text-primary text-sm">{review.author}</p>
+                  <p className="text-xs text-foreground/60">{review.location}</p>
+                  <p className="text-xs text-foreground/50">{review.date}</p>
+                </div>
               </div>
             </div>
-
-            {/* Review Text */}
-            <blockquote class="text-foreground/80 italic mb-6 leading-relaxed text-sm">
-              "{review.text}"
-            </blockquote>
-
-            {/* Author Info */}
-            <div class="flex items-center gap-3">
-              <img
-                src={review.profileImage}
-                alt={review.author}
-                class="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
-                loading="lazy"
-              />
-              <div>
-                <p class="font-bold text-primary text-sm">{review.author}</p>
-                <p class="text-xs text-foreground/60">{review.location}</p>
-                <p class="text-xs text-foreground/50">{review.date}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Dot Indicators */}
-      <div class="flex justify-center gap-2 mt-8">
+      <div className="flex justify-center gap-2 mt-8">
         {reviews.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            class={`h-2 rounded-full transition-all duration-300 ${
+            className={`h-2 rounded-full transition-all duration-300 ${
               index === currentIndex
                 ? "bg-accent w-8"
                 : "bg-border/40 w-2 hover:bg-border/60"
