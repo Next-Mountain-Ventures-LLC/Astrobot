@@ -84,53 +84,57 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
               key={review.id}
               onMouseEnter={isLeftCard ? handleLeftHover : isRightCard ? handleRightHover : undefined}
               onClick={isLeftCard ? handleLeftClick : isRightCard ? handleRightClick : undefined}
-              className={`bg-white rounded-2xl p-8 shadow-lg border border-border/20 transition-all duration-300 ${
+              className={`bg-white rounded-2xl shadow-lg border border-border/20 transition-all duration-300 flex flex-col items-center text-center ${
                 isMiddleCard
                   ? "md:scale-110 md:z-10 hover:shadow-xl hover:border-accent/40"
                   : "md:scale-75 opacity-60 hover:opacity-100 hover:shadow-lg"
               } ${(isLeftCard || isRightCard) ? "cursor-pointer" : ""}`}
             >
-              {/* Header with Platform and Rating */}
-              <div className="flex items-center justify-between mb-6">
-                <img
-                  src={platformLogos[review.platform]}
-                  alt={review.platform}
-                  className="h-5 w-auto"
-                  loading="lazy"
-                />
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`text-base ${
-                        i < review.rating ? "text-accent" : "text-border/30"
-                      }`}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
+              {/* Profile Image - Top Focus */}
+              <img
+                src={review.profileImage}
+                alt={review.author}
+                className="w-20 h-20 rounded-full object-cover border-4 border-accent/40 -mt-10 mb-4"
+                loading="lazy"
+              />
+
+              {/* Author Info */}
+              <div className="px-8 pt-2 pb-4">
+                <p className="font-bold text-primary text-base">{review.author}</p>
+                <p className="text-xs text-foreground/60">{review.location}</p>
+              </div>
+
+              {/* Star Rating */}
+              <div className="flex items-center justify-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span
+                    key={i}
+                    className={`text-base ${
+                      i < review.rating ? "text-accent" : "text-border/30"
+                    }`}
+                  >
+                    ★
+                  </span>
+                ))}
               </div>
 
               {/* Review Text */}
-              <blockquote className="text-foreground/80 italic mb-6 leading-relaxed text-sm">
+              <blockquote className="px-8 text-foreground/80 italic mb-4 leading-relaxed text-sm">
                 "{review.text}"
               </blockquote>
 
-              {/* Author Info */}
-              <div className="flex items-center gap-3">
+              {/* Platform Logo - Bottom */}
+              <div className="px-8 pb-8 mt-auto">
                 <img
-                  src={review.profileImage}
-                  alt={review.author}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
+                  src={platformLogos[review.platform]}
+                  alt={review.platform}
+                  className="h-4 w-auto"
                   loading="lazy"
                 />
-                <div>
-                  <p className="font-bold text-primary text-sm">{review.author}</p>
-                  <p className="text-xs text-foreground/60">{review.location}</p>
-                  <p className="text-xs text-foreground/50">{review.date}</p>
-                </div>
               </div>
+
+              {/* Review Date */}
+              <p className="text-xs text-foreground/50 pb-4">{review.date}</p>
             </div>
           );
         })}
