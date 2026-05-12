@@ -152,6 +152,26 @@ const menuItems = {
       description: "Provolone, Cold Turkey, Basil Mayo, Banana Peppers, Grilled Pepperoni, Lettuce, Red Onion, Seasoned Diced Tomatoes, Italian Dressing, Garlic Toasted Hoagie",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F3c8a9306d96a4ea280458013b131241b?format=webp&width=800&height=1200"
     }
+  ],
+  newOrleans: [
+    {
+      name: "Debris",
+      price: "$13.99",
+      description: "New Orleans Pot Roast, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F52d7d31e697b4a75aa8d3e73ca9a2ef8?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Ferdie",
+      price: "$13.99",
+      description: "New Orleans Pot Roast, Cajun Candied Ham, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F079f34586b0b41c69fc2c9b7dd8604ab?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Muffuletta",
+      price: "$17.00",
+      description: "Mortadella, Genoa Salami, Capicola, Provolone, Swiss, Olive Mix, Italian Seasoning, Olive Oil, Toasted Muffuletta Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1eeb7d4c628842ffad1d558a1a0f21b6?format=webp&width=800&height=1200"
+    }
   ]
 };
 ---
@@ -369,27 +389,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Debris</h3>
-              <span class="text-accent font-bold">$13.99</span>
+          {menuItems.newOrleans.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">New Orleans Pot Roast, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Ferdie</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">New Orleans Pot Roast, Cajun Candied Ham, Lettuce, Tomato, Pickle, Remoulade Sauce, Garlic Toasted Baguette</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Muffuletta</h3>
-              <span class="text-accent font-bold">$17.00</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Mortadella, Genoa Salami, Capicola, Provolone, Swiss, Olive Mix, Italian Seasoning, Olive Oil, Toasted Muffuletta Roll</p>
-          </div>
+          ))}
         </div>
       </div>
 
