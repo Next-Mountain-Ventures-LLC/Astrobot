@@ -286,9 +286,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         Come Find Us
       </h2>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:items-start">
         <!-- Left: Info and Hours -->
-        <div class="space-y-8">
+        <div class="space-y-8" style="max-height: fit-content;">
           <!-- Hours Table -->
           <div class="bg-card rounded-lg p-6 border border-border/40">
             <h3 class="font-heading font-bold text-primary text-lg mb-4">Hours</h3>
@@ -335,7 +335,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         </div>
 
         <!-- Right: Map -->
-        <div class="bg-gray-200 rounded-lg overflow-hidden h-[500px] md:h-[600px] border-4 border-accent/30">
+        <div class="bg-gray-200 rounded-lg overflow-hidden h-[500px] md:h-[700px] border-4 border-accent/30 sticky top-32">
           <iframe
             width="100%"
             height="100%"
