@@ -60,6 +60,26 @@ const menuItems = {
       description: "Provolone, Grilled Mortadella, Grilled Genoa Salami, Grilled Ham, Grilled Pepperoni, Miracle Whip, Lettuce, Red Onion, Pepperoncini, Red Wine Vinegar, Salt, Pepper, Italian Seasoning, Garlic Toasted Hoagie",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F72744af41ef74b36bee6668f1247d7f4?format=webp&width=800&height=1200"
     }
+  ],
+  cubano: [
+    {
+      name: "Hollingshayes",
+      price: "$13.99",
+      description: "Grilled Roast Pork, Ham, Yellow Mustard, Kosher Dill Planks, Provolone, Pressed Cuban Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F7701a299eddc4812aa246298b44de0aa?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Medianoche",
+      price: "$13.99",
+      description: "Grilled Roast Pork, Ham, Genoa Salami, Butter Chip Jalapeno Chow Chow, Honey Sriracha Mustard, Melted Swiss, Pressed Brioche",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fe3f0362fbfdc4096ab90dead737771d7?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Habana",
+      price: "$13.99",
+      description: "Grilled Genoa Salami, Roast Pork, Ham, Pickle Planks, Mojo Creole Mustard, Provolone, Pressed Cuban Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fc963440203f44791bea4bb046165ed3d?format=webp&width=800&height=1200"
+    }
   ]
 };
 ---
@@ -157,27 +177,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Hollingshayes</h3>
-              <span class="text-accent font-bold">$13.99</span>
+          {menuItems.cubano.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Grilled Roast Pork, Ham, Yellow Mustard, Kosher Dill Planks, Provolone, Pressed Cuban Roll</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Medianoche</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Roast Pork, Ham, Genoa Salami, Butter Chip Jalapeno Chow Chow, Honey Sriracha Mustard, Melted Swiss, Pressed Brioche</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Habana</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Genoa Salami, Roast Pork, Ham, Pickle Planks, Mojo Creole Mustard, Provolone, Pressed Cuban Roll</p>
-          </div>
+          ))}
         </div>
       </div>
 
