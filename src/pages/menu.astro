@@ -100,6 +100,32 @@ const menuItems = {
       description: "Grilled Roast Beef, Bacon, Grilled Onions, Melted Cheddar, Toasted Onion Roll",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd696c51901754ea7abdafae77b89939d?format=webp&width=800&height=1200"
     }
+  ],
+  cheesesteaks: [
+    {
+      name: "Cheese Steak",
+      price: "$14.49",
+      description: "Grilled Seasoned Roast Beef, Peppers and Onions, American and Mozzarella Cheese, Steamed Hoagie",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F42126bd14ddb4259be40125abebf2ae9?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Big Johnson",
+      price: "$14.49",
+      description: "Grilled Roast Beef, Grilled Onions and Mushrooms, Melted Provolone, Steamed Hoagie",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F2eb29513707f44b59335d4957ba59c16?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Cheesesteak Sub",
+      price: "$14.49",
+      description: "Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, American and Mozzarella Cheese, Mayo, Lettuce, Sliced Tomatoes, Red Onion, Italian Seasoning, Steamed Hoagie",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F3da42369f5224584a71383fdcc7ba194?format=webp&width=800&height=1200"
+    },
+    {
+      name: "The Tyrant",
+      price: "$14.49",
+      description: "Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, Grilled Jalapenos, American and Mozzarella Cheese, Steamed Hoagie",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F47e9e8e753764681bb9ae944f5e6cd4d?format=webp&width=800&height=1200"
+    }
   ]
 };
 ---
@@ -257,34 +283,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Cheese Steak</h3>
-              <span class="text-accent font-bold">$14.49</span>
+          {menuItems.cheesesteaks.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Peppers and Onions, American and Mozzarella Cheese, Steamed Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Big Johnson</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Roast Beef, Grilled Onions and Mushrooms, Melted Provolone, Steamed Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Cheesesteak Sub</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, American and Mozzarella Cheese, Mayo, Lettuce, Sliced Tomatoes, Red Onion, Italian Seasoning, Steamed Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">The Tyrant</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, Grilled Jalapenos, American and Mozzarella Cheese, Steamed Hoagie</p>
-          </div>
+          ))}
         </div>
       </div>
 
