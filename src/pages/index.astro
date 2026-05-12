@@ -1,5 +1,29 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { FlipCard } from "@/components/FlipCard";
+
+const whyCards = [
+  {
+    title: "Hand-Crafted Daily",
+    description: "Every sandwich is made fresh to order with premium ingredients and attention to detail.",
+    icon: "🥪"
+  },
+  {
+    title: "29+ Signature Sandwiches",
+    description: "From classic Reubens and Italian subs to New Orleans specials and Cuban presses. Something for everyone.",
+    icon: "📋"
+  },
+  {
+    title: "13 Bread Choices",
+    description: "Marble Rye, Cuban, Ciabatta, Pumpernickel, and more. Choose your perfect base.",
+    icon: "🍞"
+  },
+  {
+    title: "Family Owned & Operated",
+    description: "Proudly serving Downtown Ennis with passion, pride, and a commitment to quality that shows in every bite.",
+    icon: "❤️"
+  }
+];
 ---
 
 <BaseLayout
@@ -105,33 +129,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         Why Limerick's
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Card 1 -->
-        <div class="flex flex-col group">
-          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
-          <h3 class="font-heading text-xl font-bold text-primary mb-3">Hand-Crafted Daily</h3>
-          <p class="text-foreground/70 leading-relaxed flex-1">Every sandwich is made fresh to order with premium ingredients and attention to detail.</p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="flex flex-col group">
-          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
-          <h3 class="font-heading text-xl font-bold text-primary mb-3">29+ Signature Sandwiches</h3>
-          <p class="text-foreground/70 leading-relaxed flex-1">From classic Reubens and Italian subs to New Orleans specials and Cuban presses. Something for everyone.</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="flex flex-col group">
-          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
-          <h3 class="font-heading text-xl font-bold text-primary mb-3">13 Bread Choices</h3>
-          <p class="text-foreground/70 leading-relaxed flex-1">Marble Rye, Cuban, Ciabatta, Pumpernickel, and more. Choose your perfect base.</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="flex flex-col group">
-          <div class="relative h-1 w-12 bg-accent mb-6 group-hover:w-full transition-all duration-300"></div>
-          <h3 class="font-heading text-xl font-bold text-primary mb-3">Family Owned & Operated</h3>
-          <p class="text-foreground/70 leading-relaxed flex-1">Proudly serving Downtown Ennis with passion, pride, and a commitment to quality that shows in every bite.</p>
-        </div>
+        {whyCards.map((card) => (
+          <div class="h-64 perspective">
+            <FlipCard client:load title={card.title} description={card.description} icon={card.icon} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
