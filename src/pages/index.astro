@@ -113,7 +113,7 @@ const whyCards = [
           What Our Customers Say
         </h2>
         <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
-          Trusted by over <span class="font-bold text-accent">900+ satisfied customers</span> across Yelp, Google, and DoorDash
+          Trusted by over <span class="font-bold text-accent">900+ satisfied taste buds</span> across Yelp, Google, and DoorDash
         </p>
       </div>
 
@@ -128,7 +128,7 @@ const whyCards = [
       <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-16">
         Why Limerick's
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {whyCards.map((card) => (
           <div class="h-64 perspective">
             <FlipCard client:load title={card.title} description={card.description} icon={card.icon} />
