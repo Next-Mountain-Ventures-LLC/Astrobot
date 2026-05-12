@@ -1,10 +1,13 @@
 'use client';
 
+import { useState, useEffect } from "react";
+
 interface Review {
   id: string;
   text: string;
   author: string;
   location: string;
+  date: string;
   platform: "yelp" | "google" | "doordash";
   rating: number;
   profileImage: string;
@@ -21,10 +24,34 @@ const platformLogos = {
 };
 
 export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const itemsPerView = 3;
+
+  useEffect(() => {
+    if (isHovering) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    }, 5000); // Rotate every 5 seconds
+
+    return () => clearInterval(timer);
+  }, [isHovering, reviews.length]);
+
+  const visibleReviews = reviews.slice(currentIndex, currentIndex + itemsPerView).concat(
+    currentIndex + itemsPerView > reviews.length 
+      ? reviews.slice(0, (currentIndex + itemsPerView) % reviews.length)
+      : []
+  );
+
   return (
-    <div class="w-full">
+    <div
+      class="w-full"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {reviews.map((review) => (
+        {visibleReviews.map((review) => (
           <div key={review.id} class="bg-white rounded-2xl p-8 shadow-lg border border-border/20 hover:shadow-xl transition-all duration-300 hover:border-accent/40">
             {/* Header with Platform and Rating */}
             <div class="flex items-center justify-between mb-6">
@@ -64,9 +91,26 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
               <div>
                 <p class="font-bold text-primary text-sm">{review.author}</p>
                 <p class="text-xs text-foreground/60">{review.location}</p>
+                <p class="text-xs text-foreground/50">{review.date}</p>
               </div>
             </div>
           </div>
+        ))}
+      </div>
+
+      {/* Dot Indicators */}
+      <div class="flex justify-center gap-2 mt-8">
+        {reviews.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            class={`h-2 rounded-full transition-all duration-300 ${
+              index === currentIndex
+                ? "bg-accent w-8"
+                : "bg-border/40 w-2 hover:bg-border/60"
+            }`}
+            aria-label={`Go to review ${index + 1}`}
+          />
         ))}
       </div>
     </div>

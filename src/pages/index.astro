@@ -6,30 +6,103 @@ import { ReviewCarousel } from "@/components/ReviewCarousel";
 const reviews = [
   {
     id: "1",
-    text: "I want to go back here every day for lunch... The Italian Sandwich is delish!",
-    author: "Lana Y.",
-    location: "Yelp Elite, Waxahachie TX",
+    text: "Stopped here to meet some family who live locally for lunch and was recommended by others. Yummy little sandwich shop right smack in little downtown... I ordered the Reuben and lovedddd it! The potato salad was creamy and appeasing, and the jalapeño coleslaw definite had a kick of spice to it yet still enjoyable. The sandwiches are quite large so my mom and grandma shared one and filled up. I will absolutely return when I'm back in the area!",
+    author: "Stevie K.",
+    location: "Austin, TX",
+    date: "Nov 25, 2025",
     platform: "yelp" as const,
     rating: 5,
-    profileImage: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e?format=webp&width=100&height=100"
+    profileImage: "/images/reviews/stevie-k.jpg"
   },
   {
     id: "2",
-    text: "The Weinberger Reuben was as amazing as everyone said. A big sandwich with a perfect blend of flavors.",
-    author: "Russell W.",
-    location: "Verified Reviewer",
-    platform: "google" as const,
+    text: "The Italian Sandwich is delish! I want to go back here everyday for lunch, and I would if I worked closer. Limerick's Sandwich Junction is right off the main street through downtown Ennis. Really clean dining room with lots of seating. Staff was working hard to get sandwiches out quick. I also had the macaroni salad with my sandwich and it was delish as well.",
+    author: "Lana Y.",
+    location: "Waxahachie, TX",
+    date: "Sep 27, 2024",
+    platform: "yelp" as const,
     rating: 5,
-    profileImage: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e?format=webp&width=100&height=100"
+    profileImage: "/images/reviews/lana-y.jpg"
   },
   {
     id: "3",
-    text: "Hollingshayes cubano is AMAZING... get the baked potato salad, super fresh and flavorful. Love the deli vibes!",
-    author: "Yelp Reviewer",
-    location: "Ennis, TX",
+    text: "Amazing sandwiches and the service is second to none. Loved it and the staff were awesome creating such an amazing atmosphere.",
+    author: "Tj T.",
+    location: "Richardson, TX",
+    date: "Nov 19, 2025",
     platform: "yelp" as const,
     rating: 5,
-    profileImage: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e?format=webp&width=100&height=100"
+    profileImage: "/images/reviews/tj-t.jpg"
+  },
+  {
+    id: "4",
+    text: "Great food, friendly staff and fast service. A little pricey but you get what you pay for and the food is great.",
+    author: "Ronald H.",
+    location: "Tucson, AZ",
+    date: "Nov 10, 2025",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/ronald-h.jpg"
+  },
+  {
+    id: "5",
+    text: "Both sandwiches were delivered fresh and loaded with meat and veggies. The Weinberger Reuben was very tasty. The Dagwood was the best!! I got it exactly the way it came, and it has to be one of the best sandwiches I've had!!! Will definitely be a return customer!!!",
+    author: "Tina N.",
+    location: "Ennis, TX",
+    date: "Nov 27, 2024",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/tina-n.jpg"
+  },
+  {
+    id: "6",
+    text: "Had the best sandwich I have had in a long time today. Possibly ever. I ordered the 'Heaton' after a recommendation. The fresh ingredients, texture and flavor combinations all balanced perfectly and for just a sandwich, it was remarkable. Give it a try.",
+    author: "Hunter R.",
+    location: "Piedra, CO",
+    date: "Jul 8, 2025",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/hunter-r.jpg"
+  },
+  {
+    id: "7",
+    text: "If ever in Ennis, don't miss this cute little shop! We stopped in for a late lunch while driving down from Dallas. The sandwich ingredients were fresh and very tasty, and the servings were large. One of the best Turkey sandwiches I've had.",
+    author: "Kim B.",
+    location: "Oklahoma City, OK",
+    date: "Apr 16, 2023",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/kim-b.jpg"
+  },
+  {
+    id: "8",
+    text: "The Weinberger Rueben Sandwich was as amazing as everyone said. A big sandwich that had a perfect blend of flavors. Can't wait to try more of the delicious looking sandwiches on the menu.",
+    author: "Russell W.",
+    location: "Carrollton, TX",
+    date: "May 15, 2024",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/russell-w.jpg"
+  },
+  {
+    id: "9",
+    text: "Hollingshayes cubano is AMAZING, two huge halves (already ate one) and you have to get the baked potato salad, super fresh and flavorful. Love the deli vibes and artwork.",
+    author: "Jena M.",
+    location: "Providence, RI",
+    date: "May 13, 2024",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/jena-m.jpg"
+  },
+  {
+    id: "10",
+    text: "Best sandwiches ever — mic drop — seriously don't go to Subway, no comparison whatsoever. My go-to sandwich there is the Weinberg Ruben. They're the best.",
+    author: "Randall T.",
+    location: "Duncanville, TX",
+    date: "Aug 27, 2024",
+    platform: "yelp" as const,
+    rating: 5,
+    profileImage: "/images/reviews/randall-t.jpg"
   }
 ];
 
@@ -113,7 +186,7 @@ const whyCards = [
           What Our Customers Say
         </h2>
         <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
-          Trusted by over <span class="font-bold text-accent">900+ satisfied taste buds</span> across Yelp, Google, and DoorDash
+          Tasted by over <span class="font-bold text-accent">900 satisfied customers</span> across Yelp, Google, and DoorDash
         </p>
       </div>
 
