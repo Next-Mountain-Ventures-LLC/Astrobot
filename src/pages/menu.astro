@@ -126,6 +126,32 @@ const menuItems = {
       description: "Grilled Seasoned Roast Beef, Grilled Peppers, Grilled Onions, Grilled Jalapenos, American and Mozzarella Cheese, Steamed Hoagie",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F47e9e8e753764681bb9ae944f5e6cd4d?format=webp&width=800&height=1200"
     }
+  ],
+  turkey: [
+    {
+      name: "Dianes Club",
+      price: "$13.49",
+      description: "Spring Mix, Red Onion, Honey Sriracha Mustard, Turkey, Avocado, Bacon, Tomato, Cheddar Cheese, Grilled Multigrain",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd5b8ecf720c54a779de664b2992e8966?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Medinah",
+      price: "$13.49",
+      description: "Cheddar, Lettuce, Cold Turkey, Basil Mayo, Avocado, on Wheatberry Bread",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F046d9396fc824047af3c361495c65ab6?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Turkey Ciabatta",
+      price: "$13.49",
+      description: "Spring Mix, Red Onion, Balsamic Dressing, Turkey, Basil Mayo, Olive Mix, Tomato, Provolone, Garlic Toasted Telera Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F88e6912c9c2e4cf3b8dad610a68815d6?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Harley's Turkey",
+      price: "$13.99",
+      description: "Provolone, Cold Turkey, Basil Mayo, Banana Peppers, Grilled Pepperoni, Lettuce, Red Onion, Seasoned Diced Tomatoes, Italian Dressing, Garlic Toasted Hoagie",
+      image: null
+    }
   ]
 };
 ---
@@ -313,34 +339,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Dianes Club</h3>
-              <span class="text-accent font-bold">$13.49</span>
+          {menuItems.turkey.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Spring Mix, Red Onion, Honey Sriracha Mustard, Turkey, Avocado, Bacon, Tomato, Cheddar Cheese, Grilled Multigrain</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Medinah</h3>
-              <span class="text-accent font-bold">$13.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Cheddar, Lettuce, Cold Turkey, Basil Mayo, Avocado, on Wheatberry Bread</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Turkey Ciabatta</h3>
-              <span class="text-accent font-bold">$13.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Spring Mix, Red Onion, Balsamic Dressing, Turkey, Basil Mayo, Olive Mix, Tomato, Provolone, Garlic Toasted Telera Roll</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Harley's Turkey</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Provolone, Cold Turkey, Basil Mayo, Banana Peppers, Grilled Pepperoni, Lettuce, Red Onion, Seasoned Diced Tomatoes, Italian Dressing, Garlic Toasted Hoagie</p>
-          </div>
+          ))}
         </div>
       </div>
 
