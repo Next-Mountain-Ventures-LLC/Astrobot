@@ -271,39 +271,9 @@ const whyCards = [
         Come Find Us
       </h2>
 
-      <!-- Video and Map Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-        <!-- Location Video -->
-        <div class="rounded-lg overflow-hidden shadow-lg border-4 border-accent/30 h-80">
-          <video
-            autoplay
-            muted
-            loop
-            playsinline
-            class="w-full h-full object-cover"
-          >
-            <source src="https://videos.files.wordpress.com/yFdLsfGs/location-website.mov" type="video/mp4" />
-          </video>
-        </div>
-
-        <!-- Map -->
-        <div class="bg-gray-200 rounded-lg overflow-hidden h-80 border-4 border-accent/30">
-          <iframe
-            width="100%"
-            height="100%"
-            frameborder="0"
-            style="border:0"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.5559815887246!2d-96.6127456!3d32.3254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c1d5a5e5e5e5d%3A0x1e5e5e5e5e5e5e5!2s213%20W%20Ennis%20Ave%20%23100%2C%20Ennis%2C%20TX%2075119!5e0!3m2!1sen!2sus!4v1234567890"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-      </div>
-
-      <!-- Info Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:items-start">
-        <!-- Left: Info and Hours -->
+      <!-- Main Grid: Left Info, Right Video/Map -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Left: Hours and Address -->
         <div class="space-y-8" style="max-height: fit-content;">
           <!-- Hours Table -->
           <div class="bg-card rounded-lg p-6 border border-border/40">
@@ -350,8 +320,35 @@ const whyCards = [
           </a>
         </div>
 
-        <!-- Right: Empty (for layout balance) -->
-        <div></div>
+        <!-- Right: Video and Map Stacked -->
+        <div class="space-y-6">
+          <!-- Location Video -->
+          <div class="rounded-lg overflow-hidden shadow-lg border-4 border-accent/30 h-64">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="w-full h-full object-cover"
+            >
+              <source src="https://videos.files.wordpress.com/yFdLsfGs/location-website.mov" type="video/mp4" />
+            </video>
+          </div>
+
+          <!-- Map -->
+          <div class="bg-gray-200 rounded-lg overflow-hidden h-64 border-4 border-accent/30">
+            <iframe
+              width="100%"
+              height="100%"
+              frameborder="0"
+              style="border:0"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.5559815887246!2d-96.6127456!3d32.3254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c1d5a5e5e5e5d%3A0x1e5e5e5e5e5e5e5!2s213%20W%20Ennis%20Ave%20%23100%2C%20Ennis%2C%20TX%2075119!5e0!3m2!1sen!2sus!4v1234567890"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
