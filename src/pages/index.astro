@@ -128,10 +128,11 @@ const whyCards = [
       <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-16">
         Why Limerick's
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {whyCards.map((card) => (
-          <div class="h-64 perspective">
-            <FlipCard client:load title={card.title} description={card.description} icon={card.icon} />
+          <div class="bg-card rounded-lg p-6 border border-border/40 hover:shadow-lg transition-shadow duration-300">
+            <h3 class="font-heading font-bold text-primary text-lg mb-3">{card.title}</h3>
+            <p class="text-foreground/70 text-sm leading-relaxed">{card.description}</p>
           </div>
         ))}
       </div>
