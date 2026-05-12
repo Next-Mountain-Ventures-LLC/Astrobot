@@ -1,5 +1,41 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+// Menu items with optional image URLs mapped from uploaded assets
+const menuItems = {
+  deli: [
+    {
+      name: "Weinberger Reuben",
+      price: "$14.49",
+      description: "Hot Corned Beef & Pastrami, Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye",
+      image: "https://cdn.builder.io/o/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F2aaaea932d13484e80d4884c80415ce6?alt=media&token=783435cf-f9b5-40dc-9c35-0835901b92db&apiKey=5193f7a05d654f0c98a0a70f48ef2387"
+    },
+    {
+      name: "Rich & Rich",
+      price: "$14.49",
+      description: "Hot Pastrami, Swiss, Creamy Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye",
+      image: null
+    },
+    {
+      name: "Wallstreeter",
+      price: "$14.49",
+      description: "Hot Pastrami, Melted Swiss, Russian Dressing, Grilled Pumpernickel Roll",
+      image: null
+    },
+    {
+      name: "Rich & Poorer",
+      price: "$14.49",
+      description: "Hot Pastrami, Melted Swiss, Creamy Jalapeno Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye",
+      image: null
+    },
+    {
+      name: "Rachel",
+      price: "$13.99",
+      description: "Hot Turkey, Melted Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye",
+      image: null
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -35,41 +71,26 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Weinberger Reuben</h3>
-              <span class="text-accent font-bold">$14.49</span>
+          {menuItems.deli.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Hot Corned Beef & Pastrami, Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Rich & Rich</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Hot Pastrami, Swiss, Creamy Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Wallstreeter</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Hot Pastrami, Melted Swiss, Russian Dressing, Grilled Pumpernickel Roll</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Rich & Poorer</h3>
-              <span class="text-accent font-bold">$14.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Hot Pastrami, Melted Swiss, Creamy Jalapeno Cole Slaw, Red Onion, Russian Dressing, Grilled Marble Rye</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Rachel</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Hot Turkey, Melted Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye</p>
-          </div>
+          ))}
         </div>
       </div>
 
