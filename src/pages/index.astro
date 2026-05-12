@@ -342,7 +342,7 @@ const whyCards = [
         </div>
 
         <!-- Right: Video and Map Stacked -->
-        <div class="space-y-6">
+        <div class="space-y-4">
           <!-- Location Video -->
           <div class="rounded-lg overflow-hidden shadow-lg border-4 border-accent/30 h-64">
             <video
@@ -363,11 +363,31 @@ const whyCards = [
               height="100%"
               frameborder="0"
               style="border:0"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.5559815887246!2d-96.6127456!3d32.3254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c1d5a5e5e5e5d%3A0x1e5e5e5e5e5e5e5!2s213%20W%20Ennis%20Ave%20%23100%2C%20Ennis%2C%20TX%2075119!5e0!3m2!1sen!2sus!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.5559815887246!2d-96.6127456!3d32.3254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c1d5a5e5e5e5d%3A0x1e5e5e5e5e5e5!2s213%20W%20Ennis%20Ave%20%23100%2C%20Ennis%2C%20TX%2075119!5e0!3m2!1sen!2sus!4v1234567890"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
+          </div>
+
+          <!-- Navigation Button -->
+          <div class="flex gap-3">
+            <a
+              href="https://maps.apple.com/?address=213%20W.%20Ennis%20Avenue,%20Ste%20100,%20Ennis,%20TX%2075119&dirflg=d"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 text-center px-4 py-3 bg-primary text-accent font-bold rounded text-sm hover:bg-primary/90 transition-all duration-300"
+            >
+              Apple Maps
+            </a>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=213+W+Ennis+Avenue+Ste+100+Ennis+TX+75119"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 text-center px-4 py-3 bg-accent text-primary font-bold rounded text-sm hover:bg-accent/90 transition-all duration-300"
+            >
+              Google Maps
+            </a>
           </div>
         </div>
       </div>
