@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { MenuSection } from "@/components/MenuSection";
 
 // Menu items with optional image URLs mapped from uploaded assets
 const menuItems = {
@@ -251,304 +252,34 @@ const menuItems = {
   <section class="py-16 md:py-20 bg-background">
     <div class="container max-w-3xl">
       <!-- DELI SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">DELI</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.deli.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="DELI" color="primary" items={menuItems.deli} />
 
       <!-- SUBS SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-secondary">SUBS</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.subs.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="SUBS" color="secondary" items={menuItems.subs} />
 
       <!-- CUBANO SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">CUBANO</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.cubano.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="CUBANO" color="primary" items={menuItems.cubano} />
 
       <!-- BEEF SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">BEEF</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.beef.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="BEEF" color="primary" items={menuItems.beef} />
 
       <!-- CHEESESTEAKS SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-secondary">CHEESESTEAKS</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.cheesesteaks.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="CHEESESTEAKS" color="secondary" items={menuItems.cheesesteaks} />
 
       <!-- TURKEY SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">TURKEY</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.turkey.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="TURKEY" color="primary" items={menuItems.turkey} />
 
       <!-- NEW ORLEANS SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">NEW ORLEANS</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.newOrleans.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="NEW ORLEANS" color="primary" items={menuItems.newOrleans} />
 
       <!-- MEATLOAF SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-secondary">MEATLOAF</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.meatloaf.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="MEATLOAF" color="secondary" items={menuItems.meatloaf} />
 
       <!-- HAM SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-primary">HAM</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.ham.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="HAM" color="primary" items={menuItems.ham} />
 
       <!-- VEGGIE SECTION -->
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="font-heading text-2xl font-bold text-secondary">VEGGIE</h2>
-          <div class="flex-1 h-0.5 bg-accent/40"></div>
-        </div>
-        <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          {menuItems.veggie.map((item, index) => (
-            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
-              <div class="flex gap-4">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
-                  />
-                )}
-                <div class="flex-1">
-                  <div class="flex justify-between items-baseline gap-4 mb-2">
-                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
-                    <span class="text-accent font-bold">{item.price}</span>
-                  </div>
-                  <p class="text-foreground/70 text-sm">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MenuSection client:load title="VEGGIE" color="secondary" items={menuItems.veggie} />
 
       <!-- ALTER EGO SECTION -->
       <div class="mb-12">
@@ -569,44 +300,13 @@ const menuItems = {
         </div>
       </div>
 
-      <!-- SIDES & EXTRAS -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Jambalaya -->
-        <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-heading text-xl font-bold text-primary">JAMBALAYA/RED BEANS</h2>
-            <div class="flex-1 h-0.5 bg-accent/40"></div>
-          </div>
-          <div class="space-y-4 bg-card rounded-lg p-6 border border-border/40">
-            <div class="flex gap-3">
-              <img src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0bb5dd1bc4614ad5a68928f4455aa90f?format=webp&width=400&height=400" alt="Jambalaya" class="h-14 w-14 object-cover rounded border border-border/40 flex-shrink-0" />
-              <div class="flex-1">
-                <div class="flex justify-between items-baseline gap-4 mb-1">
-                  <h3 class="font-heading font-bold text-primary">Jambalaya</h3>
-                  <span class="text-accent font-bold">$8.49</span>
-                </div>
-                <p class="text-foreground/70 text-sm">Dirty Rice with Sausage, Chopped Green Onion</p>
-              </div>
-            </div>
-            <div class="border-t border-border/20 pt-3 flex gap-3">
-              <img src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F52763ecd3f354fa0b43599c07ea6f0b1?format=webp&width=400&height=400" alt="Red Beans and Rice" class="h-14 w-14 object-cover rounded border border-border/40 flex-shrink-0" />
-              <div class="flex-1">
-                <div class="flex justify-between items-baseline gap-4 mb-1">
-                  <h3 class="font-heading font-bold text-primary">Red Beans and Rice</h3>
-                  <span class="text-accent font-bold">$6.49</span>
-                </div>
-                <p class="text-foreground/70 text-sm">Sausage, Chopped Green Onion</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Salads -->
-        <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-heading text-xl font-bold text-primary">SALADS</h2>
-            <div class="flex-1 h-0.5 bg-accent/40"></div>
-          </div>
+      <!-- SALADS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">SALADS</h2>
+          <div class="flex-1 h-0.5 bg-accent/40"></div>
+        </div>
           <div class="space-y-4 bg-card rounded-lg p-6 border border-border/40">
             <div class="flex gap-4">
               <img
@@ -650,15 +350,14 @@ const menuItems = {
                 <p class="text-foreground/70 text-sm">Romaine, Red Onions, Tomato, Cucumber, Dressing</p>
               </div>
             </div>
-          </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <!-- Sides -->
-        <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-heading text-xl font-bold text-primary">SIDES</h2>
+      <!-- SIDES & EXTRAS - SINGLE COLUMN -->
+      <!-- Sides -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">SIDES</h2>
             <div class="flex-1 h-0.5 bg-accent/40"></div>
           </div>
           <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
@@ -677,6 +376,20 @@ const menuItems = {
               <span class="text-accent font-bold">$2.95</span>
             </div>
             <div class="flex justify-between items-baseline gap-2">
+              <div class="flex items-center gap-2 flex-1">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0bb5dd1bc4614ad5a68928f4455aa90f?format=webp&width=400&height=400" alt="Jambalaya" class="h-12 w-12 object-cover rounded border border-border/40 flex-shrink-0" />
+                <span class="text-foreground/70">Jambalaya</span>
+              </div>
+              <span class="text-accent font-bold">$8.49</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
+              <div class="flex items-center gap-2 flex-1">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F52763ecd3f354fa0b43599c07ea6f0b1?format=webp&width=400&height=400" alt="Red Beans and Rice" class="h-12 w-12 object-cover rounded border border-border/40 flex-shrink-0" />
+                <span class="text-foreground/70">Red Beans and Rice</span>
+              </div>
+              <span class="text-accent font-bold">$6.49</span>
+            </div>
+            <div class="flex justify-between items-baseline gap-2">
               <span class="text-foreground/70">Baked Potato Salad</span>
               <span class="text-accent font-bold">$2.95</span>
             </div>
@@ -693,12 +406,12 @@ const menuItems = {
               <span class="text-accent font-bold">$.50</span>
             </div>
           </div>
-        </div>
+      </div>
 
-        <!-- Kids -->
-        <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-heading text-xl font-bold text-secondary">KIDS</h2>
+      <!-- KIDS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-secondary">KIDS</h2>
             <div class="flex-1 h-0.5 bg-accent/40"></div>
           </div>
           <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
@@ -733,13 +446,13 @@ const menuItems = {
               </div>
               <p class="text-xs text-foreground/50">w/ Chips, Cookie, Drink</p>
             </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Desserts & Drinks -->
-        <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-heading text-lg font-bold text-primary">DESSERTS</h2>
+      <!-- DESSERTS SECTION -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-heading text-2xl font-bold text-primary">DESSERTS</h2>
             <div class="flex-1 h-0.5 bg-accent/40"></div>
           </div>
           <div class="space-y-3 bg-card rounded-lg p-6 border border-border/40">
@@ -774,7 +487,6 @@ const menuItems = {
               <span class="text-accent font-bold">$3.00</span>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </section>
