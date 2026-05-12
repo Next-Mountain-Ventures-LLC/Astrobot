@@ -172,6 +172,54 @@ const menuItems = {
       description: "Mortadella, Genoa Salami, Capicola, Provolone, Swiss, Olive Mix, Italian Seasoning, Olive Oil, Toasted Muffuletta Roll",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1eeb7d4c628842ffad1d558a1a0f21b6?format=webp&width=800&height=1200"
     }
+  ],
+  meatloaf: [
+    {
+      name: "Merkley",
+      price: "$13.99",
+      description: "Grill Meatloaf, Melted American Cheese, Grilled Onions, Ketchup, Texas Toast",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1444302603ae450b8434dbb27f8d01bb?format=webp&width=800&height=1200"
+    },
+    {
+      name: "The Patty Melt",
+      price: "$13.99",
+      description: "Grilled Meatloaf, Melted Cheddar, Grilled Onions, Toasted Rye Bread",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fe5ddba2c86314d098b3bab3e419aee3e?format=webp&width=800&height=1200"
+    }
+  ],
+  ham: [
+    {
+      name: "Stoney",
+      price: "$12.49",
+      description: "Hot Ham and Turkey, Deli Mustard, Melted Swiss Cheese, Toasted Onion Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd3d293522833434eb4160b6281270918?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Big Deal",
+      price: "$12.49",
+      description: "A Pile of Grilled Ham, Red Onion, Yellow Mustard, Melted American Cheese, Garlic Toasted Telera Roll",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fee470197035b490fa5b4a3d774a906f3?format=webp&width=800&height=1200"
+    }
+  ],
+  veggie: [
+    {
+      name: "Reita Pita",
+      price: "$12.99",
+      description: "Spring Mix, Hummus, Banana Peppers, Lettuce, Olive Mix, Cucumber, Feta, Chopped Tomato, Chili Oil, Garlic Toasted Hoagie",
+      image: null
+    },
+    {
+      name: "Queen of Hearts",
+      price: "$12.99",
+      description: "Grilled Artichoke Hearts, Mushrooms, Mozzarella, Spring Mix, Banana Peppers, Sun Dried Tomato, Olive Oil, Italian Seasonings, Garlic Toasted Hoagie",
+      image: null
+    },
+    {
+      name: "Dlabaj",
+      price: "$12.99",
+      description: "Provolone, Spring Mix, Red Onion, Balsamic Dressing, Olive Mix, Basil Mayo, Tomato, Grilled Pumpernickel",
+      image: null
+    }
   ]
 };
 ---
@@ -419,20 +467,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Merkley</h3>
-              <span class="text-accent font-bold">$13.99</span>
+          {menuItems.meatloaf.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Grill Meatloaf, Melted American Cheese, Grilled Onions, Ketchup, Texas Toast</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">The Patty Melt</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Meatloaf, Melted Cheddar, Grilled Onions, Toasted Rye Bread</p>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -443,20 +497,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Stoney</h3>
-              <span class="text-accent font-bold">$12.49</span>
+          {menuItems.ham.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-primary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Hot Ham and Turkey, Deli Mustard, Melted Swiss Cheese, Toasted Onion Roll</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-primary text-lg">Big Deal</h3>
-              <span class="text-accent font-bold">$12.49</span>
-            </div>
-            <p class="text-foreground/70 text-sm">A Pile of Grilled Ham, Red Onion, Yellow Mustard, Melted American Cheese, Garlic Toasted Telera Roll</p>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -467,27 +527,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Reita Pita</h3>
-              <span class="text-accent font-bold">$12.99</span>
+          {menuItems.veggie.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Spring Mix, Hummus, Banana Peppers, Lettuce, Olive Mix, Cucumber, Feta, Chopped Tomato, Chili Oil, Garlic Toasted Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Queen of Hearts</h3>
-              <span class="text-accent font-bold">$12.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Artichoke Hearts, Mushrooms, Mozzarella, Spring Mix, Banana Peppers, Sun Dried Tomato, Olive Oil, Italian Seasonings, Garlic Toasted Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Dlabaj</h3>
-              <span class="text-accent font-bold">$12.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Provolone, Spring Mix, Red Onion, Balsamic Dressing, Olive Mix, Basil Mayo, Tomato, Grilled Pumpernickel</p>
-          </div>
+          ))}
         </div>
       </div>
 
