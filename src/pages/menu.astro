@@ -34,6 +34,32 @@ const menuItems = {
       description: "Hot Turkey, Melted Swiss, Sauerkraut, Russian Dressing, Grilled Marble Rye",
       image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0a2d4a22652d4256932b3d6da303b7eb?format=webp&width=800&height=1200"
     }
+  ],
+  subs: [
+    {
+      name: "Italian Sub",
+      price: "$13.99",
+      description: "Provolone, Mortadella, Genoa Salami, Ham, Basil Mayo, Banana Peppers, Lettuce, Tomato, Red Onion, Oil & Vinegar Dressing, Italian Seasoning, Garlic Toasted Hoagie",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F8050a192a3aa44ad82a99e03b443c398?format=webp&width=800&height=1200"
+    },
+    {
+      name: "Dagwood",
+      price: "$13.99",
+      description: "American Cheese, Lettuce, Ham, Muenster Cheese, Turkey, Red Onion, Swiss, Roast Beef, Mayo, Tomato, Garlic Toasted Onion Roll",
+      image: null
+    },
+    {
+      name: "Heaton",
+      price: "$13.99",
+      description: "Grilled Mortadella, Genoa Salami, Ham, Pepperoni, Provolone, Giardiniera Peppers, Basil Mayo, Lettuce, Tomato, Red Onion, Italian Seasoning, Italian Dressing, Garlic Toasted Hoagie",
+      image: null
+    },
+    {
+      name: "The Godfather",
+      price: "$13.99",
+      description: "Provolone, Grilled Mortadella, Grilled Genoa Salami, Grilled Ham, Grilled Pepperoni, Miracle Whip, Lettuce, Red Onion, Pepperoncini, Red Wine Vinegar, Salt, Pepper, Italian Seasoning, Garlic Toasted Hoagie",
+      image: null
+    }
   ]
 };
 ---
@@ -101,34 +127,26 @@ const menuItems = {
           <div class="flex-1 h-0.5 bg-accent/40"></div>
         </div>
         <div class="space-y-6 bg-card rounded-lg p-6 border border-border/40">
-          <div>
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Italian Sub</h3>
-              <span class="text-accent font-bold">$13.99</span>
+          {menuItems.subs.map((item, index) => (
+            <div key={index} class={index > 0 ? "border-t border-border/20 pt-4" : ""}>
+              <div class="flex gap-4">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="h-20 w-20 object-cover rounded flex-shrink-0 border border-border/40"
+                  />
+                )}
+                <div class="flex-1">
+                  <div class="flex justify-between items-baseline gap-4 mb-2">
+                    <h3 class="font-heading font-bold text-secondary text-lg">{item.name}</h3>
+                    <span class="text-accent font-bold">{item.price}</span>
+                  </div>
+                  <p class="text-foreground/70 text-sm">{item.description}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-foreground/70 text-sm">Provolone, Mortadella, Genoa Salami, Ham, Basil Mayo, Banana Peppers, Lettuce, Tomato, Red Onion, Oil & Vinegar Dressing, Italian Seasoning, Garlic Toasted Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Dagwood</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">American Cheese, Lettuce, Ham, Muenster Cheese, Turkey, Red Onion, Swiss, Roast Beef, Mayo, Tomato, Garlic Toasted Onion Roll</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">Heaton</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Grilled Mortadella, Genoa Salami, Ham, Pepperoni, Provolone, Giardiniera Peppers, Basil Mayo, Lettuce, Tomato, Red Onion, Italian Seasoning, Italian Dressing, Garlic Toasted Hoagie</p>
-          </div>
-          <div class="border-t border-border/20 pt-4">
-            <div class="flex justify-between items-baseline gap-4 mb-2">
-              <h3 class="font-heading font-bold text-secondary text-lg">The Godfather</h3>
-              <span class="text-accent font-bold">$13.99</span>
-            </div>
-            <p class="text-foreground/70 text-sm">Provolone, Grilled Mortadella, Grilled Genoa Salami, Grilled Ham, Grilled Pepperoni, Miracle Whip, Lettuce, Red Onion, Pepperoncini, Red Wine Vinegar, Salt, Pepper, Italian Seasoning, Garlic Toasted Hoagie</p>
-          </div>
+          ))}
         </div>
       </div>
 
