@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const websites = [
   {
@@ -76,8 +76,15 @@ export default function RecentlyLaunchedWebsitesCarousel() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Recently Launched Websites</h2>
           <p className="text-muted-foreground text-lg">
-            Explore our latest luxury web designs
+            Click any website below to experience it
           </p>
+          {/* Animated click indicator */}
+          <div className="flex justify-center items-center gap-1 mt-4 animate-pulse">
+            <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+            </svg>
+            <span className="text-xs text-muted-foreground">Click to explore</span>
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 md:px-0">
@@ -119,15 +126,9 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                         <h3 className="text-lg md:text-xl font-bold mb-1 group-hover:text-primary transition-colors">
                           {website.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-sm text-muted-foreground">
                           {website.description}
                         </p>
-
-                        {/* Visit Button */}
-                        <button className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors text-sm group-hover:gap-3">
-                          Visit Website
-                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </button>
                       </div>
                     </a>
                   </div>
