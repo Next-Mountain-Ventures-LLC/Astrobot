@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 const websites = [
   {
     name: "Climb.Coach",
     url: "https://www.climb.coach",
-    displayUrl: "www.climb.coach",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
     description: "Business Coaching"
   },
   {
     name: "Ennis Slingshot",
     url: "https://www.ennisslingshot.com",
-    displayUrl: "www.ennisslingshot.com",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
     description: "Sports Equipment"
   },
   {
     name: "Ecclesia Tulsa",
     url: "https://www.ecclesiatulsa.com",
-    displayUrl: "www.ecclesiatulsa.com",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
     description: "Church Community"
   },
   {
     name: "Search SERPA",
     url: "https://www.searchserpa.com",
-    displayUrl: "www.searchserpa.com",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
     description: "SEO Services"
   }
 ];
@@ -71,12 +71,12 @@ export default function RecentlyLaunchedWebsitesCarousel() {
   }, [currentIndex]);
 
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section className="py-16 md:py-24 bg-background">
       <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Recently Launched Websites</h2>
-          <p className="text-muted-foreground">
-            Check out some of the amazing websites we've recently built for our clients.
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Recently Launched Websites</h2>
+          <p className="text-muted-foreground text-lg">
+            Explore our latest luxury web designs
           </p>
         </div>
 
@@ -100,53 +100,34 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                       href={website.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group bg-background rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all hover:shadow-lg flex flex-col h-full"
+                      className="group block"
                     >
-                      {/* Website Preview/Screenshot */}
-                      <div className="relative h-40 md:h-48 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden flex items-center justify-center">
-                        <div className="text-center p-4">
-                          <p className="text-muted-foreground text-xs mb-2">Website Preview</p>
-                          <svg
-                            className="w-12 h-12 mx-auto text-primary/30 group-hover:text-primary/50 transition-colors"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5h.01"
-                            ></path>
-                          </svg>
-                        </div>
+                      {/* Image Container - The Main Focus */}
+                      <div className="relative mb-6 overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <img
+                          src={website.image}
+                          alt={website.name}
+                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                        {/* Overlay on hover */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                       </div>
 
-                      {/* Website Details */}
-                      <div className="p-4 md:p-6 flex flex-col flex-grow">
-                        <h3 className="font-bold text-base md:text-lg mb-1 group-hover:text-primary transition-colors">
+                      {/* Website Info - Minimal & Elegant */}
+                      <div className="text-center">
+                        <h3 className="text-lg md:text-xl font-bold mb-1 group-hover:text-primary transition-colors">
                           {website.name}
                         </h3>
-                        <p className="text-xs md:text-sm text-muted-foreground mb-3 flex-grow">
+                        <p className="text-sm text-muted-foreground mb-4">
                           {website.description}
                         </p>
-                        <p className="text-xs text-primary font-medium mb-4">{website.displayUrl}</p>
-                        <div className="pt-3 border-t border-border flex items-center justify-between">
-                          <span className="text-xs text-muted-foreground">Visit Website</span>
-                          <svg
-                            className="w-3 h-3 md:w-4 md:h-4 text-primary group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"
-                            ></path>
-                          </svg>
-                        </div>
+
+                        {/* Visit Button */}
+                        <button className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors text-sm group-hover:gap-3">
+                          Visit Website
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </button>
                       </div>
                     </a>
                   </div>
@@ -157,7 +138,7 @@ export default function RecentlyLaunchedWebsitesCarousel() {
             {/* Navigation Buttons */}
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute left-0 top-1/3 -translate-y-1/2 -translate-x-6 md:-translate-x-8 z-10 p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Previous slide"
             >
               <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
@@ -165,7 +146,7 @@ export default function RecentlyLaunchedWebsitesCarousel() {
 
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-6 md:translate-x-8 z-10 p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Next slide"
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
@@ -173,7 +154,7 @@ export default function RecentlyLaunchedWebsitesCarousel() {
           </div>
 
           {/* Carousel Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-12">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
@@ -191,13 +172,13 @@ export default function RecentlyLaunchedWebsitesCarousel() {
             ))}
           </div>
 
-          {/* Auto-scroll Status Indicator */}
-          <div className="text-center mt-6">
+          {/* Auto-scroll Toggle */}
+          <div className="text-center mt-8">
             <button
               onClick={() => setAutoScroll(!autoScroll)}
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
-              {autoScroll ? '⏸ Auto-scrolling' : '▶ Resume auto-scroll'}
+              {autoScroll ? '⏸ Auto-scrolling enabled' : '▶ Resume auto-scroll'}
             </button>
           </div>
         </div>
