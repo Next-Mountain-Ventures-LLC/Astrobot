@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from '@/components/home/Hero';
+import RecentlyLaunchedWebsites from '@/components/home/RecentlyLaunchedWebsites.astro';
 import Newsletter from '@/components/home/Newsletter';
 import BlogPreview from '@/components/home/BlogPreview.astro';
 import CTA from '@/components/home/CTA';
@@ -13,31 +14,8 @@ import CTA from '@/components/home/CTA';
   <!-- Hero Section (critical) -->
   <Hero client:load />
 
-  <!-- Trust & Social Proof Section -->
-  <section class="py-16 md:py-24 bg-muted/30">
-    <div class="container">
-      <div class="text-center max-w-2xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Trusted by small businesses</h2>
-        <p class="text-muted-foreground mb-8">
-          Join hundreds of small business owners who've built their online presence with Astrobot.
-        </p>
-        <div class="flex flex-wrap justify-center gap-6 text-muted-foreground">
-          <div>
-            <p class="font-bold text-foreground">200+</p>
-            <p class="text-sm">Websites Launched</p>
-          </div>
-          <div>
-            <p class="font-bold text-foreground">4.9★</p>
-            <p class="text-sm">Average Rating</p>
-          </div>
-          <div>
-            <p class="font-bold text-foreground">75%</p>
-            <p class="text-sm">Faster Sites</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Recently Launched Websites Section -->
+  <RecentlyLaunchedWebsites />
 
   <!-- Blog Preview Section -->
   <section class="py-16 md:py-24">
