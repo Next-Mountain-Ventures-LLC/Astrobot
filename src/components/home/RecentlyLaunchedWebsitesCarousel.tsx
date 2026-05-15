@@ -11,7 +11,7 @@ const websites = [
   {
     name: "Ennis Slingshot",
     url: "https://www.ennisslingshot.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F45aed656bf3e4f74ba4fe5db617dde24?format=webp&width=800&height=1200",
     description: "Sports Equipment"
   },
   {
