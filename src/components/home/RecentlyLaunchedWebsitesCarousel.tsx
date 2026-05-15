@@ -1,29 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+const portfolioImage = "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F9e0370faccea420ab5733e7e5740a53a?format=webp&width=800&height=1200";
+
 const websites = [
   {
     name: "Climb.Coach",
     url: "https://www.climb.coach",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1dd0b83742534215a8f59b817c7f7a5b?format=webp&width=800&height=1200",
+    image: portfolioImage,
     description: "Business Coaching"
   },
   {
     name: "Ennis Slingshot",
     url: "https://www.ennisslingshot.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F45aed656bf3e4f74ba4fe5db617dde24?format=webp&width=800&height=1200",
+    image: portfolioImage,
     description: "Sports Equipment"
   },
   {
     name: "Ecclesia Tulsa",
     url: "https://www.ecclesiatulsa.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    image: portfolioImage,
     description: "Church Community"
   },
   {
     name: "Search SERPA",
     url: "https://www.searchserpa.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    image: portfolioImage,
     description: "SEO Services"
   }
 ];
@@ -110,11 +112,12 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                       className="group block"
                     >
                       {/* Image Container - The Main Focus */}
-                      <div className="mb-6">
+                      <div className="mb-6 overflow-hidden">
                         <img
                           src={website.image}
                           alt={website.name}
-                          className="w-auto h-auto"
+                          className="w-full h-auto object-cover"
+                          style={{ aspectRatio: "4/3" }}
                           loading="lazy"
                         />
                       </div>
