@@ -114,7 +114,7 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                         <img
                           src={website.image}
                           alt={website.name}
-                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-auto object-cover"
                           loading="lazy"
                         />
                         {/* Overlay on hover */}
