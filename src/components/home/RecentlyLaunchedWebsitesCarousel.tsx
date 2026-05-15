@@ -23,7 +23,7 @@ const websites = [
   {
     name: "Search SERPA",
     url: "https://www.searchserpa.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F99c1338e912341a2a302a0c82103339f?format=webp&width=800&height=1200",
     description: "SEO Services"
   }
 ];
