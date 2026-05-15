@@ -110,15 +110,13 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                       className="group block"
                     >
                       {/* Image Container - The Main Focus */}
-                      <div className="relative mb-6 overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
+                      <div className="mb-6">
                         <img
                           src={website.image}
                           alt={website.name}
-                          className="w-full h-auto object-cover"
+                          className="w-auto h-auto"
                           loading="lazy"
                         />
-                        {/* Overlay on hover */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                       </div>
 
                       {/* Website Info - Minimal & Elegant */}
