@@ -5,7 +5,7 @@ const websites = [
   {
     name: "Climb.Coach",
     url: "https://www.climb.coach",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F8b5929544c3248da94bf111b15392333?format=webp&width=800&height=1200",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2Fd9c4840b78e54a2fb610daed78a98b2b?format=webp&width=800&height=1200",
     description: "Business Coaching"
   },
   {
