@@ -1,6 +1,8 @@
 /**
  * Notion Portfolio Fetcher
  * Fetches portfolio data from a Notion database and normalizes it
+ *
+ * Live Notion integration enabled
  */
 
 interface NotionFileBlock {
