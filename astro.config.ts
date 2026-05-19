@@ -15,6 +15,13 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      middlewareMode: false,
+    },
+    build: {
+      sourcemap: false,
+      minify: "esbuild",
+    },
   },
 
   // Image optimization settings
