@@ -7,8 +7,11 @@ import BlogPreview from '@/components/home/BlogPreview.astro';
 import CTA from '@/components/home/CTA';
 import { fetchPortfolioFromNotion } from '@/lib/notionPortfolio';
 
-// Fetch portfolio data server-side on every page load
+// Fetch portfolio data at build time from Notion
+console.log('[Page] Starting portfolio fetch from Notion...');
 const portfolioItems = await fetchPortfolioFromNotion();
+console.log('[Page] Portfolio items fetched:', portfolioItems.length);
+console.log('[Page] Using', portfolioItems.length > 0 ? 'LIVE Notion data' : 'FALLBACK data');
 
 // Fallback data if Notion fetch fails
 const fallbackData = [

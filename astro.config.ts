@@ -8,7 +8,7 @@ export default defineConfig({
   // Custom domain (root deployment)
   site: "https://astrobot.design",
 
-  // Required for GitHub Pages
+  // Static output (prerenderes at build time)
   output: "static",
 
   integrations: [react()],

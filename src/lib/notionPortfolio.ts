@@ -87,15 +87,21 @@ function normalizePortfolioItem(page: NotionPage): PortfolioItem | null {
 }
 
 export async function fetchPortfolioFromNotion(): Promise<PortfolioItem[]> {
-  const apiKey = import.meta.env.NOTION_API_KEY;
-  const databaseId = import.meta.env.NOTION_DATABASE_ID;
+  // Access environment variables directly from process.env for server-side
+  const apiKey = process.env.NOTION_API_KEY;
+  const databaseId = process.env.NOTION_DATABASE_ID;
+
+  console.log('[Notion] Fetching portfolio...');
+  console.log('[Notion] API Key present:', !!apiKey);
+  console.log('[Notion] Database ID present:', !!databaseId);
 
   if (!apiKey || !databaseId) {
-    console.error('Missing Notion API credentials');
+    console.error('[Notion] Missing Notion API credentials - using fallback data');
     return [];
   }
 
   try {
+    console.log('[Notion] Making API request to Notion...');
     const response = await fetch(
       `https://api.notion.com/v1/databases/${databaseId}/query`,
       {
@@ -111,21 +117,31 @@ export async function fetchPortfolioFromNotion(): Promise<PortfolioItem[]> {
       }
     );
 
+    console.log('[Notion] API Response status:', response.status);
+
     if (!response.ok) {
-      console.error('Notion API error:', response.status, response.statusText);
+      console.error('[Notion] API error:', response.status, response.statusText);
+      const errorText = await response.text();
+      console.error('[Notion] Error details:', errorText);
       return [];
     }
 
     const data = await response.json();
     const results = data.results || [];
+    console.log('[Notion] Received', results.length, 'items from database');
 
     const portfolio = results
       .map((page: NotionPage) => normalizePortfolioItem(page))
       .filter((item: PortfolioItem | null): item is PortfolioItem => item !== null);
 
+    console.log('[Notion] Successfully normalized', portfolio.length, 'portfolio items');
+    portfolio.forEach((item, index) => {
+      console.log(`[Notion] Item ${index + 1}:`, item.title, '-', item.url);
+    });
+
     return portfolio;
   } catch (error) {
-    console.error('Failed to fetch portfolio from Notion:', error);
+    console.error('[Notion] Failed to fetch portfolio from Notion:', error);
     return [];
   }
 }
