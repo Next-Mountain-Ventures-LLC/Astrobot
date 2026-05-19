@@ -123,7 +123,7 @@ export default function RecentlyLaunchedWebsitesCarousel() {
 
                       {/* Website Info - Minimal & Elegant */}
                       <div className="text-center">
-                        <h3 className="text-lg md:text-xl font-bold mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="text-lg md:text-xl font-bold mb-1 group-hover:text-primary transition-colors" style={{ fontVariant: 'small-caps' }}>
                           {website.name}
                         </h3>
                         <p className="text-sm text-muted-foreground">
