@@ -135,7 +135,7 @@ export async function fetchPortfolioFromNotion(): Promise<PortfolioItem[]> {
       .filter((item: PortfolioItem | null): item is PortfolioItem => item !== null);
 
     console.log('[Notion] Successfully normalized', portfolio.length, 'portfolio items');
-    portfolio.forEach((item, index) => {
+    portfolio.forEach((item: PortfolioItem, index: number) => {
       console.log(`[Notion] Item ${index + 1}:`, item.title, '-', item.url);
     });
 
