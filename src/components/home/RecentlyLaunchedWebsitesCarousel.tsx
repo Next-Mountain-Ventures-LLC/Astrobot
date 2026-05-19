@@ -1,34 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const websites = [
-  {
-    name: "Climb.Coach",
-    url: "https://www.climb.coach",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
-    description: "Business Coaching"
-  },
-  {
-    name: "Ennis Slingshot",
-    url: "https://www.ennisslingshot.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
-    description: "Sports Equipment"
-  },
-  {
-    name: "Ecclesia Tulsa",
-    url: "https://www.ecclesiatulsa.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
-    description: "Church Community"
-  },
-  {
-    name: "Search SERPA",
-    url: "https://www.searchserpa.com",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F99c1338e912341a2a302a0c82103339f?format=webp&width=800&height=1200",
-    description: "SEO Services"
-  }
-];
+interface WebsiteItem {
+  title: string;
+  url: string;
+  thumbnailUrl: string;
+  info: string;
+  industry?: string;
+}
 
-export default function RecentlyLaunchedWebsitesCarousel() {
+interface RecentlyLaunchedWebsitesCarouselProps {
+  websites: WebsiteItem[];
+}
+
+export default function RecentlyLaunchedWebsitesCarousel({ websites }: RecentlyLaunchedWebsitesCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoScroll, setAutoScroll] = useState(true);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
@@ -112,8 +97,8 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                       {/* Image Container - The Main Focus */}
                       <div className="relative mb-6 overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
                         <img
-                          src={website.image}
-                          alt={website.name}
+                          src={website.thumbnailUrl}
+                          alt={website.title}
                           className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
@@ -124,10 +109,10 @@ export default function RecentlyLaunchedWebsitesCarousel() {
                       {/* Website Info - Minimal & Elegant */}
                       <div className="text-center">
                         <h3 className="text-lg md:text-xl font-bold mb-1 group-hover:text-primary transition-colors" style={{ fontVariant: 'small-caps' }}>
-                          {website.name}
+                          {website.title}
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                          {website.description}
+                          {website.info || website.industry || ''}
                         </p>
                       </div>
                     </a>

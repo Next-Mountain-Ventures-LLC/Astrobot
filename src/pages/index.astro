@@ -5,6 +5,45 @@ import RecentlyLaunchedWebsitesCarousel from '@/components/home/RecentlyLaunched
 import Newsletter from '@/components/home/Newsletter';
 import BlogPreview from '@/components/home/BlogPreview.astro';
 import CTA from '@/components/home/CTA';
+import { fetchPortfolioFromNotion } from '@/lib/notionPortfolio';
+
+// Fetch portfolio data server-side on every page load
+const portfolioItems = await fetchPortfolioFromNotion();
+
+// Fallback data if Notion fetch fails
+const fallbackData = [
+  {
+    title: "Climb.Coach",
+    url: "https://www.climb.coach",
+    thumbnailUrl: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    info: "Business Coaching",
+    industry: "Coaching"
+  },
+  {
+    title: "Ennis Slingshot",
+    url: "https://www.ennisslingshot.com",
+    thumbnailUrl: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    info: "Sports Equipment",
+    industry: "Sports"
+  },
+  {
+    title: "Ecclesia Tulsa",
+    url: "https://www.ecclesiatulsa.com",
+    thumbnailUrl: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F0f528ff509c94641a1f08e1fd81084f9?format=webp&width=800&height=1200",
+    info: "Church Community",
+    industry: "Religious"
+  },
+  {
+    title: "Search SERPA",
+    url: "https://www.searchserpa.com",
+    thumbnailUrl: "https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F99c1338e912341a2a302a0c82103339f?format=webp&width=800&height=1200",
+    info: "SEO Services",
+    industry: "SEO"
+  }
+];
+
+// Use fetched data if available, otherwise use fallback
+const websites = portfolioItems.length > 0 ? portfolioItems : fallbackData;
 ---
 
 <BaseLayout
@@ -15,7 +54,7 @@ import CTA from '@/components/home/CTA';
   <Hero client:load />
 
   <!-- Recently Launched Websites Section -->
-  <RecentlyLaunchedWebsitesCarousel client:load />
+  <RecentlyLaunchedWebsitesCarousel client:load websites={websites} />
 
   <!-- Blog Preview Section -->
   <section class="py-16 md:py-24">
