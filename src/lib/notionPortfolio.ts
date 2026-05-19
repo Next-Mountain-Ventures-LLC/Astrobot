@@ -48,6 +48,18 @@ function extractThumbnailUrl(files?: NotionFileBlock[]): string {
   return '';
 }
 
+function normalizeUrl(rawUrl: string): string {
+  if (!rawUrl) return '';
+
+  // If already has protocol, return as-is
+  if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
+    return rawUrl;
+  }
+
+  // Otherwise prepend https://
+  return `https://${rawUrl}`;
+}
+
 function normalizePortfolioItem(page: NotionPage): PortfolioItem | null {
   const props = page.properties;
 
@@ -55,9 +67,10 @@ function normalizePortfolioItem(page: NotionPage): PortfolioItem | null {
   const titleProp = props.Name || props.Title;
   const title = titleProp?.title?.[0]?.plain_text || 'Untitled';
 
-  // Extract URL from Website URL (URL property)
+  // Extract URL from Website URL (URL property) and normalize it
   const urlProp = props['Website URL'] || props.URL;
-  const url = urlProp?.url || '';
+  const rawUrl = urlProp?.url || '';
+  const url = normalizeUrl(rawUrl);
 
   // Extract description from Information (Rich text property)
   const infoProp = props.Information;
